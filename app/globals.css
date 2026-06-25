@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 27 43% 94%;
+    --foreground: 0 4% 14%;
+    --card: 27 43% 94%;
+    --card-foreground: 0 4% 14%;
+    --popover: 27 43% 94%;
+    --popover-foreground: 0 4% 14%;
+    --primary: 3 93% 24%;
+    --primary-foreground: 27 43% 94%;
+    --secondary: 36 73% 86%;
+    --secondary-foreground: 0 4% 14%;
+    --muted: 36 73% 86%;
+    --muted-foreground: 32 19% 60%;
+    --accent: 42 49% 58%;
+    --accent-foreground: 0 4% 14%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 27 43% 94%;
+    --border: 32 19% 80%;
+    --input: 32 19% 85%;
+    --ring: 3 93% 24%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 0 4% 14%;
+    --foreground: 27 43% 94%;
+    --card: 0 4% 18%;
+    --card-foreground: 27 43% 94%;
+    --popover: 0 4% 14%;
+    --popover-foreground: 27 43% 94%;
+    --primary: 27 43% 94%;
+    --primary-foreground: 0 4% 14%;
+    --secondary: 0 4% 20%;
+    --secondary-foreground: 27 43% 94%;
+    --muted: 0 4% 20%;
+    --muted-foreground: 32 19% 60%;
+    --accent: 42 49% 58%;
+    --accent-foreground: 0 4% 14%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 27 43% 94%;
+    --border: 0 4% 22%;
+    --input: 0 4% 22%;
+    --ring: 42 49% 58%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Brand colors */
+:root {
+  --cocoa-wine: #750A04;
+  --deep-cocoa: #242121;
+  --champagne-gold: #C9A961;
+  --cream: #F6EFE9;
+  --vanilla: #F5E0C0;
+  --taupe: #AC9A86;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--foreground));
+}
+
+/* ─── Grain Texture ──────────────────────────────────────── */
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+  opacity: 0.028;
+  mix-blend-mode: overlay;
+}
+
+.gold-rule {
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: #C9A961;
+  opacity: 0.5;
+}

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 110" width="680" height="110">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&amp;display=swap');
+    </style>
+  </defs>
+  <text
+    x="340"
+    y="85"
+    text-anchor="middle"
+    font-family="'Cormorant Garamond', Cormorant, Didot, 'Big Caslon', Garamond, Georgia, serif"
+    font-size="96"
+    font-weight="300"
+    fill="#750A04"
+    letter-spacing="18"
+  >LORVA</text>
+</svg>
