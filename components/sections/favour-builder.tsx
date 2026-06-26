@@ -60,7 +60,7 @@ const OCCASIONS = [
     id: 'wedding',
     label: 'Wedding',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 sm:w-10 sm:h-10 mx-auto">
         <circle cx="22" cy="26" r="10" />
         <path d="M17 16l3-5h4l3 5" />
         <circle cx="22" cy="26" r="3" />
@@ -71,7 +71,7 @@ const OCCASIONS = [
     id: 'bridal-shower',
     label: 'Bridal Shower',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 sm:w-10 sm:h-10 mx-auto">
         <path d="M22 10C22 10,14 16,14 24C14 28,17.5 31,22 31C26.5 31,30 28,30 24C30 16,22 10,22 10Z" />
         <path d="M22 31v5" />
         <path d="M17 36h10" />
@@ -84,7 +84,7 @@ const OCCASIONS = [
     id: 'anniversary',
     label: 'Anniversary',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 sm:w-10 sm:h-10 mx-auto">
         <path d="M22 34C22 34,8 25,8 16C8 11,11.5 8,15 8C17.5 8,20 10,22 13C24 10,26.5 8,29 8C32.5 8,36 11,36 16C36 25,22 34,22 34Z" />
       </svg>
     ),
@@ -93,7 +93,7 @@ const OCCASIONS = [
     id: 'baby-shower',
     label: 'Baby Shower',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 sm:w-10 sm:h-10 mx-auto">
         <circle cx="22" cy="12" r="4" />
         <path d="M22 18C16 18,13 23,13 28C13 34,17 36,22 36C27 36,31 34,31 28C31 23,28 18,22 18Z" />
         <path d="M19 27C19.5 29,20.5 30,22 30C23.5 30,24.5 29,25 27" />
@@ -104,7 +104,7 @@ const OCCASIONS = [
     id: 'corporate',
     label: 'Corporate',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 sm:w-10 sm:h-10 mx-auto">
         <rect x="7" y="16" width="30" height="20" rx="1" />
         <path d="M16 16v-3a3 3 0 0 1 3-3h6a3 3 0 0 1 3 3v3" />
         <path d="M7 26h30" />
@@ -115,7 +115,7 @@ const OCCASIONS = [
     id: 'graduation',
     label: 'Graduation',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 sm:w-10 sm:h-10 mx-auto">
         <path d="M8 20l14-8 14 8-14 8Z" />
         <path d="M36 20v10" />
         <path d="M14 24v8c0 0,3 4,8 4s8-4,8-4v-8" />
@@ -126,7 +126,7 @@ const OCCASIONS = [
     id: 'engagement',
     label: 'Engagement',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 sm:w-10 sm:h-10 mx-auto">
         <path d="M16 14h12l3 6H13Z" />
         <circle cx="22" cy="28" r="8" />
         <path d="M18 28c0-2.2,1.8-4,4-4s4,1.8,4,4" />
@@ -138,7 +138,7 @@ const OCCASIONS = [
     id: 'other',
     label: 'Other',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-10 h-10 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 sm:w-10 sm:h-10 mx-auto">
         <path d="M22 8l2.5 7h7.5l-6 4.5 2.5 7L22 22.5 15.5 26.5 18 19.5 12 15h7.5Z" />
       </svg>
     ),
@@ -212,7 +212,7 @@ function OrderSummaryPanel({
       <div>
         <p className="font-inter text-[9px] tracking-[0.4em] text-taupe uppercase mb-1">Occasion</p>
         <p className="font-cormorant text-2xl text-deep-cocoa">
-          {occasionLabel ?? <span className="text-taupe/40 italic">Not selected yet</span>}
+          {occasionLabel ?? <span className="text-taupe/30">—</span>}
         </p>
       </div>
 
@@ -227,7 +227,7 @@ function OrderSummaryPanel({
             <p className="font-inter text-xs text-taupe">{totalBonbons} bonbons total</p>
           </div>
         ) : (
-          <p className="font-inter text-xs text-taupe/40 italic">Set your quantity in step 2</p>
+          <p className="font-inter text-2xl font-cormorant text-taupe/30">—</p>
         )}
       </div>
 
@@ -293,6 +293,7 @@ export function FavourBuilder() {
   const [submitting, setSubmitting] = useState(false)
   const fileRef = useRef<HTMLInputElement>(null)
   const [fileName, setFileName] = useState<string | null>(null)
+  const [slotIndex, setSlotIndex] = useState(0)
   const { toast } = useToast()
 
   const form = useForm<FavourOrderValues>({
@@ -321,9 +322,11 @@ export function FavourBuilder() {
     bonbonsPerBoxNum,
     values.bonbons ?? [],
   )
+  const currentSlot = (values.bonbons ?? [])[slotIndex] ?? {}
 
   function handleBonbonsPerBoxChange(val: '1' | '2' | '4') {
     form.setValue('bonbonsPerBox', val)
+    setSlotIndex(0)
     const n = parseInt(val)
     const cur = form.getValues('bonbons') ?? []
     if (cur.length < n) {
@@ -406,7 +409,7 @@ export function FavourBuilder() {
         </div>
 
         {/* RIGHT — form steps */}
-        <div>
+        <div className="pb-24 lg:pb-0">
           <div className="border-t border-taupe/10 lg:border-t-0" />
 
           {/* Step indicator */}
@@ -440,7 +443,7 @@ export function FavourBuilder() {
                     <h2 className="font-cormorant text-3xl text-deep-cocoa">What is the Occasion?</h2>
                     <p className="font-inter text-sm text-taupe mt-2">Choose the event your favours are for.</p>
                   </div>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  <div className="grid grid-cols-4 gap-2">
                     {OCCASIONS.map(({ id, label, icon }) => {
                       const selected = values.occasion === id
                       return (
@@ -449,14 +452,14 @@ export function FavourBuilder() {
                           type="button"
                           onClick={() => form.setValue('occasion', id)}
                           className={cn(
-                            'py-4 px-2 border text-center transition-all duration-300',
+                            'py-2 px-1 sm:py-4 sm:px-2 border text-center transition-all duration-300',
                             selected
                               ? 'border-champagne-gold bg-champagne-gold/5'
                               : 'border-taupe/20 hover:border-taupe/50 bg-cream',
                           )}
                         >
                           <div className="mb-2">{icon}</div>
-                          <div className="font-inter text-[11px] tracking-wide text-deep-cocoa leading-tight">{label}</div>
+                          <div className="font-inter text-[9px] sm:text-[11px] tracking-wide text-deep-cocoa leading-tight">{label}</div>
                         </button>
                       )
                     })}
@@ -561,88 +564,137 @@ export function FavourBuilder() {
                   <div>
                     <h2 className="font-cormorant text-3xl text-deep-cocoa">Customise Each Bonbon</h2>
                     <p className="font-inter text-sm text-taupe mt-2">
-                      Choose the shape and flavour for each bonbon slot — the same configuration fills every box.
+                      Choose the shape and flavour for each slot — the same configuration fills every box.
                     </p>
                   </div>
 
-                  {(values.bonbons ?? []).map((slot, i) => (
-                    <div key={i} className="border border-taupe/15 p-5 space-y-5">
-                      <p className="font-inter text-[10px] tracking-[0.4em] text-taupe uppercase">
-                        Bonbon {i + 1} of {bonbonsPerBoxNum}
-                      </p>
-
-                      {/* Shape picker */}
-                      <div>
-                        <p className="font-inter text-[10px] tracking-[0.35em] text-taupe/70 uppercase mb-2">Shape</p>
-                        <div className="flex gap-2 flex-wrap">
-                          {SHAPES.map(({ id, label, icon }) => {
-                            const selected = slot.shape === id
+                  {/* Slot navigator — only when multiple slots */}
+                  {bonbonsPerBoxNum > 1 && (
+                    <div className="flex items-center justify-between">
+                      <button
+                        type="button"
+                        onClick={() => setSlotIndex(i => Math.max(0, i - 1))}
+                        disabled={slotIndex === 0}
+                        className="font-inter text-[11px] tracking-[0.3em] uppercase text-taupe hover:text-deep-cocoa transition-colors disabled:opacity-30"
+                      >
+                        ← Prev
+                      </button>
+                      <div className="flex items-center gap-3">
+                        <span className="font-inter text-[10px] tracking-[0.3em] text-taupe uppercase">
+                          Bonbon {slotIndex + 1} of {bonbonsPerBoxNum}
+                        </span>
+                        <div className="flex gap-1.5">
+                          {Array.from({ length: bonbonsPerBoxNum }).map((_, i) => {
+                            const b = (values.bonbons ?? [])[i]
+                            const complete = !!(b?.shape && b?.flavorSlug)
                             return (
                               <button
-                                key={id}
+                                key={i}
                                 type="button"
-                                onClick={() => {
-                                  const cur = form.getValues('bonbons')
-                                  cur[i] = { ...cur[i], shape: id }
-                                  form.setValue('bonbons', [...cur])
-                                }}
+                                onClick={() => setSlotIndex(i)}
                                 className={cn(
-                                  'flex items-center gap-2 px-3 py-2 border transition-all duration-300',
-                                  selected
-                                    ? 'border-champagne-gold bg-champagne-gold/5 text-deep-cocoa'
-                                    : 'border-taupe/20 hover:border-taupe/40 text-taupe',
+                                  'w-2 h-2 rounded-full transition-all duration-300',
+                                  i === slotIndex
+                                    ? 'bg-champagne-gold scale-125'
+                                    : complete
+                                      ? 'bg-champagne-gold/50'
+                                      : 'bg-taupe/25',
                                 )}
-                              >
-                                <span style={{ color: selected ? '#C9A961' : '#AC9A86' }}>{icon}</span>
-                                <span className="font-inter text-[11px]">{label}</span>
-                              </button>
+                              />
                             )
                           })}
                         </div>
                       </div>
+                      <button
+                        type="button"
+                        onClick={() => setSlotIndex(i => Math.min(bonbonsPerBoxNum - 1, i + 1))}
+                        disabled={slotIndex === bonbonsPerBoxNum - 1}
+                        className="font-inter text-[11px] tracking-[0.3em] uppercase text-taupe hover:text-deep-cocoa transition-colors disabled:opacity-30"
+                      >
+                        Next →
+                      </button>
+                    </div>
+                  )}
 
-                      {/* Flavour picker */}
-                      <div>
-                        <p className="font-inter text-[10px] tracking-[0.35em] text-taupe/70 uppercase mb-2">Flavour</p>
-                        <div className="space-y-3">
-                          {BONBON_COLLECTIONS.map(col => (
-                            <div key={col.slug}>
-                              <p className="font-inter text-[9px] tracking-[0.4em] text-taupe/50 uppercase mb-1.5">
-                                {col.name} — ${TIER_PRICE[col.tier].toFixed(2)}/bonbon
-                              </p>
-                              <div className="grid grid-cols-1 gap-1">
-                                {col.flavors.map(flavor => {
-                                  const selected = slot.flavorSlug === flavor.slug
-                                  return (
-                                    <button
-                                      key={flavor.slug}
-                                      type="button"
-                                      onClick={() => {
-                                        const cur = form.getValues('bonbons')
-                                        cur[i] = { ...cur[i], flavorSlug: flavor.slug }
-                                        form.setValue('bonbons', [...cur])
-                                      }}
-                                      className={cn(
-                                        'flex items-center justify-between px-3 py-2 border text-left transition-all duration-200',
-                                        selected
-                                          ? 'border-champagne-gold bg-champagne-gold/5'
-                                          : 'border-taupe/15 hover:border-taupe/35',
-                                      )}
-                                    >
-                                      <span className="font-inter text-xs text-deep-cocoa">{flavor.name}</span>
-                                      {selected && (
-                                        <span className="font-inter text-[9px] text-champagne-gold tracking-wider">Selected</span>
-                                      )}
-                                    </button>
-                                  )
-                                })}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
+                  {/* Single slot panel */}
+                  <div className="border border-taupe/15 p-5 space-y-5">
+                    {bonbonsPerBoxNum === 1 && (
+                      <p className="font-inter text-[10px] tracking-[0.4em] text-taupe uppercase">
+                        Your Bonbon
+                      </p>
+                    )}
+
+                    {/* Shape picker */}
+                    <div>
+                      <p className="font-inter text-[10px] tracking-[0.35em] text-taupe/70 uppercase mb-2">Shape</p>
+                      <div className="flex gap-2 flex-wrap">
+                        {SHAPES.map(({ id, label, icon }) => {
+                          const selected = currentSlot.shape === id
+                          return (
+                            <button
+                              key={id}
+                              type="button"
+                              onClick={() => {
+                                const cur = form.getValues('bonbons')
+                                cur[slotIndex] = { ...cur[slotIndex], shape: id }
+                                form.setValue('bonbons', [...cur])
+                              }}
+                              className={cn(
+                                'flex items-center gap-2 px-3 py-2 border transition-all duration-300',
+                                selected
+                                  ? 'border-champagne-gold bg-champagne-gold/5 text-deep-cocoa'
+                                  : 'border-taupe/20 hover:border-taupe/40 text-taupe',
+                              )}
+                            >
+                              <span style={{ color: selected ? '#C9A961' : '#AC9A86' }}>{icon}</span>
+                              <span className="font-inter text-[11px]">{label}</span>
+                            </button>
+                          )
+                        })}
                       </div>
                     </div>
-                  ))}
+
+                    {/* Flavour picker */}
+                    <div>
+                      <p className="font-inter text-[10px] tracking-[0.35em] text-taupe/70 uppercase mb-2">Flavour</p>
+                      <div className="space-y-3">
+                        {BONBON_COLLECTIONS.map(col => (
+                          <div key={col.slug}>
+                            <p className="font-inter text-[9px] tracking-[0.4em] text-taupe/50 uppercase mb-1.5">
+                              {col.name} — ${TIER_PRICE[col.tier].toFixed(2)}/bonbon
+                            </p>
+                            <div className="grid grid-cols-2 gap-1.5">
+                              {col.flavors.map(flavor => {
+                                const selected = currentSlot.flavorSlug === flavor.slug
+                                return (
+                                  <button
+                                    key={flavor.slug}
+                                    type="button"
+                                    onClick={() => {
+                                      const cur = form.getValues('bonbons')
+                                      cur[slotIndex] = { ...cur[slotIndex], flavorSlug: flavor.slug }
+                                      form.setValue('bonbons', [...cur])
+                                    }}
+                                    className={cn(
+                                      'flex items-center justify-between px-3 py-2 border text-left transition-all duration-200',
+                                      selected
+                                        ? 'border-champagne-gold bg-champagne-gold/5'
+                                        : 'border-taupe/15 hover:border-taupe/35',
+                                    )}
+                                  >
+                                    <span className="font-inter text-xs text-deep-cocoa">{flavor.name}</span>
+                                    {selected && (
+                                      <span className="font-inter text-[9px] text-champagne-gold">✓</span>
+                                    )}
+                                  </button>
+                                )
+                              })}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               )}
 
@@ -815,7 +867,7 @@ export function FavourBuilder() {
 
               {/* Navigation */}
               {step < 4 && (
-                <div className="flex justify-between mt-12 pt-8 border-t border-taupe/10">
+                <div className="fixed bottom-0 left-0 right-0 z-20 flex justify-between items-center px-6 py-4 bg-cream/95 backdrop-blur-sm border-t border-taupe/10 lg:static lg:mt-12 lg:pt-8 lg:bg-transparent lg:backdrop-blur-none">
                   <button
                     type="button"
                     onClick={() => setStep(s => Math.max(0, s - 1))}
