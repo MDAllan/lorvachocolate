@@ -119,7 +119,7 @@ const OCCASIONS = [
     id: 'just-because',
     label: 'Just Because',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-11 h-11 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 sm:w-11 sm:h-11 mx-auto">
         <path d="M22 34C22 34,10 26,10 18C10 13,13.5 10,17 10C19.5 10,21 12,22 14C23 12,24.5 10,27 10C30.5 10,34 13,34 18C34 26,22 34,22 34Z" />
       </svg>
     ),
@@ -128,7 +128,7 @@ const OCCASIONS = [
     id: 'get-well-soon',
     label: 'Get Well Soon',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-11 h-11 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 sm:w-11 sm:h-11 mx-auto">
         <circle cx="22" cy="22" r="13" />
         <path d="M22 16v12" />
         <path d="M16 22h12" />
@@ -139,7 +139,7 @@ const OCCASIONS = [
     id: 'anniversary',
     label: 'Anniversary',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-11 h-11 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 sm:w-11 sm:h-11 mx-auto">
         <path d="M15 28C15 28,8 23,8 17C8 13,10.5 11,13 11C14.8 11,16 12.5,16 12.5" />
         <path d="M22 34C22 34,8 25,8 16C8 11,11.5 8,15 8C17.5 8,20 10,22 13" />
         <path d="M22 34C22 34,36 25,36 16C36 11,32.5 8,29 8C26.5 8,24 10,22 13" />
@@ -150,7 +150,7 @@ const OCCASIONS = [
     id: 'gender-reveal',
     label: 'Gender Reveal',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-11 h-11 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 sm:w-11 sm:h-11 mx-auto">
         <circle cx="22" cy="20" r="9" />
         <path d="M22 29v8" /><path d="M18 33h8" />
         <path d="M14 10l-4-4m0 0h4m-4 0v4" />
@@ -162,7 +162,7 @@ const OCCASIONS = [
     id: 'pregnancy',
     label: 'Pregnancy Announcement',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-11 h-11 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 sm:w-11 sm:h-11 mx-auto">
         <circle cx="22" cy="12" r="4" />
         <path d="M22 18C16 18,13 23,13 28C13 34,17 36,22 36C27 36,31 34,31 28C31 23,28 18,22 18Z" />
         <path d="M19 27C19.5 29,20.5 30,22 30C23.5 30,24.5 29,25 27" />
@@ -173,7 +173,7 @@ const OCCASIONS = [
     id: 'proposal',
     label: 'Proposal Ring',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-11 h-11 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 sm:w-11 sm:h-11 mx-auto">
         <circle cx="22" cy="26" r="10" />
         <path d="M17 16l3-5h4l3 5" />
         <path d="M22 16v10" />
@@ -185,7 +185,7 @@ const OCCASIONS = [
     id: 'gift-card',
     label: 'Money / Gift Card',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-11 h-11 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 sm:w-11 sm:h-11 mx-auto">
         <rect x="7" y="15" width="30" height="20" rx="2" />
         <path d="M7 22h30" />
         <path d="M22 11v4" />
@@ -198,7 +198,7 @@ const OCCASIONS = [
     id: 'other',
     label: 'Other',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-11 h-11 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 sm:w-11 sm:h-11 mx-auto">
         <path d="M22 8l2.5 7h7.5l-6 4.5 2.5 7L22 22.5 15.5 26.5 18 19.5 12 15h7.5Z" />
       </svg>
     ),
@@ -289,7 +289,7 @@ function ShapePreview({
     : (cfg.ballInsideImg  ?? `/balls/${activeShell}-inside.png`)
 
   return (
-    <div className="flex flex-col items-center gap-2 py-4 px-5 bg-gradient-to-b from-[#F5E0C0]/60 to-[#F6EFE9]/80 rounded-sm border border-taupe/10 shadow-inner">
+    <div className="flex flex-col items-center gap-2 py-2 px-3 sm:py-4 sm:px-5 bg-gradient-to-b from-[#F5E0C0]/60 to-[#F6EFE9]/80 rounded-sm border border-taupe/10 shadow-inner">
       <AnimatePresence mode="wait">
 
         {/* ── Empty state ── */}
@@ -315,7 +315,7 @@ function ShapePreview({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.85 }}
             transition={{ type: 'spring', stiffness: 260, damping: 24 }}
-            className="w-full max-w-[540px]"
+            className="w-full max-w-[260px] sm:max-w-[540px] mx-auto"
           >
             {/* Shake wrapper */}
             <motion.div
@@ -655,10 +655,10 @@ export function BreakableBuilder() {
   if (submitted) {
     return (
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
+        <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
 
-          {/* Left — interactive sealed chocolate with draggable hammer */}
-          <div className="mb-10 lg:mb-0">
+          {/* Preview — order-2 (below) on mobile, order-1 (left) on desktop */}
+          <div className="order-2 lg:order-1 mt-6 lg:mt-0 lg:mb-0">
             <ShapePreview
               shape={values.shape}
               shellId={values.shellFlavor}
@@ -668,12 +668,12 @@ export function BreakableBuilder() {
             />
           </div>
 
-          {/* Right — confirmation */}
+          {/* Confirmation — order-1 (top) on mobile, order-2 (right) on desktop */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="space-y-5 py-10"
+            className="order-1 lg:order-2 space-y-5 py-10"
           >
             <div className="w-10 h-px bg-champagne-gold" />
             <h3 className="font-cormorant text-4xl text-deep-cocoa">Your order is in.</h3>
@@ -692,10 +692,10 @@ export function BreakableBuilder() {
 
   return (
     <div className="max-w-7xl mx-auto px-6 lg:px-8">
-      <div className="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-start">
+      <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-16 lg:items-start">
 
-        {/* LEFT — sticky preview */}
-        <div className="lg:sticky lg:top-24 mb-12 lg:mb-0">
+        {/* Preview — order-2 (below form) on mobile, order-1 (left col) on desktop */}
+        <div className="order-2 lg:order-1 lg:sticky lg:top-24 mt-6 lg:mt-0 lg:mb-0">
           <ShapePreview
             shape={values.shape}
             shellId={values.shellFlavor}
@@ -705,8 +705,8 @@ export function BreakableBuilder() {
           />
         </div>
 
-        {/* RIGHT — form steps */}
-        <div>
+        {/* Form steps — order-1 (top) on mobile, order-2 (right col) on desktop */}
+        <div className="order-1 lg:order-2 pb-24 lg:pb-0">
           <div className="border-t border-taupe/10 lg:border-t-0" />
 
           {/* Step Indicator */}
@@ -830,7 +830,7 @@ export function BreakableBuilder() {
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  <div className="grid grid-cols-4 gap-2">
                     {OCCASIONS.map(({ id, label, icon }) => {
                       const selected = values.occasion === id
                       return (
@@ -839,14 +839,14 @@ export function BreakableBuilder() {
                           type="button"
                           onClick={() => form.setValue('occasion', id)}
                           className={cn(
-                            'py-4 px-2 border text-center transition-all duration-300',
+                            'py-2 px-1 sm:py-4 sm:px-2 border text-center transition-all duration-300',
                             selected
                               ? 'border-champagne-gold bg-champagne-gold/5'
                               : 'border-taupe/20 hover:border-taupe/50',
                           )}
                         >
-                          <div className="mb-2">{icon}</div>
-                          <div className="font-inter text-[11px] tracking-wide text-deep-cocoa leading-tight">{label}</div>
+                          <div className="mb-1 sm:mb-2">{icon}</div>
+                          <div className="font-inter text-[9px] sm:text-[11px] tracking-wide text-deep-cocoa leading-tight">{label}</div>
                         </button>
                       )
                     })}
@@ -1027,7 +1027,7 @@ export function BreakableBuilder() {
 
               {/* Navigation — steps 0–3 */}
               {step < 4 && (
-                <div className="flex justify-between mt-12 pt-8 border-t border-taupe/10">
+                <div className="fixed bottom-0 left-0 right-0 z-20 flex justify-between items-center px-6 py-4 bg-cream/95 backdrop-blur-sm border-t border-taupe/10 lg:static lg:mt-12 lg:pt-8 lg:bg-transparent lg:backdrop-blur-none">
                   <button
                     type="button"
                     onClick={() => setStep(s => Math.max(0, s - 1))}
