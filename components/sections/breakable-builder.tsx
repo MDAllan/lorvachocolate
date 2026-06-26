@@ -315,7 +315,7 @@ function ShapePreview({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.85 }}
             transition={{ type: 'spring', stiffness: 260, damping: 24 }}
-            className="w-full max-w-[260px] sm:max-w-[540px] mx-auto"
+            className="w-full max-w-[540px] mx-auto"
           >
             {/* Shake wrapper */}
             <motion.div
@@ -654,48 +654,49 @@ export function BreakableBuilder() {
   // ── Submitted state ────────────────────────────────────────────────────────
   if (submitted) {
     return (
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
+      <div className="max-w-lg mx-auto px-6 py-10 flex flex-col items-center text-center gap-6">
 
-          {/* Preview — order-2 (below) on mobile, order-1 (left) on desktop */}
-          <div className="order-2 lg:order-1 mt-6 lg:mt-0 lg:mb-0">
-            <ShapePreview
-              shape={values.shape}
-              shellId={values.shellFlavor}
-              fillingIds={values.fillings ?? []}
-              sealed={true}
-              price={null}
-            />
-          </div>
-
-          {/* Confirmation — order-1 (top) on mobile, order-2 (right) on desktop */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="order-1 lg:order-2 space-y-5 py-10"
-          >
-            <div className="w-10 h-px bg-champagne-gold" />
-            <h3 className="font-cormorant text-4xl text-deep-cocoa">Your order is in.</h3>
-            <p className="font-inter text-sm text-taupe leading-relaxed max-w-sm">
-              We'll reach out soon to confirm your breakable {values.shape} and arrange your pickup. A deposit is required to secure your order.
-            </p>
-            <p className="font-inter text-[9px] tracking-[0.35em] text-taupe/40 uppercase">
-              Drag the hammer to crack it open
-            </p>
-          </motion.div>
-
+        {/* Centered heart with hammer */}
+        <div className="w-full max-w-xs">
+          <ShapePreview
+            shape="heart"
+            shellId={values.shellFlavor}
+            fillingIds={values.fillings ?? []}
+            sealed={true}
+            price={calculatePrice('heart', values.shellFlavor, values.fillings)}
+          />
         </div>
+
+        {/* Congratulations text */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="space-y-3"
+        >
+          <div className="w-10 h-px bg-champagne-gold mx-auto" />
+          <p className="font-inter text-[10px] tracking-[0.5em] text-champagne-gold uppercase">
+            Order Received
+          </p>
+          <h3 className="font-cormorant text-4xl text-deep-cocoa">Your order is in.</h3>
+          <p className="font-inter text-sm text-taupe leading-relaxed max-w-xs mx-auto">
+            We'll reach out soon to confirm your breakable heart and arrange your pickup. A deposit is required to secure your order.
+          </p>
+          <p className="font-inter text-[9px] tracking-[0.35em] text-taupe/40 uppercase pt-2">
+            Drag the hammer to crack it open
+          </p>
+        </motion.div>
+
       </div>
     )
   }
 
   return (
     <div className="max-w-7xl mx-auto px-6 lg:px-8">
-      <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-16 lg:items-start">
+      <div className="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-start">
 
-        {/* Preview — order-2 (below form) on mobile, order-1 (left col) on desktop */}
-        <div className="order-2 lg:order-1 lg:sticky lg:top-24 mt-6 lg:mt-0 lg:mb-0">
+        {/* Preview — on top on mobile, left col on desktop */}
+        <div className="lg:sticky lg:top-24 mb-3 lg:mb-0">
           <ShapePreview
             shape={values.shape}
             shellId={values.shellFlavor}
@@ -705,12 +706,12 @@ export function BreakableBuilder() {
           />
         </div>
 
-        {/* Form steps — order-1 (top) on mobile, order-2 (right col) on desktop */}
-        <div className="order-1 lg:order-2 pb-24 lg:pb-0">
+        {/* Form steps */}
+        <div className="pb-24 lg:pb-0">
           <div className="border-t border-taupe/10 lg:border-t-0" />
 
           {/* Step Indicator */}
-          <div className="pt-4 mb-6">
+          <div className="pt-2 mb-3">
             <div className="flex items-center justify-between mb-3">
               <span className="font-inter text-[10px] tracking-[0.45em] text-taupe uppercase">
                 Step {String(step + 1).padStart(2, '0')} / {String(STEPS.length).padStart(2, '0')} — {STEPS[step]}
@@ -735,9 +736,9 @@ export function BreakableBuilder() {
 
               {/* Step 0 — Shape */}
               {step === 0 && (
-                <div className="space-y-5">
-                  <h2 className="font-cormorant text-3xl text-deep-cocoa">Choose Your Shape</h2>
-                  <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-3">
+                  <h2 className="font-cormorant text-2xl sm:text-3xl text-deep-cocoa">Choose Your Shape</h2>
+                  <div className="grid grid-cols-2 gap-3">
                     {[
                       { id: 'heart' as const, label: 'Heart',  desc: 'Dramatic and romantic' },
                       { id: 'ball'  as const, label: 'Sphere', desc: 'Perfect for any occasion' },
@@ -747,20 +748,20 @@ export function BreakableBuilder() {
                         type="button"
                         onClick={() => form.setValue('shape', id)}
                         className={cn(
-                          'py-6 border text-center transition-all duration-300',
+                          'py-3 sm:py-6 border text-center transition-all duration-300',
                           values.shape === id
                             ? 'border-champagne-gold bg-champagne-gold/5'
                             : 'border-taupe/20 hover:border-taupe/50 bg-cream',
                         )}
                       >
-                        <div className="mb-3">
+                        <div className="mb-1 sm:mb-3">
                           {id === 'heart' ? (
-                            <svg viewBox="0 0 48 48" className="w-10 h-10 mx-auto" fill="currentColor"
+                            <svg viewBox="0 0 48 48" className="w-7 h-7 sm:w-10 sm:h-10 mx-auto" fill="currentColor"
                               style={{ color: values.shape === id ? '#C9A961' : '#AC9A86' }}>
                               <path d="M24 38 C24 38, 8 27, 8 17 C8 11, 12.5 7, 17 7 C20.5 7, 22.5 10, 24 13 C25.5 10, 27.5 7, 31 7 C35.5 7, 40 11, 40 17 C40 27, 24 38, 24 38Z" />
                             </svg>
                           ) : (
-                            <svg viewBox="0 0 48 48" className="w-10 h-10 mx-auto" fill="currentColor"
+                            <svg viewBox="0 0 48 48" className="w-7 h-7 sm:w-10 sm:h-10 mx-auto" fill="currentColor"
                               style={{ color: values.shape === id ? '#C9A961' : '#AC9A86' }}>
                               <circle cx="24" cy="24" r="17" />
                             </svg>
@@ -776,14 +777,14 @@ export function BreakableBuilder() {
 
               {/* Step 1 — Shell */}
               {step === 1 && (
-                <div className="space-y-5">
+                <div className="space-y-3">
                   <div>
-                    <h2 className="font-cormorant text-3xl text-deep-cocoa">Choose Your Shell</h2>
-                    <p className="font-inter text-sm text-taupe mt-2">
+                    <h2 className="font-cormorant text-2xl sm:text-3xl text-deep-cocoa">Choose Your Shell</h2>
+                    <p className="font-inter text-xs text-taupe mt-1">
                       Watch your {values.shape === 'ball' ? 'sphere' : 'heart'} change above.
                     </p>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                  <div className="grid grid-cols-3 gap-2">
                     {[
                       { id: 'dark'  as const, desc: 'Rich & intense, 70% cacao' },
                       { id: 'milk'  as const, desc: 'Smooth & classic, crowd favourite' },
@@ -797,13 +798,13 @@ export function BreakableBuilder() {
                           type="button"
                           onClick={() => form.setValue('shellFlavor', id)}
                           className={cn(
-                            'p-6 border text-center transition-all duration-300',
+                            'py-2 px-1 sm:py-4 sm:px-2 border text-center transition-all duration-300',
                             values.shellFlavor === id
                               ? 'border-champagne-gold bg-champagne-gold/5'
                               : 'border-taupe/20 hover:border-taupe/50',
                           )}
                         >
-                          <div className="w-20 h-20 mx-auto mb-4">
+                          <div className="w-10 h-10 sm:w-20 sm:h-20 mx-auto mb-1 sm:mb-4">
                             <img
                               src={thumbImg}
                               alt={cfg.label}
@@ -811,8 +812,8 @@ export function BreakableBuilder() {
                               style={{ filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.2))' }}
                             />
                           </div>
-                          <div className="font-cormorant text-xl text-deep-cocoa mb-1">{cfg.label}</div>
-                          <div className="font-inter text-[11px] text-taupe">{desc}</div>
+                          <div className="font-cormorant text-sm sm:text-xl text-deep-cocoa mb-0.5">{cfg.label}</div>
+                          <div className="font-inter text-[8px] sm:text-[11px] text-taupe leading-tight">{desc}</div>
                         </button>
                       )
                     })}
@@ -822,10 +823,10 @@ export function BreakableBuilder() {
 
               {/* Step 2 — Surprise Purpose */}
               {step === 2 && (
-                <div className="space-y-5">
+                <div className="space-y-3">
                   <div>
-                    <h2 className="font-cormorant text-3xl text-deep-cocoa">Surprise Purpose</h2>
-                    <p className="font-inter text-sm text-taupe mt-2">
+                    <h2 className="font-cormorant text-2xl sm:text-3xl text-deep-cocoa">Surprise Purpose</h2>
+                    <p className="font-inter text-xs text-taupe mt-1">
                       What's the occasion? Pick one.
                     </p>
                   </div>
@@ -894,10 +895,10 @@ export function BreakableBuilder() {
 
               {/* Step 3 — Fillings (optional, max 3) */}
               {step === 3 && (
-                <div className="space-y-5">
+                <div className="space-y-3">
                   <div>
-                    <h2 className="font-cormorant text-3xl text-deep-cocoa">Choose Your Fillings</h2>
-                    <p className="font-inter text-sm text-taupe mt-2">
+                    <h2 className="font-cormorant text-2xl sm:text-3xl text-deep-cocoa">Choose Your Fillings</h2>
+                    <p className="font-inter text-xs text-taupe mt-1">
                       Pick up to 3, or skip — fillings are optional.
                       {(values.fillings?.length ?? 0) > 0 && (
                         <span className="ml-2 text-champagne-gold font-medium">
@@ -906,7 +907,7 @@ export function BreakableBuilder() {
                       )}
                     </p>
                   </div>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  <div className="grid grid-cols-4 gap-2">
                     {FILLINGS.map(({ id, label, img }) => {
                       const selected = (values.fillings ?? []).includes(id)
                       const atMax = (values.fillings?.length ?? 0) >= 3 && !selected
@@ -917,7 +918,7 @@ export function BreakableBuilder() {
                           onClick={() => toggleFilling(id)}
                           disabled={atMax}
                           className={cn(
-                            'py-4 px-2 border text-center transition-all duration-300',
+                            'py-2 px-1 sm:py-4 sm:px-2 border text-center transition-all duration-300',
                             selected
                               ? 'border-champagne-gold bg-champagne-gold/5'
                               : atMax
@@ -929,12 +930,12 @@ export function BreakableBuilder() {
                           <img
                             src={img}
                             alt={label}
-                            width={44}
-                            height={44}
-                            className="mx-auto mb-2 object-contain"
+                            width={32}
+                            height={32}
+                            className="mx-auto mb-1 object-contain"
                             style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.15))' }}
                           />
-                          <div className="font-inter text-[11px] tracking-wide text-deep-cocoa leading-tight">{label}</div>
+                          <div className="font-inter text-[9px] sm:text-[11px] tracking-wide text-deep-cocoa leading-tight">{label}</div>
                         </button>
                       )
                     })}
