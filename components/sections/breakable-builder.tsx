@@ -692,26 +692,27 @@ export function BreakableBuilder() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-6 lg:px-8">
-      <div className="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-start">
+    <div className="max-w-7xl mx-auto lg:px-8">
+      <div className="flex flex-col h-[calc(100dvh-80px)] overflow-hidden px-4 lg:px-0 lg:h-auto lg:grid lg:grid-cols-2 lg:gap-16 lg:items-start">
 
-        {/* Preview — on top on mobile, left col on desktop */}
-        <div className="lg:sticky lg:top-24 mb-3 lg:mb-0">
-          <ShapePreview
-            shape={values.shape}
-            shellId={values.shellFlavor}
-            fillingIds={values.fillings ?? []}
-            sealed={step >= 4}
-            price={calculatePrice(values.shape, values.shellFlavor, values.fillings)}
-          />
+        {/* Preview — compact on mobile, left col on desktop */}
+        <div className="flex-none lg:sticky lg:top-24 lg:mb-0">
+          <div className="w-36 mx-auto lg:w-auto">
+            <ShapePreview
+              shape={values.shape}
+              shellId={values.shellFlavor}
+              fillingIds={values.fillings ?? []}
+              sealed={step >= 4}
+              price={calculatePrice(values.shape, values.shellFlavor, values.fillings)}
+            />
+          </div>
         </div>
 
         {/* Form steps */}
-        <div className="pb-24 lg:pb-0">
-          <div className="border-t border-taupe/10 lg:border-t-0" />
+        <div className="flex flex-col flex-1 min-h-0 lg:block">
 
           {/* Step Indicator */}
-          <div className="pt-2 mb-3">
+          <div className="flex-none py-1 mb-1">
             <div className="flex items-center justify-between mb-3">
               <span className="font-inter text-[10px] tracking-[0.45em] text-taupe uppercase">
                 Step {String(step + 1).padStart(2, '0')} / {String(STEPS.length).padStart(2, '0')} — {STEPS[step]}
@@ -732,7 +733,8 @@ export function BreakableBuilder() {
           </div>
 
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col flex-1 min-h-0 lg:block">
+              <div className="flex-1 overflow-y-auto min-h-0 lg:overflow-visible">
 
               {/* Step 0 — Shape */}
               {step === 0 && (
@@ -1026,9 +1028,11 @@ export function BreakableBuilder() {
                 </div>
               )}
 
+              </div>
+
               {/* Navigation — steps 0–3 */}
               {step < 4 && (
-                <div className="fixed bottom-0 left-0 right-0 z-20 flex justify-between items-center px-6 py-4 bg-cream/95 backdrop-blur-sm border-t border-taupe/10 lg:static lg:mt-12 lg:pt-8 lg:bg-transparent lg:backdrop-blur-none">
+                <div className="flex-none flex justify-between items-center py-3 border-t border-taupe/10 lg:mt-8 lg:pt-8">
                   <button
                     type="button"
                     onClick={() => setStep(s => Math.max(0, s - 1))}
