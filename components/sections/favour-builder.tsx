@@ -293,7 +293,7 @@ export function FavourBuilder() {
   const [submitting, setSubmitting] = useState(false)
   const fileRef = useRef<HTMLInputElement>(null)
   const [fileName, setFileName] = useState<string | null>(null)
-  const [slotIndex, setSlotIndex] = useState(0)
+  const [openFlavorSlot, setOpenFlavorSlot] = useState<number | null>(null)
   const { toast } = useToast()
 
   const form = useForm<FavourOrderValues>({
@@ -322,11 +322,10 @@ export function FavourBuilder() {
     bonbonsPerBoxNum,
     values.bonbons ?? [],
   )
-  const currentSlot = (values.bonbons ?? [])[slotIndex] ?? {}
 
   function handleBonbonsPerBoxChange(val: '1' | '2' | '4') {
     form.setValue('bonbonsPerBox', val)
-    setSlotIndex(0)
+    setOpenFlavorSlot(null)
     const n = parseInt(val)
     const cur = form.getValues('bonbons') ?? []
     if (cur.length < n) {
@@ -568,133 +567,122 @@ export function FavourBuilder() {
                     </p>
                   </div>
 
-                  {/* Slot navigator — only when multiple slots */}
-                  {bonbonsPerBoxNum > 1 && (
-                    <div className="flex items-center justify-between">
-                      <button
-                        type="button"
-                        onClick={() => setSlotIndex(i => Math.max(0, i - 1))}
-                        disabled={slotIndex === 0}
-                        className="font-inter text-[11px] tracking-[0.3em] uppercase text-taupe hover:text-deep-cocoa transition-colors disabled:opacity-30"
-                      >
-                        ← Prev
-                      </button>
-                      <div className="flex items-center gap-3">
-                        <span className="font-inter text-[10px] tracking-[0.3em] text-taupe uppercase">
-                          Bonbon {slotIndex + 1} of {bonbonsPerBoxNum}
-                        </span>
-                        <div className="flex gap-1.5">
-                          {Array.from({ length: bonbonsPerBoxNum }).map((_, i) => {
-                            const b = (values.bonbons ?? [])[i]
-                            const complete = !!(b?.shape && b?.flavorSlug)
+                  {(values.bonbons ?? []).map((slot, i) => (
+                    <div key={i} className="border border-taupe/15 p-5 space-y-5">
+                      <p className="font-inter text-[10px] tracking-[0.4em] text-taupe uppercase">
+                        Bonbon {i + 1} of {bonbonsPerBoxNum}
+                      </p>
+
+                      {/* Shape picker */}
+                      <div>
+                        <p className="font-inter text-[10px] tracking-[0.35em] text-taupe/70 uppercase mb-2">Shape</p>
+                        <div className="flex gap-2 flex-wrap">
+                          {SHAPES.map(({ id, label, icon }) => {
+                            const selected = slot.shape === id
                             return (
                               <button
-                                key={i}
+                                key={id}
                                 type="button"
-                                onClick={() => setSlotIndex(i)}
+                                onClick={() => {
+                                  const cur = form.getValues('bonbons')
+                                  cur[i] = { ...cur[i], shape: id }
+                                  form.setValue('bonbons', [...cur])
+                                }}
                                 className={cn(
-                                  'w-2 h-2 rounded-full transition-all duration-300',
-                                  i === slotIndex
-                                    ? 'bg-champagne-gold scale-125'
-                                    : complete
-                                      ? 'bg-champagne-gold/50'
-                                      : 'bg-taupe/25',
+                                  'flex items-center gap-2 px-3 py-2 border transition-all duration-300',
+                                  selected
+                                    ? 'border-champagne-gold bg-champagne-gold/5 text-deep-cocoa'
+                                    : 'border-taupe/20 hover:border-taupe/40 text-taupe',
                                 )}
-                              />
+                              >
+                                <span style={{ color: selected ? '#C9A961' : '#AC9A86' }}>{icon}</span>
+                                <span className="font-inter text-[11px]">{label}</span>
+                              </button>
                             )
                           })}
                         </div>
                       </div>
-                      <button
-                        type="button"
-                        onClick={() => setSlotIndex(i => Math.min(bonbonsPerBoxNum - 1, i + 1))}
-                        disabled={slotIndex === bonbonsPerBoxNum - 1}
-                        className="font-inter text-[11px] tracking-[0.3em] uppercase text-taupe hover:text-deep-cocoa transition-colors disabled:opacity-30"
-                      >
-                        Next →
-                      </button>
-                    </div>
-                  )}
 
-                  {/* Single slot panel */}
-                  <div className="border border-taupe/15 p-5 space-y-5">
-                    {bonbonsPerBoxNum === 1 && (
-                      <p className="font-inter text-[10px] tracking-[0.4em] text-taupe uppercase">
-                        Your Bonbon
-                      </p>
-                    )}
+                      {/* Flavour dropdown */}
+                      <div className="relative">
+                        <p className="font-inter text-[10px] tracking-[0.35em] text-taupe/70 uppercase mb-2">Flavour</p>
 
-                    {/* Shape picker */}
-                    <div>
-                      <p className="font-inter text-[10px] tracking-[0.35em] text-taupe/70 uppercase mb-2">Shape</p>
-                      <div className="flex gap-2 flex-wrap">
-                        {SHAPES.map(({ id, label, icon }) => {
-                          const selected = currentSlot.shape === id
-                          return (
-                            <button
-                              key={id}
-                              type="button"
-                              onClick={() => {
-                                const cur = form.getValues('bonbons')
-                                cur[slotIndex] = { ...cur[slotIndex], shape: id }
-                                form.setValue('bonbons', [...cur])
-                              }}
-                              className={cn(
-                                'flex items-center gap-2 px-3 py-2 border transition-all duration-300',
-                                selected
-                                  ? 'border-champagne-gold bg-champagne-gold/5 text-deep-cocoa'
-                                  : 'border-taupe/20 hover:border-taupe/40 text-taupe',
-                              )}
-                            >
-                              <span style={{ color: selected ? '#C9A961' : '#AC9A86' }}>{icon}</span>
-                              <span className="font-inter text-[11px]">{label}</span>
-                            </button>
-                          )
-                        })}
-                      </div>
-                    </div>
-
-                    {/* Flavour picker */}
-                    <div>
-                      <p className="font-inter text-[10px] tracking-[0.35em] text-taupe/70 uppercase mb-2">Flavour</p>
-                      <div className="space-y-3">
-                        {BONBON_COLLECTIONS.map(col => (
-                          <div key={col.slug}>
-                            <p className="font-inter text-[9px] tracking-[0.4em] text-taupe/50 uppercase mb-1.5">
-                              {col.name} — ${TIER_PRICE[col.tier].toFixed(2)}/bonbon
-                            </p>
-                            <div className="grid grid-cols-2 gap-1.5">
-                              {col.flavors.map(flavor => {
-                                const selected = currentSlot.flavorSlug === flavor.slug
-                                return (
-                                  <button
-                                    key={flavor.slug}
-                                    type="button"
-                                    onClick={() => {
-                                      const cur = form.getValues('bonbons')
-                                      cur[slotIndex] = { ...cur[slotIndex], flavorSlug: flavor.slug }
-                                      form.setValue('bonbons', [...cur])
-                                    }}
-                                    className={cn(
-                                      'flex items-center justify-between px-3 py-2 border text-left transition-all duration-200',
-                                      selected
-                                        ? 'border-champagne-gold bg-champagne-gold/5'
-                                        : 'border-taupe/15 hover:border-taupe/35',
-                                    )}
-                                  >
-                                    <span className="font-inter text-xs text-deep-cocoa">{flavor.name}</span>
-                                    {selected && (
-                                      <span className="font-inter text-[9px] text-champagne-gold">✓</span>
-                                    )}
-                                  </button>
-                                )
-                              })}
-                            </div>
+                        {/* Trigger */}
+                        <button
+                          type="button"
+                          onClick={() => setOpenFlavorSlot(openFlavorSlot === i ? null : i)}
+                          className={cn(
+                            'w-full flex items-center justify-between px-4 py-3 border transition-all duration-300 text-left',
+                            slot.flavorSlug
+                              ? 'border-champagne-gold/60 bg-champagne-gold/5'
+                              : 'border-taupe/25 hover:border-taupe/50',
+                          )}
+                        >
+                          <div className="flex items-center justify-between flex-1 mr-3">
+                            <span className={cn('font-inter text-sm', slot.flavorSlug ? 'text-deep-cocoa' : 'text-taupe/40')}>
+                              {slot.flavorSlug ? getFlavorName(slot.flavorSlug) : 'Choose your flavour'}
+                            </span>
+                            {slot.flavorSlug && (
+                              <span className="font-inter text-xs text-taupe">${getFlavorPrice(slot.flavorSlug).toFixed(2)}</span>
+                            )}
                           </div>
-                        ))}
+                          <svg viewBox="0 0 16 16" className={cn('w-3 h-3 text-taupe shrink-0 transition-transform duration-300', openFlavorSlot === i ? 'rotate-180' : '')} fill="none">
+                            <path d="M3 6l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </button>
+
+                        {/* Dropdown menu */}
+                        <AnimatePresence>
+                          {openFlavorSlot === i && (
+                            <>
+                              <div className="fixed inset-0 z-20" onClick={() => setOpenFlavorSlot(null)} />
+                              <motion.div
+                                initial={{ opacity: 0, y: -4 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -4 }}
+                                transition={{ duration: 0.15 }}
+                                className="absolute top-full left-0 right-0 z-30 bg-cream border border-taupe/20 shadow-lg mt-0.5 max-h-72 overflow-y-auto"
+                              >
+                                {BONBON_COLLECTIONS.map(col => (
+                                  <div key={col.slug}>
+                                    <div className="px-4 py-2 bg-taupe/5 border-b border-taupe/10">
+                                      <p className="font-inter text-[9px] tracking-[0.4em] text-taupe/60 uppercase">
+                                        {col.name} · ${TIER_PRICE[col.tier].toFixed(2)}/bonbon
+                                      </p>
+                                    </div>
+                                    {col.flavors.map(flavor => {
+                                      const selected = slot.flavorSlug === flavor.slug
+                                      return (
+                                        <button
+                                          key={flavor.slug}
+                                          type="button"
+                                          onClick={() => {
+                                            const cur = form.getValues('bonbons')
+                                            cur[i] = { ...cur[i], flavorSlug: flavor.slug }
+                                            form.setValue('bonbons', [...cur])
+                                            setOpenFlavorSlot(null)
+                                          }}
+                                          className={cn(
+                                            'w-full flex items-center justify-between px-4 py-2.5 text-left transition-colors duration-150',
+                                            selected
+                                              ? 'bg-champagne-gold/10 text-deep-cocoa'
+                                              : 'hover:bg-taupe/5 text-deep-cocoa',
+                                          )}
+                                        >
+                                          <span className="font-inter text-xs">{flavor.name}</span>
+                                          <span className="font-inter text-[10px] text-taupe">${TIER_PRICE[col.tier].toFixed(2)}</span>
+                                        </button>
+                                      )
+                                    })}
+                                  </div>
+                                ))}
+                              </motion.div>
+                            </>
+                          )}
+                        </AnimatePresence>
                       </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
               )}
 
