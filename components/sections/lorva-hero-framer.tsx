@@ -464,10 +464,9 @@ function LorvaHero({
   ctaLabel = 'EXPLORE COLLECTION',
 }: LorvaHeroProps) {
   const [hoveredFlavor, setHoveredFlavor] = useState<FlavorKey | null>(null)
+  const [clickedFlavor, setClickedFlavor] = useState<FlavorKey | null>(null)
 
-  const activeBg = hoveredFlavor
-    ? `radial-gradient(ellipse 80% 80% at 70% 40%, ${FLAVOR_THEMES[hoveredFlavor].bgFocalColor} 0%, #2A0A12 45%, #0D0206 100%)`
-    : `radial-gradient(ellipse 80% 80% at 70% 40%, #3D0820 0%, ${backgroundColor} 45%, #0D0206 100%)`
+  const staticBg = `radial-gradient(ellipse 80% 80% at 70% 40%, #3D0820 0%, ${backgroundColor} 45%, #0D0206 100%)`
 
   return (
     <section style={{
@@ -482,12 +481,8 @@ function LorvaHero({
       {/* Google Fonts (needed in Framer canvas) */}
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&family=Inter:wght@300;400&display=swap');`}</style>
 
-      {/* ── 1. Animated background ─────────────────────────────────────── */}
-      <motion.div
-        animate={{ background: activeBg }}
-        transition={{ duration: 0.7, ease: 'easeOut' }}
-        style={{ position: 'absolute', inset: 0, zIndex: 0 }}
-      />
+      {/* ── 1. Background (static) ─────────────────────────────────────── */}
+      <div style={{ position: 'absolute', inset: 0, zIndex: 0, background: staticBg }} />
 
       {/* ── 2. Cinematic golden light ray ──────────────────────────────── */}
       <div style={{
@@ -567,7 +562,7 @@ function LorvaHero({
 
       {/* ── 4. Text block ─────────────────────────────────────────────── */}
       <motion.div
-        animate={{ opacity: hoveredFlavor ? 0.85 : 1 }}
+        animate={{ opacity: (hoveredFlavor || clickedFlavor) ? 0.82 : 1 }}
         transition={{ duration: 0.5 }}
         style={{
           position: 'absolute',
@@ -702,9 +697,18 @@ function LorvaHero({
       </motion.div>
 
       {/* ── 5. Bonbons ────────────────────────────────────────────────── */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: 5, pointerEvents: 'none' }}>
+      {/* perspective enables true 3D depth for rotateY */}
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        zIndex: 5,
+        pointerEvents: 'none',
+        perspective: '1000px',
+      }}>
         {BONBON_DATA.map((bonbon, index) => {
-          const isHovered = hoveredFlavor === bonbon.id
+          const isHovered  = hoveredFlavor === bonbon.id
+          const isClicked  = clickedFlavor === bonbon.id
+          const otherActive = (hoveredFlavor && !isHovered) || (clickedFlavor && !isClicked)
           const r = bonbon.rotate
 
           return (
@@ -719,7 +723,7 @@ function LorvaHero({
                 left: bonbon.left,
               }}
             >
-              {/* Outer: float loop — never interrupted by hover */}
+              {/* Outer: float loop — never interrupted by click/hover */}
               <motion.div
                 animate={{
                   y: [0, -14, 0],
@@ -733,31 +737,45 @@ function LorvaHero({
                   delay: bonbon.floatDuration * bonbon.rotatePhase,
                 }}
               >
-                {/* Inner: hover state — scale, opacity, glow */}
+                {/* Inner: click & hover state — 3D rotation, scale, glow */}
                 <motion.div
                   animate={{
-                    scale: isHovered ? 1.09 : 1,
-                    opacity: hoveredFlavor && !isHovered ? 0.28 : 1,
-                    boxShadow: isHovered
+                    // Scale: clicked = large/close, others recede, hover = slight lift
+                    scale: isClicked ? 1.28 : otherActive ? (clickedFlavor ? 0.76 : 0.94) : isHovered ? 1.09 : 1,
+                    // Opacity: non-selected items fade out heavily when something is clicked
+                    opacity: (clickedFlavor && !isClicked) ? 0.15 : (hoveredFlavor && !isHovered && !clickedFlavor) ? 0.28 : 1,
+                    // Y-axis spin: 360° on click → comes "forward" through full rotation, 0° on deselect
+                    rotateY: isClicked ? 360 : 0,
+                    // Box-shadow glow: bigger on click than hover
+                    boxShadow: isClicked
+                      ? `0 0 100px 60px ${bonbon.theme.glowColor}`
+                      : isHovered
                       ? `0 0 70px 45px ${bonbon.theme.glowColor}`
                       : '0 0 0px 0px rgba(0,0,0,0)',
                   }}
-                  transition={{ duration: 0.65, ease: 'easeOut' }}
+                  transition={{
+                    scale:     { duration: isClicked ? 0.75 : 0.55, ease: [0.22, 1, 0.36, 1] },
+                    opacity:   { duration: 0.55, ease: 'easeOut' },
+                    rotateY:   { duration: 0.82, ease: [0.22, 1, 0.36, 1] },
+                    boxShadow: { duration: 0.55, ease: 'easeOut' },
+                  }}
                   onMouseEnter={() => setHoveredFlavor(bonbon.id)}
                   onMouseLeave={() => setHoveredFlavor(null)}
+                  onClick={() => setClickedFlavor(prev => prev === bonbon.id ? null : bonbon.id)}
                   style={{
-                    cursor: 'crosshair',
+                    cursor: 'pointer',
                     pointerEvents: 'all',
+                    transformStyle: 'preserve-3d',
                     borderRadius: bonbon.shape === 'sphere' ? '50%' : bonbon.shape === 'hexagonal' ? '12%' : '6px',
                   }}
                 >
                   <BonbonShape config={bonbon} />
 
-                  {/* Flavor label tooltip on hover */}
+                  {/* Flavor label — shows on hover or click */}
                   <motion.div
                     animate={{
-                      opacity: isHovered ? 1 : 0,
-                      y: isHovered ? -8 : 0,
+                      opacity: (isHovered || isClicked) ? 1 : 0,
+                      y: (isHovered || isClicked) ? -8 : 0,
                     }}
                     transition={{ duration: 0.35 }}
                     style={{
