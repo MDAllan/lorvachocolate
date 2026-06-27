@@ -145,48 +145,6 @@ const OCCASIONS = [
   },
 ]
 
-// ─── Shapes ───────────────────────────────────────────────────────────────────
-
-const SHAPES = [
-  {
-    id: 'heart' as const,
-    label: 'Heart',
-    icon: (
-      <svg viewBox="0 0 32 32" className="w-7 h-7 mx-auto" fill="currentColor">
-        <path d="M16 26C16 26,4 18,4 11C4 7,7 5,10 5C12.2 5,14 7,16 9.5C18 7,19.8 5,22 5C25 5,28 7,28 11C28 18,16 26,16 26Z" />
-      </svg>
-    ),
-  },
-  {
-    id: 'round' as const,
-    label: 'Round',
-    icon: (
-      <svg viewBox="0 0 32 32" className="w-7 h-7 mx-auto" fill="currentColor">
-        <circle cx="16" cy="16" r="12" />
-      </svg>
-    ),
-  },
-  {
-    id: 'square' as const,
-    label: 'Square',
-    icon: (
-      <svg viewBox="0 0 32 32" className="w-7 h-7 mx-auto" fill="currentColor">
-        <rect x="4" y="4" width="24" height="24" rx="2" />
-      </svg>
-    ),
-  },
-  {
-    id: 'dome' as const,
-    label: 'Dome',
-    icon: (
-      <svg viewBox="0 0 32 32" className="w-7 h-7 mx-auto" fill="currentColor">
-        <path d="M4 22C4 22,4 8,16 8C28 8,28 22,28 22Z" />
-        <line x1="4" y1="22" x2="28" y2="22" stroke="currentColor" strokeWidth="2" />
-      </svg>
-    ),
-  },
-]
-
 const STEPS = ['Occasion', 'Order Size', 'Customise Bonbons', 'Colour Theme', 'Your Details']
 
 // ─── Left panel: live order summary ───────────────────────────────────────────
@@ -202,7 +160,7 @@ function OrderSummaryPanel({
   const { totalBonbons, discountLabel, discountColor, totalPrice, pricePerBox } = calculateOrder(numberOfBoxes, bonbonsPerBoxNum, bonbons)
   const occasionLabel = OCCASIONS.find(o => o.id === values.occasion)?.label
 
-  const allSlotsFilled = bonbons.length > 0 && bonbons.every(b => b.shape && b.flavorSlug)
+  const allSlotsFilled = bonbons.length > 0 && bonbons.every(b => b.flavorSlug)
   const hasSize = numberOfBoxes >= 1
 
   return (
@@ -240,7 +198,7 @@ function OrderSummaryPanel({
               <div className="flex items-center gap-2">
                 <span className="font-inter text-[10px] text-taupe/60 w-4">{i + 1}</span>
                 <div>
-                  <p className="font-inter text-xs text-deep-cocoa capitalize">{b.shape} · {getFlavorName(b.flavorSlug ?? '')}</p>
+                  <p className="font-inter text-xs text-deep-cocoa">{getFlavorName(b.flavorSlug ?? '')}</p>
                 </div>
               </div>
               <p className="font-inter text-xs text-taupe shrink-0">${getFlavorPrice(b.flavorSlug ?? '').toFixed(2)}</p>
@@ -351,7 +309,7 @@ export function FavourBuilder() {
   function canProceed(): boolean {
     if (step === 0) return !!values.occasion
     if (step === 1) return (values.numberOfBoxes ?? 0) >= 1
-    if (step === 2) return (values.bonbons ?? []).every(b => b.shape && b.flavorSlug)
+    if (step === 2) return (values.bonbons ?? []).every(b => b.flavorSlug)
     if (step === 3) return (values.colorTheme?.length ?? 0) >= 5
     return true
   }
@@ -573,36 +531,6 @@ export function FavourBuilder() {
                         Bonbon {i + 1} of {bonbonsPerBoxNum}
                       </p>
 
-                      {/* Shape picker */}
-                      <div>
-                        <p className="font-inter text-[10px] tracking-[0.35em] text-taupe/70 uppercase mb-2">Shape</p>
-                        <div className="flex gap-2 flex-wrap">
-                          {SHAPES.map(({ id, label, icon }) => {
-                            const selected = slot.shape === id
-                            return (
-                              <button
-                                key={id}
-                                type="button"
-                                onClick={() => {
-                                  const cur = form.getValues('bonbons')
-                                  cur[i] = { ...cur[i], shape: id }
-                                  form.setValue('bonbons', [...cur])
-                                }}
-                                className={cn(
-                                  'flex items-center gap-2 px-3 py-2 border transition-all duration-300',
-                                  selected
-                                    ? 'border-champagne-gold bg-champagne-gold/5 text-deep-cocoa'
-                                    : 'border-taupe/20 hover:border-taupe/40 text-taupe',
-                                )}
-                              >
-                                <span style={{ color: selected ? '#C9A961' : '#AC9A86' }}>{icon}</span>
-                                <span className="font-inter text-[11px]">{label}</span>
-                              </button>
-                            )
-                          })}
-                        </div>
-                      </div>
-
                       {/* Flavour dropdown */}
                       <div className="relative">
                         <p className="font-inter text-[10px] tracking-[0.35em] text-taupe/70 uppercase mb-2">Flavour</p>
@@ -780,7 +708,7 @@ export function FavourBuilder() {
                     {(values.bonbons ?? []).map((b, i) => (
                       <p key={i} className="font-inter text-xs text-deep-cocoa">
                         <span className="text-taupe">Bonbon {i + 1} — </span>
-                        {b.shape ? b.shape.charAt(0).toUpperCase() + b.shape.slice(1) : '—'} · {getFlavorName(b.flavorSlug ?? '')} (${getFlavorPrice(b.flavorSlug ?? '').toFixed(2)})
+                        {getFlavorName(b.flavorSlug ?? '')} (${getFlavorPrice(b.flavorSlug ?? '').toFixed(2)})
                       </p>
                     ))}
                     <p className="font-inter text-xs text-deep-cocoa">
