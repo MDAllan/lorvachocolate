@@ -1,12 +1,6 @@
 import type { Metadata } from 'next'
-import dynamic from 'next/dynamic'
+import { LorvaHero } from '@/components/sections/lorva-hero-client'
 import { FeaturedProducts } from '@/components/sections/featured-products'
-
-// ssr:false prevents hydration mismatches from Framer Motion's animation state
-const LorvaHero = dynamic(
-  () => import('@/components/sections/lorva-hero-framer'),
-  { ssr: false, loading: () => <div style={{ width: '100%', height: '100vh', background: '#0C0102' }} /> }
-)
 import { BrandManifesto } from '@/components/sections/brand-manifesto'
 import { CraftProcess } from '@/components/sections/craft-process'
 import { HomepageGalleryTeaser } from '@/components/sections/homepage-gallery-teaser'
