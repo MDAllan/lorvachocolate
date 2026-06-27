@@ -1,44 +1,18 @@
 // Framer Code Component — paste into Framer canvas
 'use client'
 
-import { useState } from 'react'
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 
 // ── BRAND CONSTANTS ────────────────────────────────────────────────────────────
 
 const COLORS = {
-  base:          '#2A0A12',
-  nearBlack:     '#0D0206',
+  nearBlack:     '#0C0102',
   champagneGold: '#C9A961',
   cream:         '#F6EFE9',
-  darkShell:     '#1A0800',
-  midShell:      '#2C1200',
-  highlight:     '#3D1800',
 } as const
 
 // ── TYPES ──────────────────────────────────────────────────────────────────────
-
-type FlavorKey = 'blueberry' | 'caramel' | 'raspberry' | 'hazelnut' | 'vanilla'
-
-interface FlavorTheme {
-  name: FlavorKey
-  bgFocalColor: string
-  glowColor: string
-  accentColor: string
-  accentDark: string
-}
-
-interface BonbonConfig {
-  id: FlavorKey
-  top: string
-  left: string
-  size: number
-  rotate: number
-  shape: 'hexagonal' | 'rectangular' | 'sphere' | 'half-sphere' | 'square-gift'
-  floatDuration: number
-  rotatePhase: number
-  theme: FlavorTheme
-}
 
 interface LorvaHeroProps {
   backgroundColor?: string
@@ -49,425 +23,78 @@ interface LorvaHeroProps {
   ctaLabel?: string
 }
 
-// ── FLAVOR THEMES ─────────────────────────────────────────────────────────────
+// ── SCATTERED BONBON LAYOUT ───────────────────────────────────────────────────
+// Positions match the reference: large central piece, others radiating outward.
+// Negative marginLeft/marginTop centres each piece on its anchor point.
 
-const FLAVOR_THEMES: Record<FlavorKey, FlavorTheme> = {
-  blueberry: {
-    name: 'blueberry',
-    bgFocalColor: '#3D1560',
-    glowColor: 'rgba(139,26,107,0.75)',
-    accentColor: '#8B1A6B',
-    accentDark: '#4A0A38',
-  },
-  caramel: {
-    name: 'caramel',
-    bgFocalColor: '#3D2000',
-    glowColor: 'rgba(200,134,10,0.75)',
-    accentColor: '#C8860A',
-    accentDark: '#7A4A00',
-  },
-  raspberry: {
-    name: 'raspberry',
-    bgFocalColor: '#3D0015',
-    glowColor: 'rgba(196,30,58,0.75)',
-    accentColor: '#C41E3A',
-    accentDark: '#6A0010',
-  },
-  hazelnut: {
-    name: 'hazelnut',
-    bgFocalColor: '#2A1500',
-    glowColor: 'rgba(139,94,42,0.7)',
-    accentColor: '#8B5E2A',
-    accentDark: '#4A2E0A',
-  },
-  vanilla: {
-    name: 'vanilla',
-    bgFocalColor: '#2A2000',
-    glowColor: 'rgba(201,169,97,0.65)',
-    accentColor: '#C9A961',
-    accentDark: '#7A6030',
-  },
-}
-
-// ── BONBON DATA ────────────────────────────────────────────────────────────────
-
-const BONBON_DATA: BonbonConfig[] = [
+const HERO_BONBONS = [
   {
-    id: 'blueberry',
-    top: '8%',
-    left: '60%',
-    size: 118,
-    rotate: -14,
-    shape: 'hexagonal',
-    floatDuration: 3.5,
-    rotatePhase: 0.0,
-    theme: FLAVOR_THEMES.blueberry,
+    src:      '/bonbons/dark-silk.jpg',
+    top:      '34%',
+    left:     '52%',
+    size:     265,
+    rotate:   4,
+    floatY:   13,
+    duration: 4.2,
+    delay:    0.0,
+    zIndex:   8,
   },
   {
-    id: 'caramel',
-    top: '32%',
-    left: '68%',
-    size: 105,
-    rotate: 15,
-    shape: 'rectangular',
-    floatDuration: 4.2,
-    rotatePhase: 0.25,
-    theme: FLAVOR_THEMES.caramel,
+    src:      '/bonbons/cherry-blush.jpg',
+    top:      '8%',
+    left:     '47%',
+    size:     195,
+    rotate:   -10,
+    floatY:   9,
+    duration: 3.7,
+    delay:    0.5,
+    zIndex:   7,
   },
   {
-    id: 'raspberry',
-    top: '52%',
-    left: '52%',
-    size: 148,
-    rotate: 0,
-    shape: 'sphere',
-    floatDuration: 3.8,
-    rotatePhase: 0.5,
-    theme: FLAVOR_THEMES.raspberry,
+    src:      '/bonbons/caramel-fleur-sea-salt.jpg',
+    top:      '18%',
+    left:     '66%',
+    size:     188,
+    rotate:   13,
+    floatY:   10,
+    duration: 4.6,
+    delay:    0.3,
+    zIndex:   6,
   },
   {
-    id: 'hazelnut',
-    top: '16%',
-    left: '77%',
-    size: 108,
-    rotate: 8,
-    shape: 'half-sphere',
-    floatDuration: 4.5,
-    rotatePhase: 0.75,
-    theme: FLAVOR_THEMES.hazelnut,
+    src:      '/bonbons/hazelnut-crunch-noir.jpg',
+    top:      '62%',
+    left:     '56%',
+    size:     172,
+    rotate:   -5,
+    floatY:   8,
+    duration: 3.5,
+    delay:    0.8,
+    zIndex:   7,
   },
   {
-    id: 'vanilla',
-    top: '63%',
-    left: '75%',
-    size: 118,
-    rotate: -6,
-    shape: 'square-gift',
-    floatDuration: 3.2,
-    rotatePhase: 0.15,
-    theme: FLAVOR_THEMES.vanilla,
+    src:      '/bonbons/pistachio-royale.jpg',
+    top:      '56%',
+    left:     '75%',
+    size:     158,
+    rotate:   9,
+    floatY:   7,
+    duration: 4.9,
+    delay:    1.1,
+    zIndex:   5,
   },
 ]
-
-// ── GOLD DUST SUB-COMPONENT ────────────────────────────────────────────────────
-// Deterministic positions — no Math.random() to avoid hydration mismatches
-
-function GoldDust({ count = 7 }: { count?: number }) {
-  const flecks = Array.from({ length: count }, (_, i) => ({
-    top:  ((i * 37 + 11) % 70) + 10,
-    left: ((i * 53 + 7)  % 70) + 10,
-    s:    (i % 3) + 1,
-    o:    0.3 + (i % 4) * 0.15,
-  }))
-
-  return (
-    <>
-      {flecks.map((f, i) => (
-        <div
-          key={i}
-          style={{
-            position: 'absolute',
-            top: `${f.top}%`,
-            left: `${f.left}%`,
-            width: f.s,
-            height: f.s,
-            borderRadius: '50%',
-            background: COLORS.champagneGold,
-            opacity: f.o,
-            pointerEvents: 'none',
-          }}
-        />
-      ))}
-    </>
-  )
-}
-
-// ── BONBON SHAPE SUB-COMPONENT ─────────────────────────────────────────────────
-
-function BonbonShape({ config }: { config: BonbonConfig }) {
-  const { size, shape, theme } = config
-  const s = size
-
-  const baseStyle: React.CSSProperties = {
-    position: 'absolute',
-    inset: 0,
-    borderRadius: 'inherit',
-  }
-
-  // Shared shell + highlight + vignette layers
-  const shellBase = (
-    <div style={{
-      ...baseStyle,
-      background: `radial-gradient(circle at 65% 28%, ${COLORS.highlight} 0%, ${COLORS.midShell} 40%, ${COLORS.darkShell} 75%, #080200 100%)`,
-    }} />
-  )
-
-  const specularHighlight = (
-    <div style={{
-      ...baseStyle,
-      background: 'radial-gradient(circle at 20% 18%, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.08) 30%, transparent 58%)',
-      pointerEvents: 'none',
-    }} />
-  )
-
-  const edgeVignette = (
-    <div style={{
-      ...baseStyle,
-      background: 'radial-gradient(circle at center, transparent 48%, rgba(0,0,0,0.65) 100%)',
-      pointerEvents: 'none',
-    }} />
-  )
-
-  // ── HEXAGONAL (Blueberry) ──────────────────────────────────────────────────
-  if (shape === 'hexagonal') {
-    return (
-      <div style={{
-        width: s,
-        height: s * 0.92,
-        position: 'relative',
-        clipPath: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)',
-        boxShadow: `0 ${s * 0.12}px ${s * 0.32}px rgba(0,0,0,0.7), 0 0 0 1px rgba(201,169,97,0.08)`,
-      }}>
-        {shellBase}
-        {/* Faceted top face accent */}
-        <div style={{
-          ...baseStyle,
-          background: `radial-gradient(ellipse at 40% 35%, ${theme.accentColor} 0%, ${theme.accentDark} 55%, transparent 80%)`,
-          opacity: 0.85,
-        }} />
-        {/* Facet edge lines for depth */}
-        <div style={{
-          ...baseStyle,
-          background: `linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 40%, rgba(0,0,0,0.3) 100%)`,
-        }} />
-        <GoldDust count={8} />
-        {specularHighlight}
-        {edgeVignette}
-      </div>
-    )
-  }
-
-  // ── RECTANGULAR/CUBE (Caramel) ─────────────────────────────────────────────
-  if (shape === 'rectangular') {
-    const w = Math.round(s * 1.35)
-    const h = Math.round(s * 0.82)
-    const faceW = 14
-    const topH  = 11
-
-    return (
-      <div style={{ position: 'relative', width: w + faceW, height: h + topH }}>
-        {/* Top face */}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: faceW,
-          width: w,
-          height: topH,
-          background: `linear-gradient(to right, ${theme.accentColor}, ${theme.accentDark})`,
-          transform: 'skewX(-25deg)',
-          transformOrigin: 'bottom left',
-          borderRadius: '3px 3px 0 0',
-        }} />
-        {/* Right face */}
-        <div style={{
-          position: 'absolute',
-          top: topH,
-          right: 0,
-          width: faceW,
-          height: h,
-          background: `linear-gradient(to right, #1a0800, #080200)`,
-          borderRadius: '0 4px 4px 0',
-        }} />
-        {/* Front face */}
-        <div style={{
-          position: 'absolute',
-          top: topH,
-          left: 0,
-          width: w,
-          height: h,
-          borderRadius: '4px 0 0 4px',
-          overflow: 'hidden',
-          boxShadow: `0 ${s * 0.1}px ${s * 0.28}px rgba(0,0,0,0.75)`,
-        }}>
-          {shellBase}
-          <div style={{
-            ...baseStyle,
-            background: `radial-gradient(ellipse at 35% 40%, ${theme.accentColor} 0%, ${theme.accentDark} 50%, transparent 80%)`,
-            opacity: 0.75,
-          }} />
-          {/* Caramel drip */}
-          <div style={{
-            position: 'absolute',
-            top: '10%',
-            right: '18%',
-            width: 5,
-            height: '45%',
-            background: `linear-gradient(to bottom, ${theme.accentColor}, rgba(200,134,10,0.2))`,
-            borderRadius: '0 0 4px 4px',
-          }} />
-          <GoldDust count={6} />
-          {specularHighlight}
-          {edgeVignette}
-        </div>
-      </div>
-    )
-  }
-
-  // ── SPHERE (Raspberry) ─────────────────────────────────────────────────────
-  if (shape === 'sphere') {
-    return (
-      <div style={{
-        width: s,
-        height: s,
-        borderRadius: '50%',
-        position: 'relative',
-        overflow: 'hidden',
-        boxShadow: `0 ${s * 0.14}px ${s * 0.35}px rgba(0,0,0,0.75), 0 0 0 1px rgba(201,169,97,0.06)`,
-      }}>
-        {shellBase}
-        {/* Raspberry deep-red bloom */}
-        <div style={{
-          ...baseStyle,
-          background: `radial-gradient(circle at 42% 38%, ${theme.accentColor} 0%, ${theme.accentDark} 45%, transparent 72%)`,
-          opacity: 0.9,
-        }} />
-        {/* Gold speckle ring */}
-        <div style={{
-          position: 'absolute',
-          inset: '22%',
-          borderRadius: '50%',
-          border: `1px solid rgba(201,169,97,0.2)`,
-        }} />
-        <GoldDust count={9} />
-        {specularHighlight}
-        {edgeVignette}
-      </div>
-    )
-  }
-
-  // ── HALF-SPHERE (Hazelnut) ─────────────────────────────────────────────────
-  if (shape === 'half-sphere') {
-    const cavityW = Math.round(s * 0.62)
-    const cavityH = Math.round(s * 0.28)
-
-    return (
-      <div style={{
-        width: s,
-        height: Math.round(s * 0.62),
-        borderRadius: '50% 50% 0 0 / 100% 100% 0 0',
-        position: 'relative',
-        overflow: 'hidden',
-        boxShadow: `0 ${s * 0.1}px ${s * 0.3}px rgba(0,0,0,0.7)`,
-      }}>
-        {shellBase}
-        {/* Hazelnut warm tone */}
-        <div style={{
-          ...baseStyle,
-          background: `radial-gradient(ellipse at 45% 60%, ${theme.accentColor} 0%, ${theme.accentDark} 55%, transparent 80%)`,
-          opacity: 0.8,
-        }} />
-        {/* Interior cavity */}
-        <div style={{
-          position: 'absolute',
-          width: cavityW,
-          height: cavityH,
-          top: 10,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          background: `radial-gradient(ellipse at center, ${theme.accentColor} 0%, ${theme.accentDark} 55%, #1a0800 100%)`,
-          borderRadius: '50%',
-          boxShadow: 'inset 0 4px 14px rgba(0,0,0,0.8)',
-        }} />
-        <GoldDust count={7} />
-        {specularHighlight}
-        {edgeVignette}
-      </div>
-    )
-  }
-
-  // ── SQUARE GIFT (Vanilla) ─────────────────────────────────────────────────
-  if (shape === 'square-gift') {
-    const ribbonThickness = 9
-    const bowSize = 16
-
-    return (
-      <div style={{
-        width: s,
-        height: s,
-        borderRadius: 8,
-        position: 'relative',
-        overflow: 'hidden',
-        boxShadow: `0 ${s * 0.12}px ${s * 0.3}px rgba(0,0,0,0.7), 0 0 0 1px rgba(201,169,97,0.1)`,
-      }}>
-        {shellBase}
-        {/* Vanilla warm tone */}
-        <div style={{
-          ...baseStyle,
-          background: `radial-gradient(ellipse at 38% 35%, ${theme.accentColor} 0%, ${theme.accentDark} 50%, transparent 78%)`,
-          opacity: 0.7,
-        }} />
-        <GoldDust count={7} />
-        {specularHighlight}
-        {edgeVignette}
-        {/* Horizontal ribbon */}
-        <div style={{
-          position: 'absolute',
-          top: '50%',
-          left: 0,
-          right: 0,
-          height: ribbonThickness,
-          transform: 'translateY(-50%)',
-          background: `linear-gradient(to bottom, ${theme.accentColor}, rgba(201,169,97,0.7))`,
-          opacity: 0.85,
-          pointerEvents: 'none',
-        }} />
-        {/* Vertical ribbon */}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          bottom: 0,
-          left: '50%',
-          width: ribbonThickness,
-          transform: 'translateX(-50%)',
-          background: `linear-gradient(to right, ${theme.accentColor}, rgba(201,169,97,0.7))`,
-          opacity: 0.85,
-          pointerEvents: 'none',
-        }} />
-        {/* Bow knot center */}
-        <div style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          width: bowSize,
-          height: bowSize,
-          borderRadius: '50%',
-          transform: 'translate(-50%, -50%)',
-          background: COLORS.champagneGold,
-          boxShadow: '0 0 8px rgba(201,169,97,0.6)',
-          pointerEvents: 'none',
-        }} />
-      </div>
-    )
-  }
-
-  return null
-}
 
 // ── MAIN COMPONENT ─────────────────────────────────────────────────────────────
 
 function LorvaHero({
-  backgroundColor = '#2A0A12',
+  backgroundColor = '#280509',
   showNavbar = false,
   tagline = 'Handcrafted. Timeless. Indulgent.',
   headline = 'LORVA CHOCOLATE',
   description = 'Exquisite bonbons crafted with passion and the finest ingredients.',
   ctaLabel = 'EXPLORE COLLECTION',
 }: LorvaHeroProps) {
-  const [hoveredFlavor, setHoveredFlavor] = useState<FlavorKey | null>(null)
-  const [clickedFlavor, setClickedFlavor] = useState<FlavorKey | null>(null)
-
-  const staticBg = `radial-gradient(ellipse 80% 80% at 70% 40%, #3D0820 0%, ${backgroundColor} 45%, #0D0206 100%)`
-
   return (
     <section style={{
       position: 'relative',
@@ -478,40 +105,44 @@ function LorvaHero({
       background: COLORS.nearBlack,
       fontFamily: 'Inter, -apple-system, sans-serif',
     }}>
-      {/* Google Fonts (needed in Framer canvas) */}
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&family=Inter:wght@300;400&display=swap');`}</style>
 
-      {/* ── 1. Background (static) ─────────────────────────────────────── */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: 0, background: staticBg }} />
+      {/* ── 1. Dark burgundy base ──────────────────────────────────────── */}
+      <div style={{
+        position: 'absolute', inset: 0, zIndex: 0,
+        background: `radial-gradient(ellipse 85% 85% at 68% 42%, #4A0810 0%, ${backgroundColor} 42%, #0C0102 100%)`,
+      }} />
 
-      {/* ── 2. Cinematic golden light ray ──────────────────────────────── */}
+      {/* ── 2. Warm golden spotlight from upper-right ─────────────────── */}
+      {/* This is the defining light source in the reference image */}
+      <div style={{
+        position: 'absolute', inset: 0, zIndex: 1,
+        background: 'radial-gradient(ellipse 65% 75% at 90% -8%, rgba(215,135,20,0.58) 0%, rgba(190,105,15,0.30) 32%, rgba(160,70,10,0.10) 55%, transparent 72%)',
+        pointerEvents: 'none',
+      }} />
+
+      {/* ── 3. Secondary warm bloom behind bonbons ────────────────────── */}
       <div style={{
         position: 'absolute',
-        inset: 0,
-        background: 'linear-gradient(118deg, rgba(201,169,97,0.14) 0%, rgba(201,169,97,0.04) 28%, transparent 52%)',
+        top: '5%', right: '5%',
+        width: '58%', height: '70%',
+        background: 'radial-gradient(ellipse at 65% 25%, rgba(200,120,18,0.20) 0%, rgba(180,90,10,0.08) 45%, transparent 68%)',
         pointerEvents: 'none',
         zIndex: 1,
       }} />
 
-      {/* Secondary warm glow from upper-right */}
+      {/* ── 4. Left-side vignette — keeps text readable ───────────────── */}
       <div style={{
-        position: 'absolute',
-        top: '-10%',
-        right: '-5%',
-        width: '55%',
-        height: '60%',
-        background: 'radial-gradient(ellipse at 80% 20%, rgba(201,169,97,0.09) 0%, transparent 65%)',
+        position: 'absolute', inset: 0, zIndex: 1,
+        background: 'linear-gradient(to right, rgba(12,1,2,0.55) 0%, rgba(12,1,2,0.15) 35%, transparent 55%)',
         pointerEvents: 'none',
-        zIndex: 1,
       }} />
 
-      {/* ── 3. Decorative navbar ───────────────────────────────────────── */}
+      {/* ── 5. Navbar ─────────────────────────────────────────────────── */}
       {showNavbar && (
         <nav style={{
           position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
+          top: 0, left: 0, right: 0,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -560,24 +191,17 @@ function LorvaHero({
         </nav>
       )}
 
-      {/* ── 4. Text block ─────────────────────────────────────────────── */}
-      <motion.div
-        animate={{ opacity: (hoveredFlavor || clickedFlavor) ? 0.82 : 1 }}
-        transition={{ duration: 0.5 }}
-        style={{
-          position: 'absolute',
-          left: 0,
-          top: 0,
-          bottom: 0,
-          width: '46%',
-          display: 'flex',
-          flexDirection: 'column' as const,
-          justifyContent: 'center',
-          padding: '0 0 0 56px',
-          zIndex: 10,
-        }}
-      >
-        {/* Tagline */}
+      {/* ── 6. Text block ─────────────────────────────────────────────── */}
+      <div style={{
+        position: 'absolute',
+        left: 0, top: 0, bottom: 0,
+        width: '46%',
+        display: 'flex',
+        flexDirection: 'column' as const,
+        justifyContent: 'center',
+        padding: '0 0 0 56px',
+        zIndex: 10,
+      }}>
         <motion.p
           initial={{ opacity: 0, x: -16 }}
           animate={{ opacity: 1, x: 0 }}
@@ -589,13 +213,11 @@ function LorvaHero({
             color: COLORS.champagneGold,
             textTransform: 'uppercase' as const,
             marginBottom: 32,
-            opacity: 0,
           }}
         >
           {tagline}
         </motion.p>
 
-        {/* Headline: LORVA */}
         <div style={{ overflow: 'hidden', lineHeight: 0.88 }}>
           <motion.h1
             initial={{ y: '105%', opacity: 0 }}
@@ -616,7 +238,6 @@ function LorvaHero({
           </motion.h1>
         </div>
 
-        {/* Headline: CHOCOLATE */}
         {headline.split(' ')[1] && (
           <div style={{ overflow: 'hidden', lineHeight: 0.88 }}>
             <motion.span
@@ -638,7 +259,6 @@ function LorvaHero({
           </div>
         )}
 
-        {/* Description */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -656,7 +276,6 @@ function LorvaHero({
           {description}
         </motion.p>
 
-        {/* CTA */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -680,129 +299,89 @@ function LorvaHero({
               transition: 'background 0.3s ease, color 0.3s ease',
             }}
             onMouseEnter={e => {
-              const btn = e.currentTarget
-              btn.style.background = COLORS.champagneGold
-              btn.style.color = COLORS.nearBlack
+              e.currentTarget.style.background = COLORS.champagneGold
+              e.currentTarget.style.color = COLORS.nearBlack
             }}
             onMouseLeave={e => {
-              const btn = e.currentTarget
-              btn.style.background = 'transparent'
-              btn.style.color = COLORS.champagneGold
+              e.currentTarget.style.background = 'transparent'
+              e.currentTarget.style.color = COLORS.champagneGold
             }}
           >
             {ctaLabel}
             <span style={{ fontSize: 14, letterSpacing: 0 }}>→</span>
           </button>
         </motion.div>
-      </motion.div>
-
-      {/* ── 5. Bonbons ────────────────────────────────────────────────── */}
-      {/* perspective enables true 3D depth for rotateY */}
-      <div style={{
-        position: 'absolute',
-        inset: 0,
-        zIndex: 5,
-        pointerEvents: 'none',
-        perspective: '1000px',
-      }}>
-        {BONBON_DATA.map((bonbon, index) => {
-          const isHovered  = hoveredFlavor === bonbon.id
-          const isClicked  = clickedFlavor === bonbon.id
-          const otherActive = (hoveredFlavor && !isHovered) || (clickedFlavor && !isClicked)
-          const r = bonbon.rotate
-
-          return (
-            <motion.div
-              key={bonbon.id}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.8 + index * 0.15, ease: [0.22, 1, 0.36, 1] }}
-              style={{
-                position: 'absolute',
-                top: bonbon.top,
-                left: bonbon.left,
-              }}
-            >
-              {/* Outer: float loop — never interrupted by click/hover */}
-              <motion.div
-                animate={{
-                  y: [0, -14, 0],
-                  rotate: [r, r + 2.5, r, r - 2.5, r],
-                }}
-                transition={{
-                  duration: bonbon.floatDuration,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                  times: [0, 0.25, 0.5, 0.75, 1],
-                  delay: bonbon.floatDuration * bonbon.rotatePhase,
-                }}
-              >
-                {/* Inner: click & hover state — 3D rotation, scale, glow */}
-                <motion.div
-                  animate={{
-                    // Scale: clicked = large/close, others recede, hover = slight lift
-                    scale: isClicked ? 1.28 : otherActive ? (clickedFlavor ? 0.76 : 0.94) : isHovered ? 1.09 : 1,
-                    // Opacity: non-selected items fade out heavily when something is clicked
-                    opacity: (clickedFlavor && !isClicked) ? 0.15 : (hoveredFlavor && !isHovered && !clickedFlavor) ? 0.28 : 1,
-                    // Y-axis spin: 360° on click → comes "forward" through full rotation, 0° on deselect
-                    rotateY: isClicked ? 360 : 0,
-                    // Box-shadow glow: bigger on click than hover
-                    boxShadow: isClicked
-                      ? `0 0 100px 60px ${bonbon.theme.glowColor}`
-                      : isHovered
-                      ? `0 0 70px 45px ${bonbon.theme.glowColor}`
-                      : '0 0 0px 0px rgba(0,0,0,0)',
-                  }}
-                  transition={{
-                    scale:     { duration: isClicked ? 0.75 : 0.55, ease: [0.22, 1, 0.36, 1] },
-                    opacity:   { duration: 0.55, ease: 'easeOut' },
-                    rotateY:   { duration: 0.82, ease: [0.22, 1, 0.36, 1] },
-                    boxShadow: { duration: 0.55, ease: 'easeOut' },
-                  }}
-                  onMouseEnter={() => setHoveredFlavor(bonbon.id)}
-                  onMouseLeave={() => setHoveredFlavor(null)}
-                  onClick={() => setClickedFlavor(prev => prev === bonbon.id ? null : bonbon.id)}
-                  style={{
-                    cursor: 'pointer',
-                    pointerEvents: 'all',
-                    transformStyle: 'preserve-3d',
-                    borderRadius: bonbon.shape === 'sphere' ? '50%' : bonbon.shape === 'hexagonal' ? '12%' : '6px',
-                  }}
-                >
-                  <BonbonShape config={bonbon} />
-
-                  {/* Flavor label — shows on hover or click */}
-                  <motion.div
-                    animate={{
-                      opacity: (isHovered || isClicked) ? 1 : 0,
-                      y: (isHovered || isClicked) ? -8 : 0,
-                    }}
-                    transition={{ duration: 0.35 }}
-                    style={{
-                      position: 'absolute',
-                      bottom: '100%',
-                      left: '50%',
-                      transform: 'translateX(-50%)',
-                      marginBottom: 10,
-                      fontFamily: 'Inter, sans-serif',
-                      fontSize: 9,
-                      letterSpacing: '0.3em',
-                      color: COLORS.champagneGold,
-                      textTransform: 'uppercase' as const,
-                      whiteSpace: 'nowrap' as const,
-                      pointerEvents: 'none',
-                    }}
-                  >
-                    {bonbon.id}
-                  </motion.div>
-                </motion.div>
-              </motion.div>
-            </motion.div>
-          )
-        })}
       </div>
 
-      {/* ── 6. Progress indicator ─────────────────────────────────────── */}
+      {/* ── 7. Floating bonbon images ─────────────────────────────────── */}
+      {/*
+        Each bonbon:
+          div              — absolute position anchor (negative margin centres it)
+            motion.div     — entry animation: fade + scale up
+              motion.div   — infinite float loop (y + gentle rock)
+                Image      — the actual photo with warm drop-shadow
+      */}
+      {HERO_BONBONS.map((b) => (
+        <div
+          key={b.src}
+          style={{
+            position: 'absolute',
+            top: b.top,
+            left: b.left,
+            marginLeft: -(b.size / 2),
+            marginTop: -(b.size / 2),
+            zIndex: b.zIndex,
+            pointerEvents: 'none',
+          }}
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.65, y: 24 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{
+              duration: 1.0,
+              delay: 0.55 + b.delay,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
+            <motion.div
+              animate={{
+                y: [0, -b.floatY, 0],
+                rotate: [b.rotate, b.rotate + 2.2, b.rotate, b.rotate - 2.2, b.rotate],
+              }}
+              transition={{
+                duration: b.duration,
+                repeat: Infinity,
+                ease: 'easeInOut',
+                times: [0, 0.25, 0.5, 0.75, 1],
+                delay: b.delay * 0.4,
+              }}
+            >
+              <Image
+                src={b.src}
+                alt=""
+                width={b.size}
+                height={b.size}
+                priority={b.delay < 0.4}
+                style={{
+                  width: b.size,
+                  height: b.size,
+                  objectFit: 'cover',
+                  borderRadius: 16,
+                  display: 'block',
+                  // Warm amber drop-shadow matches the golden spotlight
+                  filter: [
+                    'drop-shadow(0 28px 56px rgba(0,0,0,0.88))',
+                    'drop-shadow(0 8px 24px rgba(0,0,0,0.65))',
+                    `drop-shadow(0 0 48px rgba(210,125,18,0.38))`,
+                  ].join(' '),
+                }}
+              />
+            </motion.div>
+          </motion.div>
+        </div>
+      ))}
+
+      {/* ── 8. Progress indicator ─────────────────────────────────────── */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -844,42 +423,16 @@ function LorvaHero({
 export default LorvaHero
 export const FramerHero = LorvaHero
 
-// Framer property controls — only available inside Framer canvas runtime.
-// The try/catch prevents the Next.js build from failing (framer pkg absent).
 try {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const { addPropertyControls, ControlType } = require('framer')
   addPropertyControls(FramerHero, {
-    backgroundColor: {
-      type: ControlType.Color,
-      title: 'Background',
-      defaultValue: '#2A0A12',
-    },
-    showNavbar: {
-      type: ControlType.Boolean,
-      title: 'Show Navbar',
-      defaultValue: true,
-    },
-    tagline: {
-      type: ControlType.String,
-      title: 'Tagline',
-      defaultValue: 'Handcrafted. Timeless. Indulgent.',
-    },
-    headline: {
-      type: ControlType.String,
-      title: 'Headline',
-      defaultValue: 'LORVA CHOCOLATE',
-    },
-    description: {
-      type: ControlType.String,
-      title: 'Description',
-      defaultValue: 'Exquisite bonbons crafted with passion and the finest ingredients.',
-    },
-    ctaLabel: {
-      type: ControlType.String,
-      title: 'CTA Label',
-      defaultValue: 'EXPLORE COLLECTION',
-    },
+    backgroundColor: { type: ControlType.Color, title: 'Background', defaultValue: '#280509' },
+    showNavbar:      { type: ControlType.Boolean, title: 'Show Navbar', defaultValue: true },
+    tagline:         { type: ControlType.String, title: 'Tagline', defaultValue: 'Handcrafted. Timeless. Indulgent.' },
+    headline:        { type: ControlType.String, title: 'Headline', defaultValue: 'LORVA CHOCOLATE' },
+    description:     { type: ControlType.String, title: 'Description', defaultValue: 'Exquisite bonbons crafted with passion and the finest ingredients.' },
+    ctaLabel:        { type: ControlType.String, title: 'CTA Label', defaultValue: 'EXPLORE COLLECTION' },
   })
 } catch {
   // Running in Next.js — framer package absent, skip property controls
