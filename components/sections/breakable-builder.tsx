@@ -119,7 +119,7 @@ const OCCASIONS = [
     id: 'just-because',
     label: 'Just Because',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-11 h-11 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 mx-auto">
         <path d="M22 34C22 34,10 26,10 18C10 13,13.5 10,17 10C19.5 10,21 12,22 14C23 12,24.5 10,27 10C30.5 10,34 13,34 18C34 26,22 34,22 34Z" />
       </svg>
     ),
@@ -128,7 +128,7 @@ const OCCASIONS = [
     id: 'get-well-soon',
     label: 'Get Well Soon',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-11 h-11 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 mx-auto">
         <circle cx="22" cy="22" r="13" />
         <path d="M22 16v12" />
         <path d="M16 22h12" />
@@ -139,7 +139,7 @@ const OCCASIONS = [
     id: 'anniversary',
     label: 'Anniversary',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-11 h-11 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 mx-auto">
         <path d="M15 28C15 28,8 23,8 17C8 13,10.5 11,13 11C14.8 11,16 12.5,16 12.5" />
         <path d="M22 34C22 34,8 25,8 16C8 11,11.5 8,15 8C17.5 8,20 10,22 13" />
         <path d="M22 34C22 34,36 25,36 16C36 11,32.5 8,29 8C26.5 8,24 10,22 13" />
@@ -150,7 +150,7 @@ const OCCASIONS = [
     id: 'gender-reveal',
     label: 'Gender Reveal',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-11 h-11 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 mx-auto">
         <circle cx="22" cy="20" r="9" />
         <path d="M22 29v8" /><path d="M18 33h8" />
         <path d="M14 10l-4-4m0 0h4m-4 0v4" />
@@ -162,7 +162,7 @@ const OCCASIONS = [
     id: 'pregnancy',
     label: 'Pregnancy Announcement',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-11 h-11 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 mx-auto">
         <circle cx="22" cy="12" r="4" />
         <path d="M22 18C16 18,13 23,13 28C13 34,17 36,22 36C27 36,31 34,31 28C31 23,28 18,22 18Z" />
         <path d="M19 27C19.5 29,20.5 30,22 30C23.5 30,24.5 29,25 27" />
@@ -173,7 +173,7 @@ const OCCASIONS = [
     id: 'proposal',
     label: 'Proposal Ring',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-11 h-11 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 mx-auto">
         <circle cx="22" cy="26" r="10" />
         <path d="M17 16l3-5h4l3 5" />
         <path d="M22 16v10" />
@@ -185,7 +185,7 @@ const OCCASIONS = [
     id: 'gift-card',
     label: 'Money / Gift Card',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-11 h-11 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 mx-auto">
         <rect x="7" y="15" width="30" height="20" rx="2" />
         <path d="M7 22h30" />
         <path d="M22 11v4" />
@@ -198,7 +198,7 @@ const OCCASIONS = [
     id: 'other',
     label: 'Other',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-11 h-11 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 mx-auto">
         <path d="M22 8l2.5 7h7.5l-6 4.5 2.5 7L22 22.5 15.5 26.5 18 19.5 12 15h7.5Z" />
       </svg>
     ),
@@ -522,46 +522,41 @@ function ShapePreview({
 
       </AnimatePresence>
 
-      {/* Price + Hammer row */}
+      {/* Price row */}
       {shape && shellId && price != null && (
-        <div className="flex items-center justify-between w-full max-w-[380px] px-1">
+        <motion.div
+          key={price}
+          initial={{ opacity: 0, y: 4 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="space-y-0.5 text-center"
+        >
+          <p className="font-inter text-[9px] tracking-[0.3em] text-taupe uppercase">Estimated Price</p>
+          <p className="font-cormorant text-3xl text-deep-cocoa">${price}</p>
+          <p className="font-inter text-[9px] text-taupe/60">Deposit required to confirm</p>
+        </motion.div>
+      )}
 
-          {/* Price */}
+      {/* Hammer — shows whenever sealed */}
+      {shape && shellId && sealed && (
+        <div className="flex flex-col items-center gap-1 select-none">
           <motion.div
-            key={price}
-            initial={{ opacity: 0, y: 4 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="space-y-0.5"
+            ref={hammerRef}
+            drag
+            dragSnapToOrigin
+            dragElastic={0.25}
+            dragMomentum={false}
+            onDragStart={() => setIsDragging(true)}
+            onDragEnd={handleHammerDragEnd}
+            whileDrag={{ scale: 1.2, rotate: -70, cursor: 'grabbing' }}
+            animate={isDragging ? {} : { rotate: -20 }}
+            whileHover={{ rotate: -35, scale: 1.1 }}
+            style={{ cursor: 'grab', filter: 'drop-shadow(0 5px 12px rgba(0,0,0,0.25))', zIndex: 50 }}
           >
-            <p className="font-inter text-[9px] tracking-[0.3em] text-taupe uppercase">Estimated Price</p>
-            <p className="font-cormorant text-3xl text-deep-cocoa">${price}</p>
-            <p className="font-inter text-[9px] text-taupe/60">Deposit required to confirm</p>
+            <img src="/hammer.png" alt="hammer" className="w-32 h-32 object-contain" draggable={false} />
           </motion.div>
-
-          {/* Hammer — only at step 4+ */}
-          {sealed && (
-            <div className="flex flex-col items-center gap-1 select-none">
-              <motion.div
-                ref={hammerRef}
-                drag
-                dragSnapToOrigin
-                dragElastic={0.25}
-                dragMomentum={false}
-                onDragStart={() => setIsDragging(true)}
-                onDragEnd={handleHammerDragEnd}
-                whileDrag={{ scale: 1.2, rotate: -70, cursor: 'grabbing' }}
-                animate={isDragging ? {} : { rotate: -20 }}
-                whileHover={{ rotate: -35, scale: 1.1 }}
-                style={{ cursor: 'grab', filter: 'drop-shadow(0 5px 12px rgba(0,0,0,0.25))', zIndex: 50 }}
-              >
-                <img src="/hammer.png" alt="hammer" className="w-32 h-32 object-contain" draggable={false} />
-              </motion.div>
-              <span className="font-inter text-[9px] tracking-[0.25em] text-taupe/50 uppercase">
-                {crackPhase !== 'idle' ? 'Cracking...' : 'Drag to crack'}
-              </span>
-            </div>
-          )}
-
+          <span className="font-inter text-[9px] tracking-[0.25em] text-taupe/50 uppercase">
+            {crackPhase !== 'idle' ? 'Cracking...' : 'Drag to crack'}
+          </span>
         </div>
       )}
 
@@ -841,7 +836,7 @@ export function BreakableBuilder() {
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  <div className="grid grid-cols-4 gap-2">
                     {OCCASIONS.map(({ id, label, icon }) => {
                       const selected = values.occasion === id
                       return (
@@ -850,14 +845,14 @@ export function BreakableBuilder() {
                           type="button"
                           onClick={() => form.setValue('occasion', id)}
                           className={cn(
-                            'py-4 px-2 border text-center transition-all duration-300',
+                            'py-2 px-1 border text-center transition-all duration-300',
                             selected
                               ? 'border-champagne-gold bg-champagne-gold/5'
                               : 'border-taupe/20 hover:border-taupe/50',
                           )}
                         >
-                          <div className="mb-2">{icon}</div>
-                          <div className="font-inter text-[11px] tracking-wide text-deep-cocoa leading-tight">{label}</div>
+                          <div className="mb-1">{icon}</div>
+                          <div className="font-inter text-[9px] tracking-wide text-deep-cocoa leading-tight">{label}</div>
                         </button>
                       )
                     })}
@@ -917,7 +912,7 @@ export function BreakableBuilder() {
                       )}
                     </p>
                   </div>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  <div className="grid grid-cols-4 gap-2">
                     {FILLINGS.map(({ id, label, img }) => {
                       const selected = (values.fillings ?? []).includes(id)
                       const atMax = (values.fillings?.length ?? 0) >= 3 && !selected
@@ -928,7 +923,7 @@ export function BreakableBuilder() {
                           onClick={() => toggleFilling(id)}
                           disabled={atMax}
                           className={cn(
-                            'py-4 px-2 border text-center transition-all duration-300',
+                            'py-2 px-1 border text-center transition-all duration-300',
                             selected
                               ? 'border-champagne-gold bg-champagne-gold/5'
                               : atMax
@@ -940,12 +935,12 @@ export function BreakableBuilder() {
                           <img
                             src={img}
                             alt={label}
-                            width={44}
-                            height={44}
-                            className="mx-auto mb-2 object-contain"
+                            width={32}
+                            height={32}
+                            className="mx-auto mb-1 object-contain"
                             style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.15))' }}
                           />
-                          <div className="font-inter text-[11px] tracking-wide text-deep-cocoa leading-tight">{label}</div>
+                          <div className="font-inter text-[9px] tracking-wide text-deep-cocoa leading-tight">{label}</div>
                         </button>
                       )
                     })}
