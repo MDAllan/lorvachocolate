@@ -2,7 +2,6 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Image from 'next/image'
 
 // ── BRAND CONSTANTS ────────────────────────────────────────────────────────────
 
@@ -344,35 +343,25 @@ function LorvaHero({
             }}
           >
             <motion.div
-              animate={{
-                y: [0, -b.floatY, 0],
-                rotate: [b.rotate, b.rotate + 2.2, b.rotate, b.rotate - 2.2, b.rotate],
-              }}
-              transition={{
-                duration: b.duration,
-                repeat: Infinity,
-                ease: 'easeInOut',
-                times: [0, 0.25, 0.5, 0.75, 1],
-                delay: b.delay * 0.4,
-              }}
+              animate={{ y: [0, -b.floatY, 0], rotate: [b.rotate - 2, b.rotate + 2, b.rotate - 2] }}
+              transition={{ duration: b.duration, repeat: Infinity, repeatType: 'mirror', ease: 'easeInOut', delay: b.delay * 0.4 }}
             >
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src={b.src}
                 alt=""
                 width={b.size}
                 height={b.size}
-                priority={b.delay < 0.4}
                 style={{
                   width: b.size,
                   height: b.size,
                   objectFit: 'cover',
                   borderRadius: 16,
                   display: 'block',
-                  // Warm amber drop-shadow matches the golden spotlight
                   filter: [
                     'drop-shadow(0 28px 56px rgba(0,0,0,0.88))',
                     'drop-shadow(0 8px 24px rgba(0,0,0,0.65))',
-                    `drop-shadow(0 0 48px rgba(210,125,18,0.38))`,
+                    'drop-shadow(0 0 48px rgba(210,125,18,0.38))',
                   ].join(' '),
                 }}
               />
