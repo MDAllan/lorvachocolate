@@ -119,7 +119,7 @@ const OCCASIONS = [
     id: 'just-because',
     label: 'Just Because',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 sm:w-11 sm:h-11 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-11 h-11 mx-auto">
         <path d="M22 34C22 34,10 26,10 18C10 13,13.5 10,17 10C19.5 10,21 12,22 14C23 12,24.5 10,27 10C30.5 10,34 13,34 18C34 26,22 34,22 34Z" />
       </svg>
     ),
@@ -128,7 +128,7 @@ const OCCASIONS = [
     id: 'get-well-soon',
     label: 'Get Well Soon',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 sm:w-11 sm:h-11 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-11 h-11 mx-auto">
         <circle cx="22" cy="22" r="13" />
         <path d="M22 16v12" />
         <path d="M16 22h12" />
@@ -139,7 +139,7 @@ const OCCASIONS = [
     id: 'anniversary',
     label: 'Anniversary',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 sm:w-11 sm:h-11 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-11 h-11 mx-auto">
         <path d="M15 28C15 28,8 23,8 17C8 13,10.5 11,13 11C14.8 11,16 12.5,16 12.5" />
         <path d="M22 34C22 34,8 25,8 16C8 11,11.5 8,15 8C17.5 8,20 10,22 13" />
         <path d="M22 34C22 34,36 25,36 16C36 11,32.5 8,29 8C26.5 8,24 10,22 13" />
@@ -150,7 +150,7 @@ const OCCASIONS = [
     id: 'gender-reveal',
     label: 'Gender Reveal',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 sm:w-11 sm:h-11 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-11 h-11 mx-auto">
         <circle cx="22" cy="20" r="9" />
         <path d="M22 29v8" /><path d="M18 33h8" />
         <path d="M14 10l-4-4m0 0h4m-4 0v4" />
@@ -162,7 +162,7 @@ const OCCASIONS = [
     id: 'pregnancy',
     label: 'Pregnancy Announcement',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 sm:w-11 sm:h-11 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-11 h-11 mx-auto">
         <circle cx="22" cy="12" r="4" />
         <path d="M22 18C16 18,13 23,13 28C13 34,17 36,22 36C27 36,31 34,31 28C31 23,28 18,22 18Z" />
         <path d="M19 27C19.5 29,20.5 30,22 30C23.5 30,24.5 29,25 27" />
@@ -173,7 +173,7 @@ const OCCASIONS = [
     id: 'proposal',
     label: 'Proposal Ring',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 sm:w-11 sm:h-11 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-11 h-11 mx-auto">
         <circle cx="22" cy="26" r="10" />
         <path d="M17 16l3-5h4l3 5" />
         <path d="M22 16v10" />
@@ -185,7 +185,7 @@ const OCCASIONS = [
     id: 'gift-card',
     label: 'Money / Gift Card',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 sm:w-11 sm:h-11 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-11 h-11 mx-auto">
         <rect x="7" y="15" width="30" height="20" rx="2" />
         <path d="M7 22h30" />
         <path d="M22 11v4" />
@@ -198,7 +198,7 @@ const OCCASIONS = [
     id: 'other',
     label: 'Other',
     icon: (
-      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 sm:w-11 sm:h-11 mx-auto">
+      <svg viewBox="0 0 44 44" fill="none" stroke="#C9A961" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-11 h-11 mx-auto">
         <path d="M22 8l2.5 7h7.5l-6 4.5 2.5 7L22 22.5 15.5 26.5 18 19.5 12 15h7.5Z" />
       </svg>
     ),
@@ -315,7 +315,7 @@ function ShapePreview({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.85 }}
             transition={{ type: 'spring', stiffness: 260, damping: 24 }}
-            className="w-full max-w-[540px] mx-auto"
+            className="w-full max-w-[260px] sm:max-w-[540px] mx-auto"
           >
             {/* Shake wrapper */}
             <motion.div
@@ -654,65 +654,74 @@ export function BreakableBuilder() {
   // ── Submitted state ────────────────────────────────────────────────────────
   if (submitted) {
     return (
-      <div className="max-w-lg mx-auto px-6 py-10 flex flex-col items-center text-center gap-6">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="flex flex-col items-center text-center">
 
-        {/* Centered heart with hammer */}
-        <div className="w-full max-w-xs">
-          <ShapePreview
-            shape="heart"
-            shellId={values.shellFlavor}
-            fillingIds={values.fillings ?? []}
-            sealed={true}
-            price={calculatePrice('heart', values.shellFlavor, values.fillings)}
-          />
-        </div>
+          {/* Congratulations text */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="space-y-3 mb-8"
+          >
+            <div className="w-10 h-px bg-champagne-gold mx-auto" />
+            <h3 className="font-cormorant text-4xl text-deep-cocoa">Your order is in.</h3>
+            <p className="font-inter text-sm text-taupe leading-relaxed max-w-xs mx-auto">
+              We'll reach out soon to confirm your breakable heart and arrange your pickup. A deposit is required to secure your order.
+            </p>
+          </motion.div>
 
-        {/* Congratulations text */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="space-y-3"
-        >
-          <div className="w-10 h-px bg-champagne-gold mx-auto" />
-          <p className="font-inter text-[10px] tracking-[0.5em] text-champagne-gold uppercase">
-            Order Received
-          </p>
-          <h3 className="font-cormorant text-4xl text-deep-cocoa">Your order is in.</h3>
-          <p className="font-inter text-sm text-taupe leading-relaxed max-w-xs mx-auto">
-            We'll reach out soon to confirm your breakable heart and arrange your pickup. A deposit is required to secure your order.
-          </p>
-          <p className="font-inter text-[9px] tracking-[0.35em] text-taupe/40 uppercase pt-2">
+          {/* Heart with hammer — always a heart */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.92 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.4, type: 'spring', stiffness: 200, damping: 20 }}
+            className="w-full max-w-sm"
+          >
+            <ShapePreview
+              shape="heart"
+              shellId={values.shellFlavor}
+              fillingIds={values.fillings ?? []}
+              sealed={true}
+              price={null}
+            />
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
+            className="font-inter text-[9px] tracking-[0.35em] text-taupe/40 uppercase mt-4"
+          >
             Drag the hammer to crack it open
-          </p>
-        </motion.div>
+          </motion.p>
 
+        </div>
       </div>
     )
   }
 
   return (
-    <div className="max-w-7xl mx-auto lg:px-8">
-      <div className="flex flex-col h-[calc(100dvh-80px)] overflow-hidden px-4 lg:px-0 lg:h-auto lg:grid lg:grid-cols-2 lg:gap-16 lg:items-start">
+    <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-start">
 
-        {/* Preview — compact on mobile, left col on desktop */}
-        <div className="flex-none lg:sticky lg:top-24 lg:mb-0">
-          <div className="w-36 mx-auto lg:w-auto">
-            <ShapePreview
-              shape={values.shape}
-              shellId={values.shellFlavor}
-              fillingIds={values.fillings ?? []}
-              sealed={step >= 4}
-              price={calculatePrice(values.shape, values.shellFlavor, values.fillings)}
-            />
-          </div>
+        {/* LEFT — preview (top on mobile, left on desktop) */}
+        <div className="lg:sticky lg:top-24 mb-6 lg:mb-0">
+          <ShapePreview
+            shape={values.shape}
+            shellId={values.shellFlavor}
+            fillingIds={values.fillings ?? []}
+            sealed={step >= 4}
+            price={calculatePrice(values.shape, values.shellFlavor, values.fillings)}
+          />
         </div>
 
-        {/* Form steps */}
-        <div className="flex flex-col flex-1 min-h-0 lg:block">
+        {/* RIGHT — form steps */}
+        <div>
+          <div className="border-t border-taupe/10 lg:border-t-0" />
 
           {/* Step Indicator */}
-          <div className="flex-none py-1 mb-1">
+          <div className="pt-4 mb-6">
             <div className="flex items-center justify-between mb-3">
               <span className="font-inter text-[10px] tracking-[0.45em] text-taupe uppercase">
                 Step {String(step + 1).padStart(2, '0')} / {String(STEPS.length).padStart(2, '0')} — {STEPS[step]}
@@ -733,14 +742,13 @@ export function BreakableBuilder() {
           </div>
 
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col flex-1 min-h-0 lg:block">
-              <div className="flex-1 overflow-y-auto min-h-0 lg:overflow-visible">
+            <form onSubmit={form.handleSubmit(onSubmit)}>
 
               {/* Step 0 — Shape */}
               {step === 0 && (
-                <div className="space-y-3">
-                  <h2 className="font-cormorant text-2xl sm:text-3xl text-deep-cocoa">Choose Your Shape</h2>
-                  <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-5">
+                  <h2 className="font-cormorant text-3xl text-deep-cocoa">Choose Your Shape</h2>
+                  <div className="grid grid-cols-2 gap-4">
                     {[
                       { id: 'heart' as const, label: 'Heart',  desc: 'Dramatic and romantic' },
                       { id: 'ball'  as const, label: 'Sphere', desc: 'Perfect for any occasion' },
@@ -750,20 +758,20 @@ export function BreakableBuilder() {
                         type="button"
                         onClick={() => form.setValue('shape', id)}
                         className={cn(
-                          'py-3 sm:py-6 border text-center transition-all duration-300',
+                          'py-6 border text-center transition-all duration-300',
                           values.shape === id
                             ? 'border-champagne-gold bg-champagne-gold/5'
                             : 'border-taupe/20 hover:border-taupe/50 bg-cream',
                         )}
                       >
-                        <div className="mb-1 sm:mb-3">
+                        <div className="mb-3">
                           {id === 'heart' ? (
-                            <svg viewBox="0 0 48 48" className="w-7 h-7 sm:w-10 sm:h-10 mx-auto" fill="currentColor"
+                            <svg viewBox="0 0 48 48" className="w-10 h-10 mx-auto" fill="currentColor"
                               style={{ color: values.shape === id ? '#C9A961' : '#AC9A86' }}>
                               <path d="M24 38 C24 38, 8 27, 8 17 C8 11, 12.5 7, 17 7 C20.5 7, 22.5 10, 24 13 C25.5 10, 27.5 7, 31 7 C35.5 7, 40 11, 40 17 C40 27, 24 38, 24 38Z" />
                             </svg>
                           ) : (
-                            <svg viewBox="0 0 48 48" className="w-7 h-7 sm:w-10 sm:h-10 mx-auto" fill="currentColor"
+                            <svg viewBox="0 0 48 48" className="w-10 h-10 mx-auto" fill="currentColor"
                               style={{ color: values.shape === id ? '#C9A961' : '#AC9A86' }}>
                               <circle cx="24" cy="24" r="17" />
                             </svg>
@@ -779,14 +787,14 @@ export function BreakableBuilder() {
 
               {/* Step 1 — Shell */}
               {step === 1 && (
-                <div className="space-y-3">
+                <div className="space-y-5">
                   <div>
-                    <h2 className="font-cormorant text-2xl sm:text-3xl text-deep-cocoa">Choose Your Shell</h2>
-                    <p className="font-inter text-xs text-taupe mt-1">
+                    <h2 className="font-cormorant text-3xl text-deep-cocoa">Choose Your Shell</h2>
+                    <p className="font-inter text-sm text-taupe mt-2">
                       Watch your {values.shape === 'ball' ? 'sphere' : 'heart'} change above.
                     </p>
                   </div>
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="grid grid-cols-3 gap-3">
                     {[
                       { id: 'dark'  as const, desc: 'Rich & intense, 70% cacao' },
                       { id: 'milk'  as const, desc: 'Smooth & classic, crowd favourite' },
@@ -800,13 +808,13 @@ export function BreakableBuilder() {
                           type="button"
                           onClick={() => form.setValue('shellFlavor', id)}
                           className={cn(
-                            'py-2 px-1 sm:py-4 sm:px-2 border text-center transition-all duration-300',
+                            'py-4 px-2 border text-center transition-all duration-300',
                             values.shellFlavor === id
                               ? 'border-champagne-gold bg-champagne-gold/5'
                               : 'border-taupe/20 hover:border-taupe/50',
                           )}
                         >
-                          <div className="w-10 h-10 sm:w-20 sm:h-20 mx-auto mb-1 sm:mb-4">
+                          <div className="w-11 h-11 mx-auto mb-2">
                             <img
                               src={thumbImg}
                               alt={cfg.label}
@@ -814,8 +822,8 @@ export function BreakableBuilder() {
                               style={{ filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.2))' }}
                             />
                           </div>
-                          <div className="font-cormorant text-sm sm:text-xl text-deep-cocoa mb-0.5">{cfg.label}</div>
-                          <div className="font-inter text-[8px] sm:text-[11px] text-taupe leading-tight">{desc}</div>
+                          <div className="font-cormorant text-base text-deep-cocoa mb-0.5">{cfg.label}</div>
+                          <div className="font-inter text-[9px] sm:text-[11px] text-taupe leading-tight">{desc}</div>
                         </button>
                       )
                     })}
@@ -825,15 +833,15 @@ export function BreakableBuilder() {
 
               {/* Step 2 — Surprise Purpose */}
               {step === 2 && (
-                <div className="space-y-3">
+                <div className="space-y-5">
                   <div>
-                    <h2 className="font-cormorant text-2xl sm:text-3xl text-deep-cocoa">Surprise Purpose</h2>
-                    <p className="font-inter text-xs text-taupe mt-1">
+                    <h2 className="font-cormorant text-3xl text-deep-cocoa">Surprise Purpose</h2>
+                    <p className="font-inter text-sm text-taupe mt-2">
                       What's the occasion? Pick one.
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-4 gap-2">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                     {OCCASIONS.map(({ id, label, icon }) => {
                       const selected = values.occasion === id
                       return (
@@ -842,14 +850,14 @@ export function BreakableBuilder() {
                           type="button"
                           onClick={() => form.setValue('occasion', id)}
                           className={cn(
-                            'py-2 px-1 sm:py-4 sm:px-2 border text-center transition-all duration-300',
+                            'py-4 px-2 border text-center transition-all duration-300',
                             selected
                               ? 'border-champagne-gold bg-champagne-gold/5'
                               : 'border-taupe/20 hover:border-taupe/50',
                           )}
                         >
-                          <div className="mb-1 sm:mb-2">{icon}</div>
-                          <div className="font-inter text-[9px] sm:text-[11px] tracking-wide text-deep-cocoa leading-tight">{label}</div>
+                          <div className="mb-2">{icon}</div>
+                          <div className="font-inter text-[11px] tracking-wide text-deep-cocoa leading-tight">{label}</div>
                         </button>
                       )
                     })}
@@ -897,10 +905,10 @@ export function BreakableBuilder() {
 
               {/* Step 3 — Fillings (optional, max 3) */}
               {step === 3 && (
-                <div className="space-y-3">
+                <div className="space-y-5">
                   <div>
-                    <h2 className="font-cormorant text-2xl sm:text-3xl text-deep-cocoa">Choose Your Fillings</h2>
-                    <p className="font-inter text-xs text-taupe mt-1">
+                    <h2 className="font-cormorant text-3xl text-deep-cocoa">Choose Your Fillings</h2>
+                    <p className="font-inter text-sm text-taupe mt-2">
                       Pick up to 3, or skip — fillings are optional.
                       {(values.fillings?.length ?? 0) > 0 && (
                         <span className="ml-2 text-champagne-gold font-medium">
@@ -909,7 +917,7 @@ export function BreakableBuilder() {
                       )}
                     </p>
                   </div>
-                  <div className="grid grid-cols-4 gap-2">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                     {FILLINGS.map(({ id, label, img }) => {
                       const selected = (values.fillings ?? []).includes(id)
                       const atMax = (values.fillings?.length ?? 0) >= 3 && !selected
@@ -920,7 +928,7 @@ export function BreakableBuilder() {
                           onClick={() => toggleFilling(id)}
                           disabled={atMax}
                           className={cn(
-                            'py-2 px-1 sm:py-4 sm:px-2 border text-center transition-all duration-300',
+                            'py-4 px-2 border text-center transition-all duration-300',
                             selected
                               ? 'border-champagne-gold bg-champagne-gold/5'
                               : atMax
@@ -932,12 +940,12 @@ export function BreakableBuilder() {
                           <img
                             src={img}
                             alt={label}
-                            width={32}
-                            height={32}
-                            className="mx-auto mb-1 object-contain"
+                            width={44}
+                            height={44}
+                            className="mx-auto mb-2 object-contain"
                             style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.15))' }}
                           />
-                          <div className="font-inter text-[9px] sm:text-[11px] tracking-wide text-deep-cocoa leading-tight">{label}</div>
+                          <div className="font-inter text-[11px] tracking-wide text-deep-cocoa leading-tight">{label}</div>
                         </button>
                       )
                     })}
@@ -1028,11 +1036,9 @@ export function BreakableBuilder() {
                 </div>
               )}
 
-              </div>
-
               {/* Navigation — steps 0–3 */}
               {step < 4 && (
-                <div className="flex-none flex justify-between items-center py-3 border-t border-taupe/10 lg:mt-8 lg:pt-8">
+                <div className="flex justify-between mt-12 pt-8 border-t border-taupe/10">
                   <button
                     type="button"
                     onClick={() => setStep(s => Math.max(0, s - 1))}
