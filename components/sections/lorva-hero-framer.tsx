@@ -396,17 +396,3 @@ function LorvaHero({
 export default LorvaHero
 export const FramerHero = LorvaHero
 
-try {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const { addPropertyControls, ControlType } = require('framer')
-  addPropertyControls(FramerHero, {
-    backgroundColor: { type: ControlType.Color,   title: 'Background', defaultValue: '#280509' },
-    showNavbar:      { type: ControlType.Boolean,  title: 'Show Navbar', defaultValue: true },
-    tagline:         { type: ControlType.String,   title: 'Tagline',     defaultValue: 'Handcrafted. Timeless. Indulgent.' },
-    headline:        { type: ControlType.String,   title: 'Headline',    defaultValue: 'LORVA CHOCOLATE' },
-    description:     { type: ControlType.String,   title: 'Description', defaultValue: 'Exquisite bonbons crafted with passion and the finest ingredients.' },
-    ctaLabel:        { type: ControlType.String,   title: 'CTA Label',   defaultValue: 'EXPLORE COLLECTION' },
-  })
-} catch {
-  // Running in Next.js — framer package absent, skip property controls
-}
