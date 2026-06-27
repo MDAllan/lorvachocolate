@@ -11,8 +11,11 @@ const g = globalThis as typeof globalThis & { _pgClient?: ReturnType<typeof post
 
 const client = g._pgClient ?? postgres(connectionString, {
   prepare: false,
-  max: 5,           // keep the pool small; tune up if you add heavy concurrency
-  idle_timeout: 20, // release idle connections after 20 s
+  // In production (Vercel serverless) each Lambda holds exactly 1 connection.
+  // Warm instances reuse it; cold starts each get one — keeps total well under
+  // Supabase's max_connections limit without needing a connection pooler.
+  max: process.env.NODE_ENV === 'production' ? 1 : 5,
+  idle_timeout: 20,
 })
 
 if (process.env.NODE_ENV !== 'production') g._pgClient = client
