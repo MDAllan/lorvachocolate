@@ -93,7 +93,7 @@ export function Navbar({ content = {} }: NavbarProps) {
       </div>
 
       <div
-        className={`md:hidden bg-cream/98 backdrop-blur-md border-t border-taupe/20 transition-all duration-300 overflow-hidden ${
+        className={`md:hidden bg-cream border-t border-taupe/20 transition-all duration-300 overflow-hidden ${
           isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
         }`}
       >

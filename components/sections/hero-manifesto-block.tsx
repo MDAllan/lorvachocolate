@@ -46,9 +46,16 @@ export function HeroManifestoBlock({ content = {} }: HeroManifestoBlockProps) {
 
         {/* Left cover — bleeds well into the video to hide the seam */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 hidden md:block"
           style={{
             background: 'linear-gradient(to right, #1a0c0a 42%, rgba(26,12,10,0.6) 58%, transparent 75%)',
+          }}
+        />
+        {/* Mobile-only: heavier overlay so text has full breathing room */}
+        <div
+          className="absolute inset-0 md:hidden"
+          style={{
+            background: 'linear-gradient(to right, #1a0c0a 60%, rgba(26,12,10,0.88) 80%, rgba(26,12,10,0.55) 100%)',
           }}
         />
 
@@ -66,10 +73,10 @@ export function HeroManifestoBlock({ content = {} }: HeroManifestoBlockProps) {
       <div className="relative -mt-[100vh]" style={{ zIndex: 1 }}>
 
         <section className="hero-pinned-section relative min-h-screen flex items-start md:items-center overflow-hidden">
-          <div className="hero-text-block relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-20 pt-28 md:pt-0 pb-24">
+          <div className="hero-text-block relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-20 pt-24 md:pt-0 pb-16 md:pb-24">
             <div className="max-w-sm md:max-w-2xl">
               <motion.div
-                className="flex items-center gap-4 mb-7 md:mb-8"
+                className="flex items-center gap-4 mb-5 md:mb-8"
                 initial={{ opacity: 0, x: -16 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 1, delay: 0.4, ease: 'easeOut' }}
@@ -92,7 +99,7 @@ export function HeroManifestoBlock({ content = {} }: HeroManifestoBlockProps) {
                 </motion.h1>
               </div>
 
-              <div className="overflow-hidden mb-8 md:mb-10">
+              <div className="overflow-hidden mb-5 md:mb-10">
                 <motion.h1
                   className="font-cormorant text-champagne-gold leading-[0.92] tracking-[0.06em] uppercase"
                   style={{ fontSize: 'clamp(1.6rem, 3.2vw, 3.5rem)' }}
@@ -114,7 +121,7 @@ export function HeroManifestoBlock({ content = {} }: HeroManifestoBlockProps) {
               </motion.p>
 
               <motion.div
-                className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-6"
+                className="mt-7 md:mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 1.4 }}
