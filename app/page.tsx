@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { HeroManifestoBlock } from '@/components/sections/hero-manifesto-block'
+import LorvaHero from '@/components/sections/lorva-hero-framer'
 import { FeaturedProducts } from '@/components/sections/featured-products'
 import { BrandManifesto } from '@/components/sections/brand-manifesto'
 import { CraftProcess } from '@/components/sections/craft-process'
@@ -24,7 +24,13 @@ export default async function HomePage() {
 
   return (
     <>
-      <HeroManifestoBlock content={content} />
+      <LorvaHero
+        showNavbar={false}
+        tagline="Handcrafted. Timeless. Indulgent."
+        headline="LORVA CHOCOLATE"
+        description="Exquisite bonbons crafted with passion and the finest ingredients."
+        ctaLabel="EXPLORE COLLECTION"
+      />
       <FeaturedProducts products={featuredProducts} content={content} />
       <BrandManifesto content={content} />
       <CraftProcess content={content} />
