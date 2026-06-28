@@ -42,81 +42,52 @@ export function Hero({ content = {} }: HeroProps) {
       className="relative min-h-screen flex items-start md:items-center overflow-hidden"
       style={{ background: '#140a09' }}
     >
-      {/* Layer 1 — illuminated center-right plane: the "3rd background" surface */}
+      {/* Layer 1 — full-coverage depth plane: covers 100%×100% so no transparent edge = no seam */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'radial-gradient(ellipse 78% 72% at 66% 46%, #3c1118 0%, #220d10 46%, transparent 74%)',
+            'radial-gradient(ellipse 100% 100% at 68% 48%, #3a1016 0%, #1f0c10 38%, #140a09 100%)',
         }}
       />
 
-      {/* Layer 2 — warm amber spotlight from top-right (luxury light source) */}
+      {/* Layer 2 — left shadow: pushes text plane forward */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'radial-gradient(ellipse 44% 54% at 90% -5%, rgba(200,82,18,0.50) 0%, rgba(160,58,12,0.24) 36%, transparent 62%)',
+            'linear-gradient(to right, rgba(6,0,2,0.80) 0%, rgba(6,0,2,0.36) 26%, rgba(6,0,2,0.08) 48%, transparent 62%)',
         }}
       />
 
-      {/* Layer 3 — warm echo bloom bottom-right (reflected bounce light) */}
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          top: '50%', right: '6%', width: '48%', height: '58%',
-          background:
-            'radial-gradient(ellipse at 60% 28%, rgba(135,38,14,0.22) 0%, transparent 60%)',
-        }}
-      />
-
-      {/* Layer 4 — subtle warm luminosity at depth center (glass-like lit plane) */}
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          top: '18%', left: '42%', width: '52%', height: '62%',
-          background:
-            'radial-gradient(ellipse at 50% 45%, rgba(72,18,28,0.30) 0%, transparent 68%)',
-        }}
-      />
-
-      {/* Layer 5 — left shadow: pushes text plane forward, creates depth contrast */}
+      {/* Layer 3 — bottom shadow well: deep ground anchor */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'linear-gradient(to right, rgba(7,1,2,0.88) 0%, rgba(7,1,2,0.44) 28%, rgba(7,1,2,0.10) 50%, transparent 64%)',
+            'linear-gradient(to top, rgba(3,0,1,0.96) 0%, rgba(3,0,1,0.48) 14%, rgba(3,0,1,0.12) 28%, transparent 42%)',
         }}
       />
 
-      {/* Layer 6 — bottom shadow well: ground depth, anchors the scene */}
+      {/* Layer 4 — top ceiling shadow */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'linear-gradient(to top, rgba(3,0,1,0.96) 0%, rgba(3,0,1,0.48) 14%, rgba(3,0,1,0.14) 28%, transparent 42%)',
+            'linear-gradient(to bottom, rgba(3,0,1,0.72) 0%, rgba(3,0,1,0.18) 16%, transparent 30%)',
         }}
       />
 
-      {/* Layer 7 — top ceiling shadow: seals the space above */}
+      {/* Layer 5 — edge vignette: corners fall to near-black */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'linear-gradient(to bottom, rgba(3,0,1,0.78) 0%, rgba(3,0,1,0.22) 16%, transparent 32%)',
+            'radial-gradient(ellipse 90% 90% at 50% 50%, transparent 28%, rgba(4,0,2,0.48) 60%, rgba(2,0,1,0.90) 100%)',
         }}
       />
 
-      {/* Layer 8 — edge vignette: corners collapse to near-black for cinematic frame */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(ellipse 88% 88% at 50% 50%, transparent 26%, rgba(4,0,2,0.52) 58%, rgba(2,0,1,0.92) 100%)',
-        }}
-      />
-
-      {/* Layer 9 — film grain: tactile cinematic texture for perceived depth */}
+      {/* Layer 6 — film grain: cinematic tactile depth */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
