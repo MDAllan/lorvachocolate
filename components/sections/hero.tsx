@@ -1,7 +1,9 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { gsap } from 'gsap'
+import { useMotionValue, useSpring, useScroll } from 'framer-motion'
+import { PhotoCard, PHOTOS } from './hero-photo-card'
 
 interface HeroProps {
   content?: Record<string, string>
@@ -36,11 +38,32 @@ export function Hero({ content = {} }: HeroProps) {
   const headline1 = content.hero_headline_1 ?? 'Made Purely,'
   const headline2 = content.hero_headline_2 ?? 'Crafted Beautifully.'
 
+  // ── Mouse parallax ──────────────────────────────────────────────────────────
+  const [hovered, setHovered] = useState<string | null>(null)
+
+  const rawMouseX = useMotionValue(0)
+  const rawMouseY = useMotionValue(0)
+  const mouseX = useSpring(rawMouseX, { stiffness: 80, damping: 20 })
+  const mouseY = useSpring(rawMouseY, { stiffness: 80, damping: 20 })
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    const rect = heroRef.current?.getBoundingClientRect()
+    if (!rect) return
+    rawMouseX.set((e.clientX - rect.left) / rect.width  - 0.5)
+    rawMouseY.set((e.clientY - rect.top)  / rect.height - 0.5)
+  }, [rawMouseX, rawMouseY])
+
+  const { scrollYProgress } = useScroll({
+    target:  heroRef,
+    offset:  ['start start', 'end start'],
+  })
+
   return (
     <section
       ref={heroRef}
       className="relative min-h-screen flex items-start md:items-center overflow-hidden"
       style={{ background: '#140a09' }}
+      onMouseMove={handleMouseMove}
     >
       {/* Layer 1 — full-coverage depth plane: covers 100%×100% so no transparent edge = no seam */}
       <div
@@ -97,6 +120,22 @@ export function Hero({ content = {} }: HeroProps) {
           backgroundSize: '148px 148px',
         }}
       />
+
+      {/* ── Photo scatter — organic bonbon shapes, right 55% of viewport ── */}
+      <div style={{ position: 'absolute', inset: 0, zIndex: 5, pointerEvents: 'none' }}>
+        {PHOTOS.map((photo, i) => (
+          <PhotoCard
+            key={photo.id}
+            photo={photo}
+            index={i}
+            hovered={hovered}
+            setHovered={setHovered}
+            scrollYProgress={scrollYProgress}
+            mouseX={mouseX}
+            mouseY={mouseY}
+          />
+        ))}
+      </div>
 
       <div className="hero-content relative z-10 w-full pl-5 lg:pl-[100px] pr-5 pt-28 md:pt-0 pb-24">
         <div className="max-w-sm md:max-w-2xl">
