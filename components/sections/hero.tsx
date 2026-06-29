@@ -267,7 +267,7 @@ export function Hero({ content = {} }: HeroProps) {
         </div>
 
         {/* Right half — bonbon flavor showcase (desktop only) */}
-        <div className="absolute -bottom-32 right-[8%] z-10 md:relative md:bottom-auto md:right-auto md:z-auto md:flex-1 md:flex md:items-center md:justify-center">
+        <div className="absolute -bottom-40 right-[8%] z-10 md:relative md:bottom-auto md:right-auto md:z-auto md:flex-1 md:flex md:items-center md:justify-center">
           <FlavorShowcase />
         </div>
       </div>
