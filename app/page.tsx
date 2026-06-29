@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Hero } from '@/components/sections/hero'
+import { LorvaHero } from '@/components/sections/lorva-hero-framer'
 import { FeaturedProducts } from '@/components/sections/featured-products'
 import { BrandManifesto } from '@/components/sections/brand-manifesto'
 import { CraftProcess } from '@/components/sections/craft-process'
@@ -30,7 +30,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <Hero content={content} />
+      <LorvaHero content={content} />
       <StatsBar />
       <FeaturedProducts products={featuredProducts} content={content} />
       <BrandManifesto content={content} />
