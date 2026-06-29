@@ -84,68 +84,7 @@ export function FlavorShowcase() {
       }
 
   return (
-    <div className="flex items-start gap-8 xl:gap-10" style={{ paddingTop: '10vh' }}>
-
-      {/* Vertical flavor label nav */}
-      <div
-        className="flex flex-col gap-1"
-        role="tablist"
-        aria-label="Chocolate flavors"
-        style={{ paddingTop: 32 }}
-      >
-        {FLAVORS.map((f, i) => {
-          const active = i === activeIndex
-          return (
-            <motion.button
-              key={f.id}
-              role="tab"
-              aria-selected={active}
-              aria-label={`View ${f.name}`}
-              onClick={() => handleSelect(i)}
-              className="flex items-center gap-3 text-left focus:outline-none focus-visible:ring-1 focus-visible:ring-champagne-gold/40 rounded-sm"
-              style={{
-                minHeight: 44,
-                paddingBlock: 4,
-                paddingInline: 0,
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-              }}
-              animate={{
-                opacity: active ? 1 : 0.28,
-                x: active ? 0 : 6,
-              }}
-              transition={{ duration: 0.3, ease: 'easeOut' }}
-            >
-              <motion.span
-                aria-hidden="true"
-                style={{
-                  display: 'block',
-                  width: 18,
-                  height: 1,
-                  background: '#C9A961',
-                  flexShrink: 0,
-                  transformOrigin: 'left center',
-                }}
-                animate={{ scaleX: active ? 1 : 0, opacity: active ? 1 : 0 }}
-                transition={{ duration: 0.28, ease: 'easeOut' }}
-              />
-              <span
-                className="font-inter uppercase"
-                style={{
-                  fontSize: 8,
-                  letterSpacing: '0.42em',
-                  color: active ? '#C9A961' : '#F6EFE9',
-                  transition: 'color 0.3s ease',
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                {f.name}
-              </span>
-            </motion.button>
-          )
-        })}
-      </div>
+    <div style={{ paddingTop: '10vh' }}>
 
       {/* Bonbon image area — no caption, no frame */}
       <div
