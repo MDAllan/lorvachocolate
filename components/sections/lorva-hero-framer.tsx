@@ -1,8 +1,15 @@
-// Framer Code Component — paste into Framer canvas
 'use client'
 
-import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { useRef, useState } from 'react'
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useMotionValue,
+  useSpring,
+  useMotionTemplate,
+  MotionValue,
+} from 'framer-motion'
 
 // ── BRAND CONSTANTS ────────────────────────────────────────────────────────────
 
@@ -10,382 +17,691 @@ const COLORS = {
   nearBlack:     '#0C0102',
   champagneGold: '#C9A961',
   cream:         '#F6EFE9',
-  darkShell:     '#1A0800',
-  midShell:      '#2C1200',
-  highlight:     '#3D1800',
 } as const
 
 // ── TYPES ──────────────────────────────────────────────────────────────────────
 
-type FlavorKey = 'blueberry' | 'caramel' | 'raspberry' | 'hazelnut' | 'vanilla'
-
-interface FlavorTheme {
-  glowColor:   string
-  accentColor: string
-  accentDark:  string
-}
-
-interface BonbonConfig {
-  id:           FlavorKey
-  top:          string
-  left:         string
-  size:         number
-  rotate:       number
-  shape:        'hexagonal' | 'rectangular' | 'sphere' | 'half-sphere' | 'square-gift'
+interface PhotoConfig {
+  id:            string
+  label:         string
+  src:           string
+  top:           string
+  left:          string
+  size:          number
+  rotate:        number
   floatDuration: number
-  floatDelay:   number
-  theme:        FlavorTheme
+  floatDelay:    number
+  parallaxRate:  number  // scroll depth (0.05–0.18)
+  mouseDepth:    number  // mouse parallax depth (0.03–0.12)
 }
 
 interface LorvaHeroProps {
   backgroundColor?: string
-  showNavbar?: boolean
-  tagline?: string
-  headline?: string
-  description?: string
-  ctaLabel?: string
+  showNavbar?:      boolean
+  tagline?:         string
+  headline?:        string
+  description?:     string
+  ctaLabel?:        string
 }
 
-// ── FLAVOR THEMES ─────────────────────────────────────────────────────────────
+// ── PHOTO CLUSTER ─────────────────────────────────────────────────────────────
 
-const THEMES: Record<FlavorKey, FlavorTheme> = {
-  blueberry: { glowColor: 'rgba(139,26,107,0.80)',  accentColor: '#8B1A6B', accentDark: '#4A0A38' },
-  caramel:   { glowColor: 'rgba(200,134,10,0.80)',  accentColor: '#C8860A', accentDark: '#7A4A00' },
-  raspberry: { glowColor: 'rgba(196,30,58,0.80)',   accentColor: '#C41E3A', accentDark: '#6A0010' },
-  hazelnut:  { glowColor: 'rgba(139,94,42,0.75)',   accentColor: '#8B5E2A', accentDark: '#4A2E0A' },
-  vanilla:   { glowColor: 'rgba(201,169,97,0.70)',  accentColor: '#C9A961', accentDark: '#7A6030' },
-}
-
-// ── BONBON LAYOUT ─────────────────────────────────────────────────────────────
-// All top values ≥ 17 % so no bonbon floats into the 80 px fixed navbar.
-
-const BONBONS: BonbonConfig[] = [
+const PHOTOS: PhotoConfig[] = [
   {
-    id: 'raspberry', top: '38%', left: '53%',
-    size: 152, rotate: 0,   shape: 'sphere',
-    floatDuration: 3.9, floatDelay: 0.0,
-    theme: THEMES.raspberry,
+    id: 'hazelnut', label: 'Hazelnut Crunch Noir',
+    src: '/bonbons/hazelnut-crunch-noir.jpg',
+    top: '36%', left: '57%',
+    size: 178, rotate: 3,
+    floatDuration: 6.2, floatDelay: 0.0,
+    parallaxRate: 0.06, mouseDepth: 0.05,
   },
   {
-    id: 'blueberry', top: '17%', left: '47%',
-    size: 115, rotate: -14, shape: 'hexagonal',
-    floatDuration: 3.5, floatDelay: 0.6,
-    theme: THEMES.blueberry,
+    id: 'pistachio', label: 'Pistachio Royale',
+    src: '/bonbons/pistachio-royale.jpg',
+    top: '12%', left: '48%',
+    size: 126, rotate: -8,
+    floatDuration: 7.1, floatDelay: 0.8,
+    parallaxRate: 0.12, mouseDepth: 0.10,
   },
   {
-    id: 'caramel', top: '18%', left: '67%',
-    size: 102, rotate: 15,  shape: 'rectangular',
-    floatDuration: 4.3, floatDelay: 0.3,
-    theme: THEMES.caramel,
+    id: 'cherry', label: 'Cherry Blush',
+    src: '/bonbons/cherry-blush.jpg',
+    top: '18%', left: '72%',
+    size: 138, rotate: 12,
+    floatDuration: 5.8, floatDelay: 0.4,
+    parallaxRate: 0.09, mouseDepth: 0.08,
   },
   {
-    id: 'hazelnut', top: '22%', left: '79%',
-    size: 108, rotate: 8,   shape: 'half-sphere',
-    floatDuration: 4.6, floatDelay: 0.9,
-    theme: THEMES.hazelnut,
+    id: 'caramel', label: 'Caramel Fleur de Sel',
+    src: '/bonbons/caramel-fleur-sea-salt.jpg',
+    top: '62%', left: '50%',
+    size: 118, rotate: -5,
+    floatDuration: 6.8, floatDelay: 1.2,
+    parallaxRate: 0.15, mouseDepth: 0.12,
   },
   {
-    id: 'vanilla', top: '63%', left: '65%',
-    size: 122, rotate: -6,  shape: 'square-gift',
-    floatDuration: 3.3, floatDelay: 1.1,
-    theme: THEMES.vanilla,
+    id: 'vanilla', label: 'Vanilla Crème',
+    src: '/bonbons/vanilla-creme.jpg',
+    top: '68%', left: '74%',
+    size: 100, rotate: 8,
+    floatDuration: 7.4, floatDelay: 0.6,
+    parallaxRate: 0.18, mouseDepth: 0.06,
   },
 ]
 
-// ── GOLD DUST ──────────────────────────────────────────────────────────────────
+// ── AMBIENT PARTICLE ──────────────────────────────────────────────────────────
+// Deterministic seeded positions — safe for SSR, no Math.random()
 
-function GoldDust({ count = 7 }: { count?: number }) {
-  const flecks = Array.from({ length: count }, (_, i) => ({
-    top:  ((i * 37 + 11) % 70) + 10,
-    left: ((i * 53 + 7)  % 70) + 10,
-    s:    (i % 3) + 1,
-    o:    0.3 + (i % 4) * 0.15,
-  }))
+function Particle({ seed }: { seed: number }) {
+  const startLeft = ((seed * 37 + 11) % 88) + 6
+  const size      = (seed % 3) + 1
+  const duration  = 7 + (seed % 6)
+  const delay     = (seed * 0.65) % 5.5
+  const swayX     = ((seed * 17 + 3) % 60) - 30
+  const maxO      = 0.12 + (seed % 4) * 0.08
+
   return (
-    <>
-      {flecks.map((f, i) => (
-        <div key={i} style={{
-          position: 'absolute', top: `${f.top}%`, left: `${f.left}%`,
-          width: f.s, height: f.s, borderRadius: '50%',
-          background: COLORS.champagneGold, opacity: f.o, pointerEvents: 'none',
-        }} />
-      ))}
-    </>
+    <motion.div
+      style={{
+        position:     'absolute',
+        bottom:       '-8px',
+        left:         `${startLeft}%`,
+        width:        size,
+        height:       size,
+        borderRadius: '50%',
+        background:   COLORS.champagneGold,
+        pointerEvents: 'none',
+      }}
+      animate={{
+        y:       [-8, -780],
+        x:       [0, swayX, -swayX / 2, swayX / 4, 0],
+        opacity: [0, maxO, maxO * 0.75, 0],
+        scale:   [0.5, 1, 0.7, 0.2],
+      }}
+      transition={{
+        duration,
+        delay,
+        repeat: Infinity,
+        ease:   'linear',
+        times:  [0, 0.12, 0.78, 1],
+      }}
+    />
   )
 }
 
-// ── BONBON SHAPE ───────────────────────────────────────────────────────────────
+// ── PHOTO CARD ─────────────────────────────────────────────────────────────────
+// Extracted to its own component so hooks (useTransform) can be called per card
 
-function BonbonShape({ config }: { config: BonbonConfig }) {
-  const { size: s, shape, theme } = config
+function PhotoCard({
+  photo,
+  index,
+  hovered,
+  clicked,
+  setHovered,
+  setClicked,
+  scrollYProgress,
+  smoothMouseX,
+  smoothMouseY,
+}: {
+  photo:           PhotoConfig
+  index:           number
+  hovered:         string | null
+  clicked:         string | null
+  setHovered:      (id: string | null) => void
+  setClicked:      React.Dispatch<React.SetStateAction<string | null>>
+  scrollYProgress: MotionValue<number>
+  smoothMouseX:    MotionValue<number>
+  smoothMouseY:    MotionValue<number>
+}) {
+  const isHovered  = hovered === photo.id
+  const isClicked  = clicked === photo.id
+  const anyHovered = hovered !== null
+  const anyClicked = clicked !== null
 
-  const base: React.CSSProperties = { position: 'absolute', inset: 0, borderRadius: 'inherit' }
+  // Scroll parallax
+  const scrollY = useTransform(scrollYProgress, [0, 1], [0, photo.parallaxRate * -220])
 
-  const shellBase = (
-    <div style={{ ...base, background: `radial-gradient(circle at 65% 28%, ${COLORS.highlight} 0%, ${COLORS.midShell} 40%, ${COLORS.darkShell} 75%, #080200 100%)` }} />
-  )
-  const specular = (
-    <div style={{ ...base, background: 'radial-gradient(circle at 20% 18%, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.08) 30%, transparent 58%)', pointerEvents: 'none' }} />
-  )
-  const vignette = (
-    <div style={{ ...base, background: 'radial-gradient(circle at center, transparent 48%, rgba(0,0,0,0.65) 100%)', pointerEvents: 'none' }} />
-  )
+  // Mouse parallax — each image at a different depth, moves separately
+  const mouseOffsetX = useTransform(smoothMouseX, (v: number) => v * photo.mouseDepth * 280)
+  const mouseOffsetY = useTransform(smoothMouseY, (v: number) => v * photo.mouseDepth * 190)
 
-  // ── HEXAGONAL ──
-  if (shape === 'hexagonal') return (
-    <div style={{ width: s, height: s * 0.92, position: 'relative', clipPath: 'polygon(25% 0%,75% 0%,100% 50%,75% 100%,25% 100%,0% 50%)', boxShadow: `0 ${s*.12}px ${s*.32}px rgba(0,0,0,0.7)` }}>
-      {shellBase}
-      <div style={{ ...base, background: `radial-gradient(ellipse at 40% 35%, ${theme.accentColor} 0%, ${theme.accentDark} 55%, transparent 80%)`, opacity: 0.85 }} />
-      <div style={{ ...base, background: 'linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 40%, rgba(0,0,0,0.3) 100%)' }} />
-      <GoldDust count={8} />
-      {specular}{vignette}
-    </div>
-  )
+  // Hover 3D tilt — cursor position relative to image center
+  const [tiltX, setTiltX] = useState(0)
+  const [tiltY, setTiltY] = useState(0)
 
-  // ── RECTANGULAR / CUBE ──
-  if (shape === 'rectangular') {
-    const w = Math.round(s * 1.35), h = Math.round(s * 0.82), fw = 14, th = 11
-    return (
-      <div style={{ position: 'relative', width: w + fw, height: h + th }}>
-        <div style={{ position: 'absolute', top: 0, left: fw, width: w, height: th, background: `linear-gradient(to right,${theme.accentColor},${theme.accentDark})`, transform: 'skewX(-25deg)', transformOrigin: 'bottom left', borderRadius: '3px 3px 0 0' }} />
-        <div style={{ position: 'absolute', top: th, right: 0, width: fw, height: h, background: 'linear-gradient(to right,#1a0800,#080200)', borderRadius: '0 4px 4px 0' }} />
-        <div style={{ position: 'absolute', top: th, left: 0, width: w, height: h, borderRadius: '4px 0 0 4px', overflow: 'hidden', boxShadow: `0 ${s*.1}px ${s*.28}px rgba(0,0,0,0.75)` }}>
-          {shellBase}
-          <div style={{ ...base, background: `radial-gradient(ellipse at 35% 40%, ${theme.accentColor} 0%, ${theme.accentDark} 50%, transparent 80%)`, opacity: 0.75 }} />
-          <div style={{ position: 'absolute', top: '10%', right: '18%', width: 5, height: '45%', background: `linear-gradient(to bottom,${theme.accentColor},rgba(200,134,10,0.2))`, borderRadius: '0 0 4px 4px' }} />
-          <GoldDust count={6} />{specular}{vignette}
-        </div>
-      </div>
-    )
+  const handleTiltMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    const dx = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2)
+    const dy = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2)
+    setTiltX(-dy * 22)
+    setTiltY(dx * 22)
   }
 
-  // ── SPHERE ──
-  if (shape === 'sphere') return (
-    <div style={{ width: s, height: s, borderRadius: '50%', position: 'relative', overflow: 'hidden', boxShadow: `0 ${s*.14}px ${s*.35}px rgba(0,0,0,0.75)` }}>
-      {shellBase}
-      <div style={{ ...base, background: `radial-gradient(circle at 42% 38%, ${theme.accentColor} 0%, ${theme.accentDark} 45%, transparent 72%)`, opacity: 0.9 }} />
-      <div style={{ position: 'absolute', inset: '22%', borderRadius: '50%', border: '1px solid rgba(201,169,97,0.2)' }} />
-      <GoldDust count={9} />{specular}{vignette}
-    </div>
+  const handleLeave = () => {
+    setHovered(null)
+    setTiltX(0)
+    setTiltY(0)
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.82, filter: 'blur(14px)' }}
+      animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+      transition={{ duration: 1.3, delay: 0.7 + index * 0.16, ease: [0.22, 1, 0.36, 1] }}
+      style={{
+        position: 'absolute',
+        top:      photo.top,
+        left:     photo.left,
+        zIndex:   isHovered || isClicked ? 30 : 5,
+        x:        mouseOffsetX,
+        y:        mouseOffsetY,
+      }}
+    >
+      {/* Scroll parallax layer */}
+      <motion.div style={{ y: scrollY }}>
+
+        {/* Float loop — organic multi-keyframe motion */}
+        <motion.div
+          animate={{
+            y:      [0, -22, 5, -10, 0],
+            rotate: [photo.rotate - 2, photo.rotate + 2.5, photo.rotate - 1, photo.rotate + 1.5, photo.rotate - 2],
+            scale:  [1, 1.03, 0.982, 1.012, 1],
+          }}
+          transition={{
+            duration:   photo.floatDuration,
+            repeat:     Infinity,
+            ease:       'easeInOut',
+            delay:      photo.floatDelay,
+            times:      [0, 0.28, 0.52, 0.76, 1],
+          }}
+        >
+          {/* Perspective container for 3D tilt + click spin */}
+          <div style={{ perspective: '900px', perspectiveOrigin: 'center center' }}>
+
+            <motion.div
+              animate={{
+                // Scale: clicked = forward/large, others recede; hover = slight lift
+                scale: isClicked
+                  ? 1.32
+                  : anyClicked
+                  ? 0.70
+                  : isHovered
+                  ? 1.09
+                  : anyHovered
+                  ? 0.96
+                  : 1,
+                // Opacity: recede others heavily when clicked
+                opacity: (anyClicked && !isClicked)
+                  ? 0.10
+                  : (anyHovered && !isHovered && !anyClicked)
+                  ? 0.28
+                  : 1,
+                // 3D tilt on hover (cursor-tracked), Y-spin on click
+                rotateX: isClicked ? 0 : tiltX,
+                rotateY: isClicked ? 360 : tiltY,
+                // Blur background items when anything is hovered/clicked
+                filter: (anyHovered || anyClicked) && !isHovered && !isClicked
+                  ? 'blur(4px) brightness(0.55)'
+                  : isHovered
+                  ? 'drop-shadow(0 32px 58px rgba(0,0,0,0.85)) brightness(1.1)'
+                  : 'blur(0px) brightness(1)',
+              }}
+              transition={{
+                scale:   { duration: isClicked ? 0.78 : 0.45, ease: [0.22, 1, 0.36, 1] },
+                opacity: { duration: 0.45, ease: 'easeOut' },
+                rotateX: { duration: isClicked ? 0.82 : 0.28, ease: [0.22, 1, 0.36, 1] },
+                rotateY: { duration: isClicked ? 0.82 : 0.28, ease: [0.22, 1, 0.36, 1] },
+                filter:  { duration: 0.38 },
+              }}
+              onMouseEnter={() => setHovered(photo.id)}
+              onMouseLeave={handleLeave}
+              onMouseMove={handleTiltMove}
+              onClick={() => setClicked(prev => prev === photo.id ? null : photo.id)}
+              style={{
+                cursor:         'pointer',
+                pointerEvents:  'all',
+                position:       'relative',
+                transformStyle: 'preserve-3d',
+              }}
+            >
+              <img
+                src={photo.src}
+                alt={photo.label}
+                width={photo.size}
+                height={photo.size}
+                style={{
+                  width:        photo.size,
+                  height:       photo.size,
+                  borderRadius: '50%',
+                  objectFit:    'cover',
+                  display:      'block',
+                  boxShadow:    '0 18px 56px rgba(0,0,0,0.72), 0 0 0 1px rgba(201,169,97,0.08)',
+                }}
+              />
+
+              {/* Champagne ring — animates on hover / click */}
+              <motion.div
+                animate={{ opacity: isHovered || isClicked ? 1 : 0, scale: isClicked ? 1.10 : 1 }}
+                transition={{ duration: 0.4 }}
+                style={{
+                  position:     'absolute',
+                  inset:        -6,
+                  borderRadius: '50%',
+                  border:       '1px solid rgba(201,169,97,0.5)',
+                  pointerEvents: 'none',
+                }}
+              />
+
+              {/* Outer glow pulse on click */}
+              <motion.div
+                animate={{
+                  opacity: isClicked ? [0.6, 0.15, 0.4, 0.1] : 0,
+                  scale:   isClicked ? [1, 1.35, 1.18, 1.5]  : 1,
+                }}
+                transition={{ duration: 1.8, repeat: isClicked ? Infinity : 0, ease: 'easeOut' }}
+                style={{
+                  position:     'absolute',
+                  inset:        -24,
+                  borderRadius: '50%',
+                  border:       '1px solid rgba(201,169,97,0.35)',
+                  pointerEvents: 'none',
+                }}
+              />
+
+              {/* Flavor label */}
+              <motion.div
+                animate={{ opacity: isHovered || isClicked ? 1 : 0, y: isHovered || isClicked ? -6 : 4 }}
+                transition={{ duration: 0.28 }}
+                style={{
+                  position:      'absolute',
+                  bottom:        '100%',
+                  left:          '50%',
+                  transform:     'translateX(-50%)',
+                  marginBottom:  12,
+                  fontFamily:    'var(--font-inter, Inter, sans-serif)',
+                  fontSize:      9,
+                  letterSpacing: '0.32em',
+                  color:         COLORS.champagneGold,
+                  textTransform: 'uppercase',
+                  whiteSpace:    'nowrap',
+                  pointerEvents: 'none',
+                }}
+              >
+                {photo.label}
+              </motion.div>
+            </motion.div>
+
+          </div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   )
-
-  // ── HALF-SPHERE ──
-  if (shape === 'half-sphere') {
-    const cw = Math.round(s * 0.62), ch = Math.round(s * 0.28)
-    return (
-      <div style={{ width: s, height: Math.round(s * 0.62), borderRadius: '50% 50% 0 0 / 100% 100% 0 0', position: 'relative', overflow: 'hidden', boxShadow: `0 ${s*.1}px ${s*.3}px rgba(0,0,0,0.7)` }}>
-        {shellBase}
-        <div style={{ ...base, background: `radial-gradient(ellipse at 45% 60%, ${theme.accentColor} 0%, ${theme.accentDark} 55%, transparent 80%)`, opacity: 0.8 }} />
-        <div style={{ position: 'absolute', width: cw, height: ch, top: 10, left: '50%', transform: 'translateX(-50%)', background: `radial-gradient(ellipse at center, ${theme.accentColor} 0%, ${theme.accentDark} 55%, #1a0800 100%)`, borderRadius: '50%', boxShadow: 'inset 0 4px 14px rgba(0,0,0,0.8)' }} />
-        <GoldDust count={7} />{specular}{vignette}
-      </div>
-    )
-  }
-
-  // ── SQUARE GIFT ──
-  if (shape === 'square-gift') {
-    const rt = 9, bow = 16
-    return (
-      <div style={{ width: s, height: s, borderRadius: 8, position: 'relative', overflow: 'hidden', boxShadow: `0 ${s*.12}px ${s*.3}px rgba(0,0,0,0.7),0 0 0 1px rgba(201,169,97,0.1)` }}>
-        {shellBase}
-        <div style={{ ...base, background: `radial-gradient(ellipse at 38% 35%, ${theme.accentColor} 0%, ${theme.accentDark} 50%, transparent 78%)`, opacity: 0.7 }} />
-        <GoldDust count={7} />{specular}{vignette}
-        <div style={{ position: 'absolute', top: '50%', left: 0, right: 0, height: rt, transform: 'translateY(-50%)', background: `linear-gradient(to bottom,${theme.accentColor},rgba(201,169,97,0.7))`, opacity: 0.85, pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', top: 0, bottom: 0, left: '50%', width: rt, transform: 'translateX(-50%)', background: `linear-gradient(to right,${theme.accentColor},rgba(201,169,97,0.7))`, opacity: 0.85, pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', top: '50%', left: '50%', width: bow, height: bow, borderRadius: '50%', transform: 'translate(-50%,-50%)', background: COLORS.champagneGold, boxShadow: '0 0 8px rgba(201,169,97,0.6)', pointerEvents: 'none' }} />
-      </div>
-    )
-  }
-
-  return null
 }
 
 // ── MAIN COMPONENT ─────────────────────────────────────────────────────────────
 
 function LorvaHero({
   backgroundColor = '#280509',
-  showNavbar = false,
-  tagline = 'Handcrafted. Timeless. Indulgent.',
-  headline = 'LORVA CHOCOLATE',
-  description = 'Exquisite bonbons crafted with passion and the finest ingredients.',
-  ctaLabel = 'EXPLORE COLLECTION',
+  showNavbar       = false,
+  tagline          = 'Handcrafted. Timeless. Indulgent.',
+  headline         = 'LORVA CHOCOLATE',
+  description      = 'Exquisite bonbons crafted with passion and the finest ingredients.',
+  ctaLabel         = 'EXPLORE COLLECTION',
 }: LorvaHeroProps) {
-  const [hovered, setHovered] = useState<FlavorKey | null>(null)
+  const [hovered, setHovered] = useState<string | null>(null)
+  const [clicked, setClicked] = useState<string | null>(null)
+  const sectionRef = useRef<HTMLElement>(null)
+
+  // ── Mouse tracking ──────────────────────────────────────────────────────────
+  // Normalized -0.5 → 0.5 for parallax math
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+  const smoothMouseX = useSpring(mouseX, { stiffness: 50, damping: 22, restDelta: 0.001 })
+  const smoothMouseY = useSpring(mouseY, { stiffness: 50, damping: 22, restDelta: 0.001 })
+
+  // Raw pixel coords for the spotlight
+  const rawMouseX = useMotionValue(500)
+  const rawMouseY = useMotionValue(350)
+  const smoothRawX = useSpring(rawMouseX, { stiffness: 80, damping: 20 })
+  const smoothRawY = useSpring(rawMouseY, { stiffness: 80, damping: 20 })
+
+  // CSS gradient string that follows the cursor
+  const spotlight = useMotionTemplate`radial-gradient(560px circle at ${smoothRawX}px ${smoothRawY}px, rgba(201,169,97,0.055) 0%, transparent 72%)`
+
+  // Text counter-parallax (moves opposite to mouse for depth cue)
+  const textX = useTransform(smoothMouseX, (v: number) => v * -24)
+  const textY = useTransform(smoothMouseY, (v: number) => v * -14)
+
+  // Background slow drift
+  const bgX = useTransform(smoothMouseX, (v: number) => v * 14)
+  const bgY = useTransform(smoothMouseY, (v: number) => v * 9)
+
+  const { scrollYProgress } = useScroll({
+    target:  sectionRef,
+    offset:  ['start start', 'end start'],
+  })
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    mouseX.set((e.clientX - rect.left) / rect.width - 0.5)
+    mouseY.set((e.clientY - rect.top)  / rect.height - 0.5)
+    rawMouseX.set(e.clientX - rect.left)
+    rawMouseY.set(e.clientY - rect.top)
+  }
+
+  const handleMouseLeave = () => {
+    mouseX.set(0)
+    mouseY.set(0)
+  }
+
+  const [word1, word2] = headline.split(' ')
 
   return (
-    <section style={{
-      position: 'relative',
-      width: '100%',
-      height: '100vh',
-      minHeight: 640,
-      overflow: 'hidden',
-      background: COLORS.nearBlack,
-      fontFamily: 'Inter, -apple-system, sans-serif',
-    }}>
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&family=Inter:wght@300;400&display=swap');`}</style>
+    <section
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        position:   'relative',
+        width:      '100%',
+        height:     '100vh',
+        minHeight:  640,
+        overflow:   'hidden',
+        background: COLORS.nearBlack,
+        fontFamily: 'var(--font-inter, Inter, sans-serif)',
+      }}
+    >
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400&display=swap');
+      `}</style>
 
-      {/* ── 1. Dark burgundy base ──────────────────────────────────────── */}
-      <div style={{
-        position: 'absolute', inset: 0, zIndex: 0,
-        background: `radial-gradient(ellipse 85% 85% at 68% 42%, #4A0810 0%, ${backgroundColor} 42%, #0C0102 100%)`,
-      }} />
+      {/* ── 1. Background — drifts slowly with mouse ────────────────────── */}
+      <motion.div
+        style={{
+          position:   'absolute',
+          inset:      '-3%',     // overflow prevents edge bleed during parallax
+          zIndex:     0,
+          background: `radial-gradient(ellipse 85% 85% at 68% 42%, #4A0810 0%, ${backgroundColor} 42%, #0C0102 100%)`,
+          x: bgX,
+          y: bgY,
+        }}
+      />
 
-      {/* ── 2. Warm golden spotlight from upper-right ─────────────────── */}
+      {/* ── 2. Warm golden spotlight from upper-right ────────────────────── */}
       <div style={{
-        position: 'absolute', inset: 0, zIndex: 1,
-        background: 'radial-gradient(ellipse 65% 75% at 90% -8%, rgba(215,135,20,0.52) 0%, rgba(190,105,15,0.26) 32%, transparent 62%)',
+        position:      'absolute',
+        inset:         0,
+        zIndex:        1,
+        background:    'radial-gradient(ellipse 65% 75% at 90% -8%, rgba(215,135,20,0.52) 0%, rgba(190,105,15,0.26) 32%, transparent 62%)',
         pointerEvents: 'none',
       }} />
 
-      {/* ── 3. Secondary warm bloom ───────────────────────────────────── */}
+      {/* ── 3. Secondary warm bloom ──────────────────────────────────────── */}
       <div style={{
-        position: 'absolute', top: '5%', right: '5%', width: '58%', height: '70%', zIndex: 1,
-        background: 'radial-gradient(ellipse at 65% 25%, rgba(200,120,18,0.18) 0%, transparent 65%)',
+        position:      'absolute',
+        top:           '5%',
+        right:         '5%',
+        width:         '58%',
+        height:        '70%',
+        zIndex:        1,
+        background:    'radial-gradient(ellipse at 65% 25%, rgba(200,120,18,0.18) 0%, transparent 65%)',
         pointerEvents: 'none',
       }} />
 
-      {/* ── 4. Left vignette ──────────────────────────────────────────── */}
+      {/* ── 4. Left vignette ─────────────────────────────────────────────── */}
       <div style={{
-        position: 'absolute', inset: 0, zIndex: 1,
-        background: 'linear-gradient(to right, rgba(12,1,2,0.55) 0%, rgba(12,1,2,0.12) 36%, transparent 55%)',
+        position:      'absolute',
+        inset:         0,
+        zIndex:        1,
+        background:    'linear-gradient(to right, rgba(12,1,2,0.60) 0%, rgba(12,1,2,0.15) 38%, transparent 55%)',
         pointerEvents: 'none',
       }} />
 
-      {/* ── 5. Decorative navbar (optional prop) ──────────────────────── */}
+      {/* ── 5. Cursor-following spotlight ────────────────────────────────── */}
+      <motion.div
+        style={{
+          position:      'absolute',
+          inset:         0,
+          zIndex:        2,
+          background:    spotlight,
+          pointerEvents: 'none',
+        }}
+      />
+
+      {/* ── 6. Horizontal gold shimmer sweep (repeats every ~14s) ─────────── */}
+      <motion.div
+        style={{
+          position:   'absolute',
+          top:        0,
+          bottom:     0,
+          left:       0,
+          width:      1.5,
+          background: 'linear-gradient(to bottom, transparent 0%, rgba(201,169,97,0.12) 25%, rgba(201,169,97,0.5) 50%, rgba(201,169,97,0.12) 75%, transparent 100%)',
+          pointerEvents: 'none',
+          zIndex:     3,
+        }}
+        animate={{ x: ['-4px', '102vw'] }}
+        transition={{ duration: 5.5, repeat: Infinity, repeatDelay: 8.5, ease: [0.25, 0, 0.75, 1] }}
+      />
+
+      {/* ── 7. Ambient floating gold particles ───────────────────────────── */}
+      <div style={{
+        position:      'absolute',
+        inset:         0,
+        zIndex:        2,
+        pointerEvents: 'none',
+        overflow:      'hidden',
+      }}>
+        {Array.from({ length: 24 }, (_, i) => <Particle key={i} seed={i + 1} />)}
+      </div>
+
+      {/* ── 8. Decorative navbar (Framer canvas prop) ────────────────────── */}
       {showNavbar && (
-        <nav style={{ position: 'absolute', top: 0, left: 0, right: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 48px', height: 72, zIndex: 20, borderBottom: '1px solid rgba(201,169,97,0.07)' }}>
-          <span style={{ fontFamily: 'Josefin Sans, serif', color: COLORS.champagneGold, fontSize: 13, letterSpacing: '0.38em', textTransform: 'uppercase' as const, lineHeight: 1 }}>
-            LORVA<br /><span style={{ fontSize: 9, letterSpacing: '0.45em', opacity: 0.7 }}>CHOCOLATE</span>
+        <nav style={{
+          position:       'absolute',
+          top:            0,
+          left:           0,
+          right:          0,
+          display:        'flex',
+          alignItems:     'center',
+          justifyContent: 'space-between',
+          padding:        '0 48px',
+          height:         72,
+          zIndex:         20,
+          borderBottom:   '1px solid rgba(201,169,97,0.07)',
+        }}>
+          <span style={{
+            fontFamily:    'Cormorant Garamond, serif',
+            color:         COLORS.champagneGold,
+            fontSize:      14,
+            letterSpacing: '0.28em',
+            textTransform: 'uppercase',
+            lineHeight:    1,
+          }}>
+            LORVA<br />
+            <span style={{ fontSize: 9, letterSpacing: '0.45em', opacity: 0.7 }}>CHOCOLATE</span>
           </span>
           <div style={{ display: 'flex', gap: 40 }}>
             {['SHOP', 'COLLECTIONS', 'OUR STORY', 'JOURNAL'].map(l => (
-              <span key={l} style={{ fontFamily: 'Inter, sans-serif', color: 'rgba(246,239,233,0.65)', fontSize: 11, letterSpacing: '0.3em', cursor: 'pointer' }}>{l}</span>
+              <span key={l} style={{
+                fontFamily:    'var(--font-inter, Inter, sans-serif)',
+                color:         'rgba(246,239,233,0.65)',
+                fontSize:      11,
+                letterSpacing: '0.3em',
+                cursor:        'pointer',
+              }}>{l}</span>
             ))}
           </div>
-          <span style={{ fontFamily: 'Inter, sans-serif', color: 'rgba(246,239,233,0.6)', fontSize: 11, letterSpacing: '0.25em' }}>CART (0)</span>
+          <span style={{
+            fontFamily:    'var(--font-inter, Inter, sans-serif)',
+            color:         'rgba(246,239,233,0.6)',
+            fontSize:      11,
+            letterSpacing: '0.25em',
+          }}>CART (0)</span>
         </nav>
       )}
 
-      {/* ── 6. Text block ─────────────────────────────────────────────── */}
-      <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '46%', display: 'flex', flexDirection: 'column' as const, justifyContent: 'center', padding: '0 0 0 56px', zIndex: 10 }}>
+      {/* ── 9. Text block — counter-parallax to mouse ────────────────────── */}
+      <motion.div
+        animate={{ opacity: clicked ? 0.72 : hovered ? 0.82 : 1 }}
+        transition={{ duration: 0.5 }}
+        style={{
+          position:       'absolute',
+          left:           0,
+          top:            0,
+          bottom:         0,
+          width:          '46%',
+          display:        'flex',
+          flexDirection:  'column',
+          justifyContent: 'center',
+          padding:        '0 0 0 56px',
+          zIndex:         10,
+          x:              textX,
+          y:              textY,
+        }}
+      >
+        {/* Tagline */}
         <motion.p
-          initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, delay: 0.4, ease: 'easeOut' }}
-          style={{ fontFamily: 'Inter, sans-serif', fontSize: 11, letterSpacing: '0.32em', color: COLORS.champagneGold, textTransform: 'uppercase' as const, marginBottom: 32 }}
+          initial={{ opacity: 0, x: -14 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1, delay: 0.35, ease: 'easeOut' }}
+          style={{
+            fontFamily:    'var(--font-inter, Inter, sans-serif)',
+            fontSize:      10,
+            letterSpacing: '0.38em',
+            color:         COLORS.champagneGold,
+            textTransform: 'uppercase',
+            marginBottom:  36,
+            opacity:       0.85,
+          }}
         >{tagline}</motion.p>
 
-        <div style={{ overflow: 'hidden', lineHeight: 0.88 }}>
+        {/* Headline line 1 */}
+        <div style={{ overflow: 'hidden', lineHeight: 0.92 }}>
           <motion.h1
-            initial={{ y: '105%', opacity: 0 }} animate={{ y: '0%', opacity: 1 }}
-            transition={{ duration: 1.1, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            style={{ fontFamily: 'Josefin Sans, serif', fontSize: 'clamp(64px, 7.5vw, 108px)', fontWeight: 300, letterSpacing: '-0.01em', lineHeight: 0.88, color: COLORS.cream, margin: 0, display: 'block' }}
-          >{headline.split(' ')[0]}</motion.h1>
+            initial={{ y: '108%', opacity: 0 }}
+            animate={{ y: '0%', opacity: 1 }}
+            transition={{ duration: 1.15, delay: 0.52, ease: [0.22, 1, 0.36, 1] }}
+            style={{
+              fontFamily:    'Cormorant Garamond, var(--font-cormorant, serif)',
+              fontSize:      'clamp(72px, 9.5vw, 132px)',
+              fontWeight:    300,
+              letterSpacing: '0.02em',
+              lineHeight:    0.92,
+              color:         COLORS.cream,
+              margin:        0,
+              display:       'block',
+            }}
+          >{word1}</motion.h1>
         </div>
 
-        {headline.split(' ')[1] && (
-          <div style={{ overflow: 'hidden', lineHeight: 0.88 }}>
+        {/* Headline line 2 — italic gold */}
+        {word2 && (
+          <div style={{ overflow: 'hidden', lineHeight: 0.92, marginTop: 6 }}>
             <motion.span
-              initial={{ y: '105%', opacity: 0 }} animate={{ y: '0%', opacity: 1 }}
-              transition={{ duration: 1.1, delay: 0.72, ease: [0.22, 1, 0.36, 1] }}
-              style={{ fontFamily: 'Josefin Sans, serif', fontSize: 'clamp(64px, 7.5vw, 108px)', fontWeight: 300, letterSpacing: '-0.01em', lineHeight: 0.88, color: COLORS.champagneGold, display: 'block' }}
-            >{headline.split(' ')[1]}</motion.span>
+              initial={{ y: '108%', opacity: 0 }}
+              animate={{ y: '0%', opacity: 1 }}
+              transition={{ duration: 1.15, delay: 0.70, ease: [0.22, 1, 0.36, 1] }}
+              style={{
+                fontFamily:    'Cormorant Garamond, var(--font-cormorant, serif)',
+                fontSize:      'clamp(72px, 9.5vw, 132px)',
+                fontWeight:    300,
+                fontStyle:     'italic',
+                letterSpacing: '0.02em',
+                lineHeight:    0.92,
+                color:         COLORS.champagneGold,
+                display:       'block',
+              }}
+            >{word2}</motion.span>
           </div>
         )}
 
+        {/* Description */}
         <motion.p
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.05 }}
-          style={{ fontFamily: 'Inter, sans-serif', fontSize: 15, lineHeight: 1.65, color: 'rgba(246,239,233,0.6)', maxWidth: 340, marginTop: 28, fontWeight: 300 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.1, delay: 1.05 }}
+          style={{
+            fontFamily: 'var(--font-inter, Inter, sans-serif)',
+            fontSize:   15,
+            lineHeight: 1.75,
+            color:      'rgba(246,239,233,0.55)',
+            maxWidth:   320,
+            marginTop:  32,
+            fontWeight: 300,
+          }}
         >{description}</motion.p>
 
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1.3 }} style={{ marginTop: 44 }}>
-          <button
-            style={{ display: 'inline-flex', alignItems: 'center', gap: 16, padding: '14px 32px', border: `1px solid ${COLORS.champagneGold}`, background: 'transparent', color: COLORS.champagneGold, fontFamily: 'Inter, sans-serif', fontSize: 11, letterSpacing: '0.28em', textTransform: 'uppercase' as const, cursor: 'pointer', transition: 'background 0.3s ease, color 0.3s ease' }}
-            onMouseEnter={e => { e.currentTarget.style.background = COLORS.champagneGold; e.currentTarget.style.color = COLORS.nearBlack }}
-            onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = COLORS.champagneGold }}
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 1.3 }}
+          style={{ marginTop: 48 }}
+        >
+          <motion.button
+            whileHover={{ backgroundColor: COLORS.champagneGold, color: COLORS.nearBlack }}
+            transition={{ duration: 0.28 }}
+            style={{
+              display:       'inline-flex',
+              alignItems:    'center',
+              gap:           16,
+              padding:       '14px 34px',
+              border:        `1px solid ${COLORS.champagneGold}`,
+              background:    'transparent',
+              color:         COLORS.champagneGold,
+              fontFamily:    'var(--font-inter, Inter, sans-serif)',
+              fontSize:      10,
+              letterSpacing: '0.32em',
+              textTransform: 'uppercase',
+              cursor:        'pointer',
+            }}
           >
-            {ctaLabel}<span style={{ fontSize: 14, letterSpacing: 0 }}>→</span>
-          </button>
+            {ctaLabel}<span style={{ fontSize: 13, letterSpacing: 0 }}>→</span>
+          </motion.button>
         </motion.div>
-      </div>
+      </motion.div>
 
-      {/* ── 7. Bonbons ────────────────────────────────────────────────── */}
-      {/*
-        Hover behaviour: hovered bonbon scales up (comes to camera) and glows.
-        Others dim and shrink slightly. z-index ensures hovered is always on top.
-        All top values ≥ 17 % so bonbons never drift into the 80 px fixed navbar.
-      */}
+      {/* ── 10. Product photos ────────────────────────────────────────────── */}
       <div style={{ position: 'absolute', inset: 0, zIndex: 5, pointerEvents: 'none' }}>
-        {BONBONS.map((b, i) => {
-          const isHovered  = hovered === b.id
-          const anyHovered = hovered !== null
-
-          return (
-            <motion.div
-              key={b.id}
-              initial={{ opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.7 + i * 0.14, ease: [0.22, 1, 0.36, 1] }}
-              style={{
-                position: 'absolute',
-                top: b.top,
-                left: b.left,
-                zIndex: isHovered ? 30 : 5,
-              }}
-            >
-              {/* Float loop — inner so it doesn't interfere with entry or hover scale */}
-              <motion.div
-                animate={{ y: [0, -11, 0], rotate: [b.rotate - 2, b.rotate + 2, b.rotate - 2] }}
-                transition={{ duration: b.floatDuration, repeat: Infinity, repeatType: 'mirror', ease: 'easeInOut', delay: b.floatDelay }}
-              >
-                {/* Hover: scale + glow */}
-                <motion.div
-                  animate={{
-                    scale:     isHovered  ? 1.28 : anyHovered ? 0.88 : 1,
-                    opacity:   anyHovered && !isHovered ? 0.32 : 1,
-                    boxShadow: isHovered
-                      ? `0 0 80px 45px ${b.theme.glowColor}`
-                      : '0 0 0px 0px rgba(0,0,0,0)',
-                  }}
-                  transition={{ duration: 0.5, ease: 'easeOut' }}
-                  onMouseEnter={() => setHovered(b.id)}
-                  onMouseLeave={() => setHovered(null)}
-                  style={{
-                    cursor:        'crosshair',
-                    pointerEvents: 'all',
-                    borderRadius:  b.shape === 'sphere' ? '50%' : b.shape === 'hexagonal' ? '12%' : '6px',
-                    transformOrigin: 'center center',
-                  }}
-                >
-                  <BonbonShape config={b} />
-
-                  {/* Flavor label on hover */}
-                  <motion.div
-                    animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? -8 : 0 }}
-                    transition={{ duration: 0.3 }}
-                    style={{ position: 'absolute', bottom: '100%', left: '50%', transform: 'translateX(-50%)', marginBottom: 10, fontFamily: 'Inter, sans-serif', fontSize: 9, letterSpacing: '0.3em', color: COLORS.champagneGold, textTransform: 'uppercase' as const, whiteSpace: 'nowrap' as const, pointerEvents: 'none' }}
-                  >
-                    {b.id}
-                  </motion.div>
-                </motion.div>
-              </motion.div>
-            </motion.div>
-          )
-        })}
+        {PHOTOS.map((photo, i) => (
+          <PhotoCard
+            key={photo.id}
+            photo={photo}
+            index={i}
+            hovered={hovered}
+            clicked={clicked}
+            setHovered={setHovered}
+            setClicked={setClicked}
+            scrollYProgress={scrollYProgress}
+            smoothMouseX={smoothMouseX}
+            smoothMouseY={smoothMouseY}
+          />
+        ))}
       </div>
 
-      {/* ── 8. Progress indicator ─────────────────────────────────────── */}
+      {/* ── 11. Progress indicator ────────────────────────────────────────── */}
       <motion.div
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1.6 }}
-        style={{ position: 'absolute', bottom: 36, left: 56, display: 'flex', alignItems: 'center', gap: 12, zIndex: 10 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 1.7 }}
+        style={{
+          position:   'absolute',
+          bottom:     36,
+          left:       56,
+          display:    'flex',
+          alignItems: 'center',
+          gap:        12,
+          zIndex:     10,
+        }}
       >
-        <span style={{ fontFamily: 'Inter, sans-serif', color: COLORS.champagneGold, fontSize: 11, letterSpacing: '0.2em' }}>01</span>
+        <span style={{ fontFamily: 'var(--font-inter, Inter, sans-serif)', color: COLORS.champagneGold, fontSize: 11, letterSpacing: '0.2em' }}>01</span>
         <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
           <div style={{ width: 28, height: 1, background: 'rgba(201,169,97,0.35)' }} />
           <div style={{ width: 5, height: 5, borderRadius: '50%', background: COLORS.champagneGold }} />
           <div style={{ width: 28, height: 1, background: 'rgba(201,169,97,0.2)' }} />
         </div>
-        <span style={{ fontFamily: 'Inter, sans-serif', color: 'rgba(246,239,233,0.28)', fontSize: 11, letterSpacing: '0.2em' }}>03</span>
+        <span style={{ fontFamily: 'var(--font-inter, Inter, sans-serif)', color: 'rgba(246,239,233,0.28)', fontSize: 11, letterSpacing: '0.2em' }}>03</span>
       </motion.div>
     </section>
   )
@@ -395,4 +711,3 @@ function LorvaHero({
 
 export default LorvaHero
 export const FramerHero = LorvaHero
-
