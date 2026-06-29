@@ -20,18 +20,18 @@ const FLAVORS = [
     cut: '/flavors/cherry-balsamic-cut.jpg',
   },
   {
-    id: 'espresso-noir',
-    name: 'Espresso Noir',
-    note: 'Single-origin espresso ganache',
-    full: '/flavors/espresso-full.jpg',
-    cut: '/flavors/espresso-cut.jpg',
-  },
-  {
     id: 'hazelnut-crunch-noir',
     name: 'Hazelnut Crunch Noir',
     note: 'Hazelnut praline · dark chocolate',
     full: '/flavors/hazelnut-full.jpg',
     cut: '/flavors/hazelnut-cut.jpg',
+  },
+  {
+    id: 'espresso-noir',
+    name: 'Espresso Noir',
+    note: 'Single-origin espresso ganache',
+    full: '/flavors/espresso-full.jpg',
+    cut: '/flavors/espresso-cut.jpg',
   },
 ] as const
 
@@ -84,11 +84,12 @@ export function FlavorShowcase() {
       }
 
   return (
-    <div style={{ paddingTop: '10vh' }}>
+    <div style={{ paddingTop: '3vh' }}>
 
       {/* Bonbon image area — no caption, no frame */}
       <div
-        style={{ position: 'relative', width: 480, height: 560 }}
+        className="w-52 md:w-[480px]"
+        style={{ position: 'relative', aspectRatio: '6 / 7' }}
         onMouseEnter={() => { setIsHovered(true); isPausedRef.current = true }}
         onMouseLeave={() => { setIsHovered(false); isPausedRef.current = false }}
         role="img"
@@ -156,6 +157,43 @@ export function FlavorShowcase() {
             </motion.div>
           </motion.div>
         </AnimatePresence>
+      </div>
+
+      {/* Flavor title — fades in/out in sync with bonbon (desktop only) */}
+      <div className="hidden md:block">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={flavor.id + '-label'}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.5, ease: EASE_LUXURY }}
+          style={{ textAlign: 'center', marginTop: 22, pointerEvents: 'none' }}
+        >
+          <p style={{
+            fontFamily: 'Cormorant Garamond, serif',
+            fontSize: 15,
+            fontWeight: 300,
+            letterSpacing: '0.32em',
+            color: 'rgba(201,169,97,0.90)',
+            textTransform: 'uppercase',
+            margin: 0,
+          }}>
+            {flavor.name}
+          </p>
+          <p style={{
+            fontFamily: 'Inter, sans-serif',
+            fontSize: 10,
+            fontWeight: 300,
+            letterSpacing: '0.22em',
+            color: 'rgba(246,239,233,0.38)',
+            marginTop: 7,
+            margin: '7px 0 0',
+          }}>
+            {flavor.note}
+          </p>
+        </motion.div>
+      </AnimatePresence>
       </div>
 
     </div>

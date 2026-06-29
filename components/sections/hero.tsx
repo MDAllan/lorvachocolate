@@ -75,50 +75,95 @@ export function Hero({ content = {} }: HeroProps) {
     <section
       ref={heroRef}
       className="relative min-h-screen flex items-start md:items-center overflow-hidden"
-      style={{ background: '#140a09' }}
+      style={{ background: '#0f0307' }}
     >
-      {/* Layer 1 — full-coverage depth plane */}
+      {/* Layer 1 — wall surface (upper ~56%): rich warm burgundy receding back */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'radial-gradient(ellipse 100% 100% at 68% 48%, #3a1016 0%, #1f0c10 38%, #140a09 100%)',
+            'linear-gradient(to bottom, #3e1019 0%, #2d0c13 38%, #1c0809 55%, transparent 62%)',
         }}
       />
 
-      {/* Layer 2 — left shadow */}
+      {/* Layer 2 — floor surface (lower ~44%): darker, flatter burgundy coming toward viewer */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'linear-gradient(to right, rgba(6,0,2,0.80) 0%, rgba(6,0,2,0.36) 26%, rgba(6,0,2,0.08) 48%, transparent 62%)',
+            'linear-gradient(to top, #070205 0%, #120407 28%, #1d0809 50%, transparent 60%)',
         }}
       />
 
-      {/* Layer 3 — bottom shadow well */}
+      {/* Layer 3 — horizon glow: where wall meets floor (~57%), warm rim light */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'linear-gradient(to top, rgba(3,0,1,0.96) 0%, rgba(3,0,1,0.48) 14%, rgba(3,0,1,0.12) 28%, transparent 42%)',
+            'radial-gradient(ellipse 100% 5% at 50% 57%, rgba(130,32,58,0.55) 0%, rgba(85,18,38,0.22) 55%, transparent 100%)',
         }}
       />
 
-      {/* Layer 4 — top ceiling shadow */}
+      {/* Layer 4 — overhead ceiling light: diffuse source from above-center */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'linear-gradient(to bottom, rgba(3,0,1,0.72) 0%, rgba(3,0,1,0.18) 16%, transparent 30%)',
+            'radial-gradient(ellipse 70% 32% at 55% -4%, rgba(95,22,42,0.52) 0%, rgba(58,12,26,0.22) 52%, transparent 74%)',
         }}
       />
 
-      {/* Layer 5 — edge vignette */}
+      {/* Layer 5 — right wall ambient: warm light rolling in from right */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'radial-gradient(ellipse 90% 90% at 50% 50%, transparent 28%, rgba(4,0,2,0.48) 60%, rgba(2,0,1,0.90) 100%)',
+            'radial-gradient(ellipse 52% 68% at 102% 36%, rgba(130,32,58,0.34) 0%, rgba(82,18,38,0.14) 50%, transparent 72%)',
+        }}
+      />
+
+      {/* Layer 6 — floor depth highlight: middle-distance floor catches ambient, suggesting recession */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(ellipse 48% 18% at 54% 74%, rgba(70,16,32,0.45) 0%, transparent 70%)',
+        }}
+      />
+
+      {/* Layer 7 — left deep shadow: keeps text area dark and readable */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            'linear-gradient(to right, rgba(4,0,2,0.92) 0%, rgba(4,0,2,0.46) 22%, rgba(4,0,2,0.10) 42%, transparent 58%)',
+        }}
+      />
+
+      {/* Layer 8 — right edge shadow: far wall corner */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            'linear-gradient(to left, rgba(4,0,2,0.68) 0%, rgba(4,0,2,0.22) 18%, transparent 38%)',
+        }}
+      />
+
+      {/* Layer 9 — bottom front shadow: floor darkens at viewer's feet */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            'linear-gradient(to top, rgba(3,0,1,0.96) 0%, rgba(3,0,1,0.52) 12%, rgba(3,0,1,0.12) 24%, transparent 36%)',
+        }}
+      />
+
+      {/* Layer 10 — ceiling shadow: top edge darkens */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            'linear-gradient(to bottom, rgba(3,0,1,0.78) 0%, rgba(3,0,1,0.20) 15%, transparent 30%)',
         }}
       />
 
@@ -222,7 +267,7 @@ export function Hero({ content = {} }: HeroProps) {
         </div>
 
         {/* Right half — bonbon flavor showcase (desktop only) */}
-        <div className="hidden md:flex flex-1 items-start justify-center">
+        <div className="absolute -bottom-16 right-0 z-10 md:relative md:bottom-auto md:right-auto md:z-auto md:flex-1 md:flex md:items-center md:justify-center">
           <FlavorShowcase />
         </div>
       </div>
