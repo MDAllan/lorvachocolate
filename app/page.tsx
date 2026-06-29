@@ -1,10 +1,14 @@
 import type { Metadata } from 'next'
-import { LorvaHero } from '@/components/sections/lorva-hero-client'
+import { Hero } from '@/components/sections/hero'
 import { FeaturedProducts } from '@/components/sections/featured-products'
 import { BrandManifesto } from '@/components/sections/brand-manifesto'
 import { CraftProcess } from '@/components/sections/craft-process'
 import { HomepageGalleryTeaser } from '@/components/sections/homepage-gallery-teaser'
 import { ServiceHighlights } from '@/components/sections/service-highlights'
+import { Testimonials } from '@/components/sections/testimonials'
+import { StatsBar } from '@/components/sections/stats-bar'
+import { NewsletterSection } from '@/components/sections/newsletter-section'
+import { InstagramTeaser } from '@/components/sections/instagram-teaser'
 import { getFeaturedProducts } from '@/lib/data/products-db'
 import { getSiteContent } from '@/lib/data/site-content-db'
 
@@ -22,20 +26,20 @@ export default async function HomePage() {
     getSiteContent(),
   ])
 
+  const instagramUrl = content.footer_instagram_url || 'https://instagram.com'
+
   return (
     <>
-      <LorvaHero
-        showNavbar={false}
-        tagline="Handcrafted. Timeless. Indulgent."
-        headline="LORVA CHOCOLATE"
-        description="Exquisite bonbons crafted with passion and the finest ingredients."
-        ctaLabel="EXPLORE COLLECTION"
-      />
+      <Hero content={content} />
+      <StatsBar />
       <FeaturedProducts products={featuredProducts} content={content} />
       <BrandManifesto content={content} />
       <CraftProcess content={content} />
+      <Testimonials />
       <HomepageGalleryTeaser content={content} />
+      <NewsletterSection />
       <ServiceHighlights content={content} />
+      <InstagramTeaser instagramUrl={instagramUrl} />
     </>
   )
 }

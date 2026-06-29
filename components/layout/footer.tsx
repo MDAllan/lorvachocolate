@@ -2,9 +2,11 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 const QUICK_LINK_DEFAULTS = [
-  { href: '/products',  label: 'Shop' },
-  { href: '/favors',    label: 'Favors & Gifts' },
+  { href: '/products',  label: 'Shop Bonbons' },
   { href: '/breakable', label: 'Breakable Hearts' },
+  { href: '/favors',    label: 'Favors & Gifts' },
+  { href: '/custom',    label: 'Custom Orders' },
+  { href: '/about',     label: 'About' },
   { href: '/contact',   label: 'Contact Us' },
 ]
 
@@ -122,9 +124,17 @@ export function Footer({ content = {} }: FooterProps) {
           <p className="font-inter text-xs text-cream/40">
             © {new Date().getFullYear()} {copyright}
           </p>
-          <p className="font-cormorant text-sm text-cream/40">
-            Crafted with love.
-          </p>
+          <div className="flex items-center gap-5">
+            <Link href="/privacy" className="font-inter text-xs text-cream/30 hover:text-cream/60 transition-colors">
+              Privacy Policy
+            </Link>
+            <Link href="/terms" className="font-inter text-xs text-cream/30 hover:text-cream/60 transition-colors">
+              Terms & Conditions
+            </Link>
+            <p className="font-cormorant text-sm text-cream/40">
+              Crafted with love.
+            </p>
+          </div>
         </div>
       </div>
     </footer>

@@ -6,6 +6,13 @@ import { Navbar } from '@/components/layout/navbar'
 import { Footer } from '@/components/layout/footer'
 import { Toaster } from '@/components/ui/toaster'
 import { getSiteContent } from '@/lib/data/site-content-db'
+import { FloatingWhatsApp } from '@/components/ui/floating-whatsapp'
+import { ScrollProgress } from '@/components/ui/scroll-progress'
+import { BackToTop } from '@/components/ui/back-to-top'
+import { CustomCursor } from '@/components/ui/custom-cursor'
+import { IntroScreen } from '@/components/ui/intro-screen'
+import { CookieConsent } from '@/components/ui/cookie-consent'
+import { PageTransition } from '@/components/ui/page-transition'
 
 const josefinSans = Josefin_Sans({
   subsets: ['latin'],
@@ -36,13 +43,24 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const content = await getSiteContent()
+  const waNumber = content.contact_whatsapp || process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '1XXXXXXXXXX'
+  const waMessage = content.footer_whatsapp_message || "Hi Lorva! I'd love to place an order."
+
   return (
     <html lang="en" className={`${josefinSans.variable} ${montserrat.variable}`}>
       <body className="font-inter antialiased bg-cream text-deep-cocoa">
         <SmoothScrollProvider>
+          <IntroScreen />
+          <ScrollProgress />
+          <CustomCursor />
           <Navbar content={content} />
-          <main>{children}</main>
+          <PageTransition>
+            <main>{children}</main>
+          </PageTransition>
           <Footer content={content} />
+          <FloatingWhatsApp phoneNumber={waNumber} message={waMessage} />
+          <BackToTop />
+          <CookieConsent />
           <Toaster />
         </SmoothScrollProvider>
       </body>
