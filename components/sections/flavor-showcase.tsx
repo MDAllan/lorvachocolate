@@ -88,7 +88,7 @@ export function FlavorShowcase() {
 
       {/* Bonbon image area — no caption, no frame */}
       <div
-        className="w-52 md:w-[480px]"
+        className="w-56 md:w-[480px]"
         style={{ position: 'relative', aspectRatio: '6 / 7' }}
         onMouseEnter={() => { setIsHovered(true); isPausedRef.current = true }}
         onMouseLeave={() => { setIsHovered(false); isPausedRef.current = false }}
@@ -159,8 +159,7 @@ export function FlavorShowcase() {
         </AnimatePresence>
       </div>
 
-      {/* Flavor title — fades in/out in sync with bonbon (desktop only) */}
-      <div className="hidden md:block">
+      {/* Flavor title — fades in/out in sync with bonbon */}
       <AnimatePresence mode="wait">
         <motion.div
           key={flavor.id + '-label'}
@@ -194,7 +193,6 @@ export function FlavorShowcase() {
           </p>
         </motion.div>
       </AnimatePresence>
-      </div>
 
     </div>
   )
