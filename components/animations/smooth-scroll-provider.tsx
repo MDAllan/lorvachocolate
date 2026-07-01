@@ -14,10 +14,10 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
     const init = async () => {
       const Lenis = (await import('lenis')).default
       lenisInstance = new Lenis({
-        duration: 1.2,
+        duration: 0.7,
         easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true,
-        touchMultiplier: 2,
+        touchMultiplier: 1.5,
       })
 
       function raf(time: number) {

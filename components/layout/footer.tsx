@@ -4,8 +4,7 @@ import Image from 'next/image'
 const QUICK_LINK_DEFAULTS = [
   { href: '/products',  label: 'Shop Bonbons' },
   { href: '/breakable', label: 'Breakable Hearts' },
-  { href: '/favors',    label: 'Favors & Gifts' },
-  { href: '/custom',    label: 'Custom Orders' },
+  { href: '/favors',    label: 'Favours & Custom' },
   { href: '/about',     label: 'About' },
   { href: '/contact',   label: 'Contact Us' },
 ]
@@ -38,12 +37,10 @@ export function Footer({ content = {} }: FooterProps) {
     label: content[`footer_link_${i + 1}_label`] ?? d.label,
   }))
 
-  const waNumber = content.contact_whatsapp || process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '1XXXXXXXXXX'
-  const waMessage = encodeURIComponent(content.footer_whatsapp_message || "Hi Lorva! I'd love to place an order.")
   const tagline = content.footer_tagline || "Crafted slowly. Savored deeply.\nPremium artisan chocolate made with intention."
   const instagramUrl = content.footer_instagram_url || 'https://instagram.com'
   const tiktokUrl = content.footer_tiktok_url || 'https://tiktok.com'
-  const contactBlurb = content.footer_contact_blurb || 'Order via WhatsApp for the fastest response. We respond same-day.'
+  const contactBlurb = content.footer_contact_blurb || 'We respond same-day. Reach out for custom orders, gifting inquiries, or any questions.'
   const copyright = content.footer_copyright || 'Lorva Fine Chocolate. All rights reserved.'
 
   return (
@@ -108,14 +105,6 @@ export function Footer({ content = {} }: FooterProps) {
               <p className="font-inter text-sm text-cream/60 leading-relaxed">
                 {contactBlurb}
               </p>
-              <a
-                href={`https://wa.me/${waNumber}?text=${waMessage}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block px-5 py-2.5 border border-champagne-gold text-champagne-gold hover:bg-champagne-gold hover:text-deep-cocoa rounded-none font-inter text-[11px] tracking-[0.4em] uppercase transition-all duration-500"
-              >
-                WHATSAPP US
-              </a>
             </div>
           </div>
         </div>
