@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Josefin_Sans, Montserrat } from 'next/font/google'
+import { headers } from 'next/headers'
 import './globals.css'
 import { SmoothScrollProvider } from '@/components/animations/smooth-scroll-provider'
 import { Navbar } from '@/components/layout/navbar'
@@ -11,6 +12,8 @@ import { BackToTop } from '@/components/ui/back-to-top'
 import { IntroScreen } from '@/components/ui/intro-screen'
 import { CookieConsent } from '@/components/ui/cookie-consent'
 import { PageTransition } from '@/components/ui/page-transition'
+import { AdminEditBar } from '@/components/admin/admin-edit-bar'
+import { auth } from '@/lib/auth/config'
 
 const josefinSans = Josefin_Sans({
   subsets: ['latin'],
@@ -40,11 +43,16 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const content = await getSiteContent()
+  const [content, session] = await Promise.all([
+    getSiteContent(),
+    auth.api.getSession({ headers: await headers() }).catch(() => null),
+  ])
+  const isAdmin = !!session
 
   return (
     <html lang="en" className={`${josefinSans.variable} ${montserrat.variable}`}>
-      <body className="font-inter antialiased bg-cream text-deep-cocoa">
+      <body className={`font-inter antialiased bg-cream text-deep-cocoa ${isAdmin ? 'pt-8' : ''}`}>
+        {isAdmin && <AdminEditBar />}
         <SmoothScrollProvider>
           <IntroScreen />
           <ScrollProgress />

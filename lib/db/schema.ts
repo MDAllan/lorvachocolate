@@ -116,7 +116,49 @@ export const orderRequests = pgTable('order_requests', {
   notes: text('notes'),
   total: decimal('total', { precision: 10, scale: 2 }),
   status: text('status').default('new').notNull(),
+  orderType: text('order_type').default('custom').notNull(),
+  orderPayload: text('order_payload'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+})
+
+export const ingredients = pgTable('ingredients', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  name: text('name').notNull(),
+  unit: text('unit').notNull(),
+  costPerUnit: decimal('cost_per_unit', { precision: 10, scale: 4 }).notNull(),
+  notes: text('notes'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+})
+
+export const recipes = pgTable('recipes', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  name: text('name').notNull(),
+  productType: text('product_type'),
+  description: text('description'),
+  yieldQty: integer('yield_qty').default(1).notNull(),
+  yieldUnit: text('yield_unit').default('pieces').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+})
+
+export const recipeIngredients = pgTable('recipe_ingredients', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  recipeId: uuid('recipe_id').notNull().references(() => recipes.id, { onDelete: 'cascade' }),
+  ingredientId: uuid('ingredient_id').notNull().references(() => ingredients.id, { onDelete: 'restrict' }),
+  quantity: decimal('quantity', { precision: 10, scale: 4 }).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+})
+
+export const orderCostOverrides = pgTable('order_cost_overrides', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  orderRequestId: uuid('order_request_id').notNull().references(() => orderRequests.id, { onDelete: 'cascade' }),
+  recipeId: uuid('recipe_id').references(() => recipes.id, { onDelete: 'set null' }),
+  unitCount: integer('unit_count').notNull().default(1),
+  computedCost: decimal('computed_cost', { precision: 10, scale: 2 }),
+  manualCost: decimal('manual_cost', { precision: 10, scale: 2 }),
+  notes: text('notes'),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 })
 

@@ -2,15 +2,17 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { Package, Images, FileText, ShoppingBag, LogOut } from 'lucide-react'
+import { Package, Images, FileText, ShoppingBag, LogOut, LayoutDashboard, Calculator, ExternalLink } from 'lucide-react'
 import { signOut } from '@/lib/auth/client'
 import { cn } from '@/lib/utils'
 
 const NAV = [
-  { href: '/admin/products', label: 'Products', icon: Package },
-  { href: '/admin/orders', label: 'Orders', icon: ShoppingBag },
-  { href: '/admin/gallery', label: 'Gallery', icon: Images },
-  { href: '/admin/content', label: 'Site Content', icon: FileText },
+  { href: '/admin',          label: 'Dashboard',         icon: LayoutDashboard, exact: true },
+  { href: '/admin/products', label: 'Products',           icon: Package },
+  { href: '/admin/orders',   label: 'Orders',             icon: ShoppingBag },
+  { href: '/admin/costs',    label: 'Costs & Recipes',    icon: Calculator },
+  { href: '/admin/gallery',  label: 'Gallery',            icon: Images },
+  { href: '/admin/content',  label: 'Site Content',       icon: FileText },
 ]
 
 export function AdminSidebar() {
@@ -27,13 +29,13 @@ export function AdminSidebar() {
       {/* Brand */}
       <div className="px-6 py-7 border-b border-white/10">
         <p className="font-cormorant text-xl text-cream tracking-widest">LORVA</p>
-        <p className="font-inter text-[9px] tracking-[0.4em] text-champagne-gold/60 uppercase mt-0.5">Admin</p>
+        <p className="font-inter text-[9px] tracking-[0.4em] text-champagne-gold/60 uppercase mt-0.5">Admin Portal</p>
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 px-3 py-5 space-y-1">
-        {NAV.map(({ href, label, icon: Icon }) => {
-          const active = pathname.startsWith(href)
+      <nav className="flex-1 px-3 py-5 space-y-0.5">
+        {NAV.map(({ href, label, icon: Icon, exact }) => {
+          const active = exact ? pathname === href : pathname.startsWith(href)
           return (
             <Link
               key={href}
@@ -52,8 +54,21 @@ export function AdminSidebar() {
         })}
       </nav>
 
+      {/* View website */}
+      <div className="px-3 pb-2 border-t border-white/10 pt-3">
+        <a
+          href="/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex w-full items-center gap-3 px-3 py-2.5 rounded-sm font-inter text-sm text-champagne-gold/70 hover:text-champagne-gold hover:bg-white/5 transition-colors duration-200"
+        >
+          <ExternalLink className="h-4 w-4 shrink-0" />
+          View Website
+        </a>
+      </div>
+
       {/* Sign out */}
-      <div className="px-3 py-5 border-t border-white/10">
+      <div className="px-3 pb-5">
         <button
           onClick={handleSignOut}
           className="flex w-full items-center gap-3 px-3 py-2.5 rounded-sm font-inter text-sm text-cream/50 hover:text-cream hover:bg-white/10 transition-colors duration-200"

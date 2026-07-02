@@ -4,12 +4,16 @@ import { auth } from '@/lib/auth/config'
 import { AdminSidebar } from '@/components/admin/sidebar'
 import { AdminTopbar } from '@/components/admin/topbar'
 import { Toaster } from '@/components/ui/toaster'
+import { ProfitCalculator } from '@/components/admin/profit-calculator'
+import { getProfitSummary } from '@/lib/data/profit-db'
 
 export const metadata = { title: 'Admin | Lorva Fine Chocolate' }
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const session = await auth.api.getSession({ headers: await headers() })
   if (!session) redirect('/admin/login')
+
+  const profitData = await getProfitSummary()
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -20,6 +24,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
           {children}
         </main>
       </div>
+      <ProfitCalculator initialData={profitData} />
       <Toaster />
     </div>
   )

@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { breakableOrderSchema } from '@/lib/validations/breakable-order'
+import { db } from '@/lib/db/client'
+import { orderRequests } from '@/lib/db/schema'
 
 const OWNER_EMAIL = process.env.OWNER_EMAIL ?? 'your-email@example.com'
 const FROM_EMAIL = process.env.FROM_EMAIL ?? 'Lorva Chocolate <orders@lorvachocolate.com>'
@@ -37,12 +39,33 @@ export async function POST(request: Request) {
        ${d.notes ? `<p><span class="label">Notes:</span> ${d.notes}</p>` : ''}`
     )
 
-    await resend.emails.send({
-      from: FROM_EMAIL,
-      to: OWNER_EMAIL,
-      subject: `Breakable ${d.shape} Order — ${d.name} (qty: ${d.quantity})`,
-      html,
-    })
+    await Promise.all([
+      resend.emails.send({
+        from: FROM_EMAIL,
+        to: OWNER_EMAIL,
+        subject: `Breakable ${d.shape} Order — ${d.name} (qty: ${d.quantity})`,
+        html,
+      }),
+      db.insert(orderRequests).values({
+        customerName: d.name,
+        customerEmail: d.email,
+        customerPhone: d.phone,
+        productInterest: `Breakable ${d.shape.charAt(0).toUpperCase() + d.shape.slice(1)} — ${d.shellFlavor} chocolate`,
+        boxSize: d.shape,
+        quantity: d.quantity,
+        notes: [
+          `Occasion: ${d.occasion}${d.occasionOther ? ` (${d.occasionOther})` : ''}`,
+          d.fillings?.length ? `Fillings: ${d.fillings.join(', ')}` : '',
+          d.dropOffItems ? `Drop-off items: ${d.dropOffDescription ?? 'yes'}` : '',
+          d.comment ?? '',
+          d.notes ?? '',
+        ].filter(Boolean).join('\n'),
+        total: null,
+        status: 'new',
+        orderType: 'breakable',
+        orderPayload: JSON.stringify(d),
+      }),
+    ])
 
     return NextResponse.json({ success: true })
   } catch (error) {

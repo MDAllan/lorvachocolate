@@ -6,9 +6,13 @@ import { ChevronRight } from 'lucide-react'
 
 const LABELS: Record<string, string> = {
   products: 'Products',
+  orders: 'Orders',
+  costs: 'Costs & Recipes',
   gallery: 'Gallery',
   content: 'Site Content',
   new: 'New',
+  ingredients: 'Ingredients',
+  recipes: 'Recipes',
 }
 
 export function AdminTopbar({ userName }: { userName: string }) {

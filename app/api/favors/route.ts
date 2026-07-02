@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { favourOrderSchema } from '@/lib/validations/favour-order'
 import { BONBON_COLLECTIONS } from '@/lib/data/catalog'
+import { db } from '@/lib/db/client'
+import { orderRequests } from '@/lib/db/schema'
 
 const OWNER_EMAIL = process.env.OWNER_EMAIL ?? 'your-email@example.com'
 const FROM_EMAIL  = process.env.FROM_EMAIL  ?? 'Lorva Chocolate <orders@lorvachocolate.com>'
@@ -83,13 +85,34 @@ export async function POST(request: Request) {
       }
     }
 
-    await resend.emails.send({
-      from: FROM_EMAIL,
-      to: OWNER_EMAIL,
-      subject: `Favour Order — ${d.name} (${d.numberOfBoxes} boxes, ${d.occasion}, ${d.eventDate})`,
-      html,
-      ...(attachments.length > 0 ? { attachments } : {}),
-    })
+    await Promise.all([
+      resend.emails.send({
+        from: FROM_EMAIL,
+        to: OWNER_EMAIL,
+        subject: `Favour Order — ${d.name} (${d.numberOfBoxes} boxes, ${d.occasion}, ${d.eventDate})`,
+        html,
+        ...(attachments.length > 0 ? { attachments } : {}),
+      }),
+      db.insert(orderRequests).values({
+        customerName: d.name,
+        customerEmail: d.email,
+        customerPhone: d.phone,
+        productInterest: `Favour Order — ${d.numberOfBoxes} boxes × ${d.bonbonsPerBox}pc`,
+        boxSize: d.bonbonsPerBox,
+        quantity: d.numberOfBoxes,
+        notes: [
+          `Occasion: ${d.occasion}${d.occasionOther ? ` (${d.occasionOther})` : ''}`,
+          `Event Date: ${d.eventDate}`,
+          `Colour Theme: ${d.colorTheme}`,
+          d.dietary ? `Dietary: ${d.dietary}` : '',
+          d.notes ?? '',
+        ].filter(Boolean).join('\n'),
+        total: totalPrice.toFixed(2),
+        status: 'new',
+        orderType: 'favour',
+        orderPayload: JSON.stringify(d),
+      }),
+    ])
 
     return NextResponse.json({ success: true })
   } catch (error) {

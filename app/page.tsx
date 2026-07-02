@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
-import { LorvaHero } from '@/components/sections/lorva-hero-framer'
+import { headers } from 'next/headers'
+import { Hero } from '@/components/sections/hero'
 import { FeaturedProducts } from '@/components/sections/featured-products'
 import { BrandManifesto } from '@/components/sections/brand-manifesto'
 import { CraftProcess } from '@/components/sections/craft-process'
@@ -11,6 +12,8 @@ import { NewsletterSection } from '@/components/sections/newsletter-section'
 import { InstagramTeaser } from '@/components/sections/instagram-teaser'
 import { getFeaturedProducts } from '@/lib/data/products-db'
 import { getSiteContent } from '@/lib/data/site-content-db'
+import { EditableSection } from '@/components/admin/editable-section'
+import { auth } from '@/lib/auth/config'
 
 export async function generateMetadata(): Promise<Metadata> {
   const content = await getSiteContent()
@@ -21,24 +24,38 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function HomePage() {
-  const [featuredProducts, content] = await Promise.all([
+  const [featuredProducts, content, session] = await Promise.all([
     getFeaturedProducts(),
     getSiteContent(),
+    auth.api.getSession({ headers: await headers() }).catch(() => null),
   ])
 
+  const isAdmin = !!session
   const instagramUrl = content.footer_instagram_url || 'https://instagram.com'
 
   return (
     <>
-      <LorvaHero content={content} />
+      <EditableSection isAdmin={isAdmin} section="hero" label="Hero">
+        <Hero content={content} />
+      </EditableSection>
       <StatsBar />
-      <FeaturedProducts products={featuredProducts} content={content} />
-      <BrandManifesto content={content} />
-      <CraftProcess content={content} />
+      <EditableSection isAdmin={isAdmin} section="featured" label="Featured Products">
+        <FeaturedProducts products={featuredProducts} content={content} />
+      </EditableSection>
+      <EditableSection isAdmin={isAdmin} section="manifesto" label="Brand Story">
+        <BrandManifesto content={content} />
+      </EditableSection>
+      <EditableSection isAdmin={isAdmin} section="process" label="Craft Process">
+        <CraftProcess content={content} />
+      </EditableSection>
       <Testimonials />
-      <HomepageGalleryTeaser content={content} />
+      <EditableSection isAdmin={isAdmin} section="gallery" label="Gallery Teaser">
+        <HomepageGalleryTeaser content={content} />
+      </EditableSection>
       <NewsletterSection />
-      <ServiceHighlights content={content} />
+      <EditableSection isAdmin={isAdmin} section="services" label="Services">
+        <ServiceHighlights content={content} />
+      </EditableSection>
       <InstagramTeaser instagramUrl={instagramUrl} />
     </>
   )
