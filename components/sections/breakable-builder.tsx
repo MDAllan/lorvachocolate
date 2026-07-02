@@ -315,7 +315,7 @@ function ShapePreview({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.85 }}
             transition={{ type: 'spring', stiffness: 260, damping: 24 }}
-            className="w-full max-w-[260px] sm:max-w-[540px] mx-auto"
+            className="w-full max-w-[160px] sm:max-w-[380px] mx-auto"
           >
             {/* Shake wrapper */}
             <motion.div
@@ -522,52 +522,54 @@ function ShapePreview({
 
       </AnimatePresence>
 
-      {/* Price row */}
-      {shape && shellId && price != null && (
-        <motion.div
-          key={price}
-          initial={{ opacity: 0, y: 4 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="space-y-0.5 text-center"
-        >
-          <p className="font-inter text-[9px] tracking-[0.3em] text-taupe uppercase">Estimated Price</p>
-          <p className="font-cormorant text-3xl text-deep-cocoa">${price}</p>
-          <p className="font-inter text-[9px] text-taupe/60">Deposit required to confirm</p>
-        </motion.div>
-      )}
-
-      {/* Hammer — shows whenever sealed */}
-      {shape && shellId && sealed && (
-        <div className="flex flex-col items-center gap-1 select-none">
-          <motion.div
-            ref={hammerRef}
-            drag
-            dragSnapToOrigin
-            dragElastic={0.25}
-            dragMomentum={false}
-            onDragStart={() => setIsDragging(true)}
-            onDragEnd={handleHammerDragEnd}
-            whileDrag={{ scale: 1.2, rotate: -70, cursor: 'grabbing' }}
-            animate={isDragging ? {} : { rotate: -20 }}
-            whileHover={{ rotate: -35, scale: 1.1 }}
-            style={{ cursor: 'grab', filter: 'drop-shadow(0 5px 12px rgba(0,0,0,0.25))', zIndex: 50 }}
-          >
-            <img src="/hammer.png" alt="hammer" className="w-32 h-32 object-contain" draggable={false} />
-          </motion.div>
-          <span className="font-inter text-[9px] tracking-[0.25em] text-taupe/50 uppercase">
-            {crackPhase !== 'idle' ? 'Cracking...' : 'Drag to crack'}
-          </span>
+      {/* Price (left) + Hammer (right) row */}
+      {shape && shellId && (
+        <div className="flex items-center w-full px-2 sm:px-3">
+          {price != null && (
+            <motion.div
+              key={price}
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="space-y-0.5"
+            >
+              <p className="font-inter text-[8px] sm:text-[9px] tracking-[0.3em] text-taupe uppercase">Estimated Price</p>
+              <p className="font-cormorant text-2xl sm:text-3xl text-deep-cocoa">${price}</p>
+              <p className="font-inter text-[8px] sm:text-[9px] text-taupe/60">Deposit to confirm</p>
+            </motion.div>
+          )}
+          {sealed && (
+            <div className="ml-auto flex flex-col items-center gap-0.5 select-none">
+              <motion.div
+                ref={hammerRef}
+                drag
+                dragSnapToOrigin
+                dragElastic={0.25}
+                dragMomentum={false}
+                onDragStart={() => setIsDragging(true)}
+                onDragEnd={handleHammerDragEnd}
+                whileDrag={{ scale: 1.2, rotate: -70, cursor: 'grabbing' }}
+                animate={isDragging ? {} : { rotate: -20 }}
+                whileHover={{ rotate: -35, scale: 1.1 }}
+                style={{ cursor: 'grab', filter: 'drop-shadow(0 5px 12px rgba(0,0,0,0.25))', zIndex: 50 }}
+              >
+                <img src="/hammer.png" alt="hammer" className="w-16 h-16 sm:w-24 sm:h-24 object-contain" draggable={false} />
+              </motion.div>
+              <span className="font-inter text-[7px] sm:text-[9px] tracking-[0.25em] text-taupe/50 uppercase">
+                {crackPhase !== 'idle' ? 'Cracking...' : 'Drag to crack'}
+              </span>
+            </div>
+          )}
         </div>
       )}
 
       {/* Live caption */}
-      <div className="min-h-5 text-center px-4 w-full">
+      <div className="min-h-4 text-center px-4 w-full">
         {shape && (
           <motion.p
             key={`${shape}-${shellId}-${fillingIds.length}`}
             initial={{ opacity: 0, y: 4 }}
             animate={{ opacity: 1, y: 0 }}
-            className="font-cormorant italic text-lg text-deep-cocoa"
+            className="font-cormorant italic text-sm sm:text-lg text-deep-cocoa"
           >
             {shellId ? SHELLS_CONFIG[shellId]?.label : 'Choose your shell'}
             {' '}{shape}
@@ -697,11 +699,11 @@ export function BreakableBuilder() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
       <div className="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-start">
 
         {/* LEFT — preview (top on mobile, left on desktop) */}
-        <div className="lg:sticky lg:top-24 mb-6 lg:mb-0">
+        <div className="lg:sticky lg:top-24 mb-3 lg:mb-0">
           <ShapePreview
             shape={values.shape}
             shellId={values.shellFlavor}
@@ -712,12 +714,12 @@ export function BreakableBuilder() {
         </div>
 
         {/* RIGHT — form steps */}
-        <div>
+        <div className="pb-16 lg:pb-0">
           <div className="border-t border-taupe/10 lg:border-t-0" />
 
           {/* Step Indicator */}
-          <div className="pt-4 mb-6">
-            <div className="flex items-center justify-between mb-3">
+          <div className="pt-2 lg:pt-4 mb-3 lg:mb-6">
+            <div className="flex items-center justify-between mb-2 lg:mb-3">
               <span className="font-inter text-[10px] tracking-[0.45em] text-taupe uppercase">
                 Step {String(step + 1).padStart(2, '0')} / {String(STEPS.length).padStart(2, '0')} — {STEPS[step]}
               </span>
@@ -741,9 +743,9 @@ export function BreakableBuilder() {
 
               {/* Step 0 — Shape */}
               {step === 0 && (
-                <div className="space-y-5">
-                  <h2 className="font-cormorant text-3xl text-deep-cocoa">Choose Your Shape</h2>
-                  <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-3 lg:space-y-5">
+                  <h2 className="font-cormorant text-2xl lg:text-3xl text-deep-cocoa">Choose Your Shape</h2>
+                  <div className="grid grid-cols-2 gap-3 lg:gap-4">
                     {[
                       { id: 'heart' as const, label: 'Heart',  desc: 'Dramatic and romantic' },
                       { id: 'ball'  as const, label: 'Sphere', desc: 'Perfect for any occasion' },
@@ -753,27 +755,27 @@ export function BreakableBuilder() {
                         type="button"
                         onClick={() => form.setValue('shape', id)}
                         className={cn(
-                          'py-6 border text-center transition-all duration-300',
+                          'py-4 lg:py-6 border text-center transition-all duration-300',
                           values.shape === id
                             ? 'border-champagne-gold bg-champagne-gold/5'
                             : 'border-taupe/20 hover:border-taupe/50 bg-cream',
                         )}
                       >
-                        <div className="mb-3">
+                        <div className="mb-2 lg:mb-3">
                           {id === 'heart' ? (
-                            <svg viewBox="0 0 48 48" className="w-10 h-10 mx-auto" fill="currentColor"
+                            <svg viewBox="0 0 48 48" className="w-8 h-8 lg:w-10 lg:h-10 mx-auto" fill="currentColor"
                               style={{ color: values.shape === id ? '#C9A961' : '#AC9A86' }}>
                               <path d="M24 38 C24 38, 8 27, 8 17 C8 11, 12.5 7, 17 7 C20.5 7, 22.5 10, 24 13 C25.5 10, 27.5 7, 31 7 C35.5 7, 40 11, 40 17 C40 27, 24 38, 24 38Z" />
                             </svg>
                           ) : (
-                            <svg viewBox="0 0 48 48" className="w-10 h-10 mx-auto" fill="currentColor"
+                            <svg viewBox="0 0 48 48" className="w-8 h-8 lg:w-10 lg:h-10 mx-auto" fill="currentColor"
                               style={{ color: values.shape === id ? '#C9A961' : '#AC9A86' }}>
                               <circle cx="24" cy="24" r="17" />
                             </svg>
                           )}
                         </div>
-                        <div className="font-cormorant text-2xl text-deep-cocoa mb-1">{label}</div>
-                        <div className="font-inter text-xs text-taupe">{desc}</div>
+                        <div className="font-cormorant text-xl lg:text-2xl text-deep-cocoa mb-0.5">{label}</div>
+                        <div className="font-inter text-[10px] lg:text-xs text-taupe">{desc}</div>
                       </button>
                     ))}
                   </div>
@@ -1031,9 +1033,9 @@ export function BreakableBuilder() {
                 </div>
               )}
 
-              {/* Navigation — steps 0–3 */}
+              {/* Navigation — steps 0–3 (desktop only; mobile uses sticky bar below) */}
               {step < 4 && (
-                <div className="flex justify-between mt-12 pt-8 border-t border-taupe/10">
+                <div className="hidden lg:flex justify-between mt-12 pt-8 border-t border-taupe/10">
                   <button
                     type="button"
                     onClick={() => setStep(s => Math.max(0, s - 1))}
@@ -1058,6 +1060,31 @@ export function BreakableBuilder() {
         </div>
 
       </div>
+
+      {/* Sticky mobile Continue bar (steps 0–3 only) */}
+      {step < 4 && (
+        <div className="fixed bottom-0 inset-x-0 z-40 lg:hidden bg-[#F5E8D0]/95 backdrop-blur-sm border-t border-taupe/15 px-4 py-2 flex items-center justify-between">
+          <button
+            type="button"
+            onClick={() => setStep(s => Math.max(0, s - 1))}
+            disabled={step === 0}
+            className="font-inter text-[10px] tracking-[0.35em] uppercase text-taupe hover:text-deep-cocoa transition-colors disabled:opacity-30"
+          >
+            ← Back
+          </button>
+          <span className="font-inter text-[9px] tracking-[0.2em] text-taupe/50 uppercase">
+            {step + 1} / {STEPS.length}
+          </span>
+          <button
+            type="button"
+            onClick={() => setStep(s => s + 1)}
+            disabled={!canProceed()}
+            className="font-inter text-[10px] tracking-[0.35em] uppercase px-5 py-2 bg-deep-cocoa text-cream hover:bg-cocoa-wine transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+          >
+            Continue →
+          </button>
+        </div>
+      )}
     </div>
   )
 }
