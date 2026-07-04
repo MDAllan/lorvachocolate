@@ -33,10 +33,10 @@ function FlavorCard({ flavor, collection }: { flavor: BonbonFlavor; collection: 
         </div>
       )}
 
-      <div className="p-5 flex flex-col flex-1">
-        {/* Tags */}
+      <div className="p-3 sm:p-5 flex flex-col flex-1">
+        {/* Tags — hidden on mobile to save space */}
         {flavor.tags && flavor.tags.length > 0 && (
-          <div className="flex gap-1.5 flex-wrap mb-2">
+          <div className="hidden sm:flex gap-1.5 flex-wrap mb-2">
             {flavor.tags.map(tag => (
               <span key={tag} className="font-inter text-[8px] tracking-[0.3em] uppercase text-taupe border border-taupe/25 px-1.5 py-0.5">
                 {tag}
@@ -45,11 +45,11 @@ function FlavorCard({ flavor, collection }: { flavor: BonbonFlavor; collection: 
           </div>
         )}
 
-        <h3 className="font-cormorant text-2xl text-deep-cocoa mb-2 group-hover:text-cocoa-wine transition-colors duration-300">
+        <h3 className="font-cormorant text-lg sm:text-2xl text-deep-cocoa mb-1 sm:mb-2 group-hover:text-cocoa-wine transition-colors duration-300 leading-tight">
           {flavor.name}
         </h3>
 
-        <p className="font-inter text-sm text-taupe leading-relaxed mb-5 flex-1">
+        <p className="font-inter text-[11px] sm:text-sm text-taupe leading-relaxed mb-3 sm:mb-5 flex-1 line-clamp-3 sm:line-clamp-none">
           {flavor.description}
         </p>
 
@@ -60,10 +60,10 @@ function FlavorCard({ flavor, collection }: { flavor: BonbonFlavor; collection: 
           price16={collection.price16}
         />
 
-        <div className="mt-4">
+        <div className="mt-3 sm:mt-4">
           <Dialog>
             <DialogTrigger asChild>
-              <button className="w-full py-3 border border-deep-cocoa text-deep-cocoa font-inter text-[11px] tracking-[0.35em] uppercase hover:bg-deep-cocoa hover:text-cream transition-all duration-500">
+              <button className="w-full py-2.5 sm:py-3 border border-deep-cocoa text-deep-cocoa font-inter text-[10px] sm:text-[11px] tracking-[0.25em] sm:tracking-[0.35em] uppercase hover:bg-deep-cocoa hover:text-cream transition-all duration-500">
                 Order Now
               </button>
             </DialogTrigger>
@@ -86,28 +86,28 @@ function FlavorCard({ flavor, collection }: { flavor: BonbonFlavor; collection: 
 function BarCard({ bar }: { bar: ChocolateBar }) {
   return (
     <div className="group flex flex-col bg-cream border border-taupe/15 hover:border-taupe/30 hover:shadow-xl transition-all duration-500">
-      <div className="p-6 flex flex-col flex-1">
-        <div className="mb-2">
-          <span className="font-inter text-[9px] tracking-[0.4em] uppercase text-taupe border border-taupe/30 px-2 py-1">
+      <div className="p-3 sm:p-6 flex flex-col flex-1">
+        <div className="mb-1.5 sm:mb-2">
+          <span className="font-inter text-[8px] sm:text-[9px] tracking-[0.3em] sm:tracking-[0.4em] uppercase text-taupe border border-taupe/30 px-1.5 sm:px-2 py-0.5 sm:py-1">
             Bar
           </span>
         </div>
-        <h3 className="font-cormorant text-2xl text-deep-cocoa mb-2 group-hover:text-cocoa-wine transition-colors duration-300">
+        <h3 className="font-cormorant text-lg sm:text-2xl text-deep-cocoa mb-1 sm:mb-2 leading-tight group-hover:text-cocoa-wine transition-colors duration-300">
           {bar.name}
         </h3>
-        <p className="font-inter text-sm text-taupe leading-relaxed mb-4 flex-1">
+        <p className="font-inter text-[11px] sm:text-sm text-taupe leading-relaxed mb-3 sm:mb-4 flex-1 line-clamp-3 sm:line-clamp-none">
           {bar.description}
         </p>
 
-        <div className="flex items-baseline gap-2 mb-1">
-          <span className="font-cormorant text-3xl text-deep-cocoa">${bar.price.toFixed(2)}</span>
-          <span className="font-inter text-[10px] text-taupe tracking-widest uppercase">per bar</span>
+        <div className="flex items-baseline gap-1 sm:gap-2 mb-1">
+          <span className="font-cormorant text-2xl sm:text-3xl text-deep-cocoa">${bar.price.toFixed(2)}</span>
+          <span className="font-inter text-[9px] sm:text-[10px] text-taupe tracking-widest uppercase">/ bar</span>
         </div>
 
-        <div className="mt-5">
+        <div className="mt-3 sm:mt-5">
           <Dialog>
             <DialogTrigger asChild>
-              <button className="w-full py-3 border border-deep-cocoa text-deep-cocoa font-inter text-[11px] tracking-[0.35em] uppercase hover:bg-deep-cocoa hover:text-cream transition-all duration-500">
+              <button className="w-full py-2.5 sm:py-3 border border-deep-cocoa text-deep-cocoa font-inter text-[10px] sm:text-[11px] tracking-[0.25em] sm:tracking-[0.35em] uppercase hover:bg-deep-cocoa hover:text-cream transition-all duration-500">
                 Order Now
               </button>
             </DialogTrigger>
@@ -260,12 +260,12 @@ export function ProductsPageContent() {
                   <div>
                     <CollectionHeader collection={collection} />
 
-                    {/* Mobile: horizontal scroll | Desktop: grid */}
-                    <div className="flex overflow-x-auto snap-x snap-mandatory gap-5 pb-4 -mx-6 px-6 sm:grid sm:grid-cols-2 sm:overflow-visible sm:mx-0 sm:px-0 lg:grid-cols-3 sm:gap-6 sm:pb-0">
+                    {/* Mobile: 2-up horizontal scroll | Desktop: grid */}
+                    <div className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-4 -mx-6 px-6 sm:grid sm:grid-cols-2 sm:overflow-visible sm:mx-0 sm:px-0 lg:grid-cols-3 sm:gap-6 sm:pb-0">
                       {collection.flavors.map((flavor, fi) => (
                         <motion.div
                           key={flavor.slug}
-                          className="snap-start w-[82vw] shrink-0 sm:w-auto"
+                          className="snap-start w-[45vw] shrink-0 sm:w-auto"
                           initial={{ opacity: 0, y: 20 }}
                           whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true }}
@@ -302,10 +302,11 @@ export function ProductsPageContent() {
             <span className="font-inter text-xs text-taupe shrink-0">Individual bars</span>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-4 -mx-6 px-6 sm:grid sm:grid-cols-2 sm:overflow-visible sm:mx-0 sm:px-0 lg:grid-cols-4 sm:gap-6 sm:pb-0">
             {CHOCOLATE_BARS.map((bar, i) => (
               <motion.div
                 key={bar.slug}
+                className="snap-start w-[45vw] shrink-0 sm:w-auto"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}

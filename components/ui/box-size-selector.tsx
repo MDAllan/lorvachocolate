@@ -23,7 +23,7 @@ export function BoxSizeSelector({ value, onChange, price12, price16 }: BoxSizeSe
           type="button"
           onClick={() => onChange(id)}
           className={cn(
-            'flex-1 py-3 px-4 rounded-none border font-inter text-sm transition-all duration-300',
+            'flex-1 py-2 px-2 sm:py-3 sm:px-4 rounded-none border font-inter text-xs sm:text-sm transition-all duration-300',
             value === id
               ? 'border-deep-cocoa bg-deep-cocoa text-cream'
               : 'border-taupe/30 bg-transparent text-deep-cocoa hover:border-deep-cocoa/50'
