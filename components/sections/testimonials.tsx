@@ -132,9 +132,14 @@ export function Testimonials() {
               <motion.div
                 key={page}
                 custom={direction}
-                initial={(d: number) => ({ x: d > 0 ? 80 : -80, opacity: 0 })}
-                animate={{ x: 0, opacity: 1 }}
-                exit={(d: number) => ({ x: d > 0 ? -80 : 80, opacity: 0 })}
+                variants={{
+                  enter: (d: number) => ({ x: d > 0 ? 80 : -80, opacity: 0 }),
+                  center: { x: 0, opacity: 1 },
+                  exit: (d: number) => ({ x: d > 0 ? -80 : 80, opacity: 0 }),
+                }}
+                initial="enter"
+                animate="center"
+                exit="exit"
                 transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                 className="grid grid-cols-1 md:grid-cols-2 gap-6"
               >
