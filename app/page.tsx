@@ -31,7 +31,7 @@ export default async function HomePage() {
   ])
 
   const isAdmin = !!session
-  const instagramUrl = content.footer_instagram_url || 'https://instagram.com'
+  const instagramUrl = content.footer_instagram_url || 'https://www.instagram.com/lorva.chocolate'
 
   return (
     <>

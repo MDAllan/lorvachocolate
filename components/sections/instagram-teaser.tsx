@@ -6,12 +6,12 @@ import Image from 'next/image'
 
 // A curated set of gallery images to simulate an Instagram grid
 const GRID_IMAGES = [
-  { src: '/gallery/brand-chocolate-drip-dark-v1.png', alt: 'Dark chocolate drip bonbons' },
-  { src: '/gallery/breakable-heart-class-of-2026.png', alt: 'Class of 2026 breakable heart' },
+  { src: '/gallery/chocolates-hearts-favor-boxes.jpg',       alt: 'Chocolate favour boxes' },
+  { src: '/gallery/ruby-roses-box.jpg',                      alt: 'Ruby chocolate roses box' },
   { src: '/gallery/breakable-heart-gender-reveal-white.jpg', alt: 'Gender reveal breakable heart' },
-  { src: '/gallery/breakable-heart-white-gold-leaf.jpg', alt: 'Gold leaf breakable heart' },
-  { src: '/gallery/brand-chocolate-drip-dark-v2.png', alt: 'Assorted bonbon tray' },
-  { src: '/gallery/brand-chocolate-drip-dark-v3.png', alt: 'Dark chocolate collection' },
+  { src: '/gallery/breakable-heart-white-gold-leaf.jpg',     alt: 'Gold leaf breakable heart' },
+  { src: '/gallery/brand-chocolate-drip-dark-v2.png',        alt: 'Assorted bonbon tray' },
+  { src: '/gallery/chocolates-milk-hearts-cupcake-liners.jpg', alt: 'Milk chocolate hearts favour' },
 ]
 
 function InstagramIcon() {
@@ -28,7 +28,7 @@ interface InstagramTeaserProps {
   instagramUrl?: string
 }
 
-export function InstagramTeaser({ instagramUrl = 'https://instagram.com' }: InstagramTeaserProps) {
+export function InstagramTeaser({ instagramUrl = 'https://www.instagram.com/lorva.chocolate' }: InstagramTeaserProps) {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
 

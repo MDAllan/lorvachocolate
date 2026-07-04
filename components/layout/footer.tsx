@@ -38,7 +38,7 @@ export function Footer({ content = {} }: FooterProps) {
   }))
 
   const tagline = content.footer_tagline || "Crafted slowly. Savored deeply.\nPremium artisan chocolate made with intention."
-  const instagramUrl = content.footer_instagram_url || 'https://instagram.com'
+  const instagramUrl = content.footer_instagram_url || 'https://www.instagram.com/lorva.chocolate'
   const tiktokUrl = content.footer_tiktok_url || 'https://tiktok.com'
   const contactBlurb = content.footer_contact_blurb || 'We respond same-day. Reach out for custom orders, gifting inquiries, or any questions.'
   const copyright = content.footer_copyright || 'Lorva Fine Chocolate. All rights reserved.'
