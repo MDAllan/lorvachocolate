@@ -4,9 +4,9 @@ import { useRef, useEffect, useState } from 'react'
 import { useInView } from 'framer-motion'
 
 const STATS = [
-  { value: 500, suffix: '+', label: 'Happy Customers' },
+  { value: 200, suffix: '+', label: 'Happy Customers' },
   { value: 1200, suffix: '+', label: 'Boxes Delivered' },
-  { value: 8, suffix: '', label: 'Unique Flavours' },
+  { value: 12, suffix: '', label: 'Unique Flavours' },
   { value: 100, suffix: '%', label: 'Handcrafted' },
 ]
 
@@ -44,15 +44,15 @@ export function StatsBar() {
   const inView = useInView(ref, { once: true, margin: '-60px' })
 
   return (
-    <section ref={ref} className="bg-cream border-y border-taupe/15 py-14">
-      <div className="max-w-5xl mx-auto px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-0 md:divide-x md:divide-taupe/20">
+    <section ref={ref} className="bg-cream border-y border-taupe/15 py-6 md:py-14">
+      <div className="max-w-5xl mx-auto px-3 md:px-8">
+        <div className="grid grid-cols-4 gap-0 divide-x divide-taupe/20">
           {STATS.map((stat) => (
-            <div key={stat.label} className="flex flex-col items-center gap-2 text-center">
-              <p className="font-cormorant text-4xl md:text-5xl text-cocoa-wine font-light">
+            <div key={stat.label} className="flex flex-col items-center gap-1 md:gap-2 text-center px-1 md:px-4">
+              <p className="font-cormorant text-xl sm:text-3xl md:text-5xl text-cocoa-wine font-light leading-none">
                 <CountUp target={stat.value} suffix={stat.suffix} active={inView} />
               </p>
-              <p className="font-inter text-[11px] tracking-[0.2em] uppercase text-taupe">
+              <p className="font-inter text-[7px] sm:text-[9px] md:text-[11px] tracking-[0.1em] md:tracking-[0.2em] uppercase text-taupe leading-tight">
                 {stat.label}
               </p>
             </div>

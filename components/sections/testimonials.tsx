@@ -88,6 +88,7 @@ export function Testimonials() {
   const [page, setPage] = useState(0)
   const [direction, setDirection] = useState(1)
   const isPaused = useRef(false)
+  const touchStartX = useRef<number | null>(null)
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -102,6 +103,27 @@ export function Testimonials() {
   const goTo = (index: number) => {
     setDirection(index >= page ? 1 : -1)
     setPage(index)
+  }
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX
+    isPaused.current = true
+  }
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return
+    const diff = touchStartX.current - e.changedTouches[0].clientX
+    if (Math.abs(diff) > 35) {
+      if (diff > 0) {
+        setDirection(1)
+        setPage(p => (p + 1) % PAIRS.length)
+      } else {
+        setDirection(-1)
+        setPage(p => (p - 1 + PAIRS.length) % PAIRS.length)
+      }
+    }
+    touchStartX.current = null
+    isPaused.current = false
   }
 
   return (
@@ -126,9 +148,12 @@ export function Testimonials() {
         <div
           onMouseEnter={() => { isPaused.current = true }}
           onMouseLeave={() => { isPaused.current = false }}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          style={{ touchAction: 'pan-y' }}
         >
           <div className="relative overflow-hidden">
-            <AnimatePresence initial={false} custom={direction} mode="wait">
+            <AnimatePresence initial={false} custom={direction}>
               <motion.div
                 key={page}
                 custom={direction}
@@ -140,7 +165,7 @@ export function Testimonials() {
                 initial="enter"
                 animate="center"
                 exit="exit"
-                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                 className="grid grid-cols-1 md:grid-cols-2 gap-6"
               >
                 {PAIRS[page].map((t) => (

@@ -35,6 +35,8 @@ export function HomepageGalleryTeaser({ content = {} }: HomepageGalleryTeaserPro
   const x = useMotionValue(0)
   const [paused, setPaused] = useState(false)
   const trackRef = useRef<HTMLDivElement>(null)
+  const touchStartX = useRef<number | null>(null)
+  const xAtTouchStart = useRef(0)
 
   const doubled = [...images, ...images]
 
@@ -45,6 +47,28 @@ export function HomepageGalleryTeaser({ content = {} }: HomepageGalleryTeaserPro
     const next = x.get() - SPEED
     x.set(next <= -halfWidth ? 0 : next)
   })
+
+  function handleTouchStart(e: React.TouchEvent) {
+    touchStartX.current = e.touches[0].clientX
+    xAtTouchStart.current = x.get()
+    setPaused(true)
+  }
+
+  function handleTouchMove(e: React.TouchEvent) {
+    if (touchStartX.current === null) return
+    const diff = e.touches[0].clientX - touchStartX.current
+    const halfWidth = (trackRef.current?.scrollWidth ?? 0) / 2
+    if (halfWidth === 0) return
+    let next = xAtTouchStart.current + diff
+    if (next <= -halfWidth) next += halfWidth
+    if (next > 0) next -= halfWidth
+    x.set(next)
+  }
+
+  function handleTouchEnd() {
+    touchStartX.current = null
+    setPaused(false)
+  }
 
   return (
     <section className="py-20 bg-cream overflow-hidden">
@@ -83,6 +107,10 @@ export function HomepageGalleryTeaser({ content = {} }: HomepageGalleryTeaserPro
         className="overflow-hidden cursor-default"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        style={{ touchAction: 'pan-y' }}
       >
         <motion.div ref={trackRef} style={{ x }} className="flex">
           {doubled.map((img, i) => (
