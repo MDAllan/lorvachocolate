@@ -6,11 +6,11 @@ import Image from 'next/image'
 
 // A curated set of gallery images to simulate an Instagram grid
 const GRID_IMAGES = [
-  { src: '/gallery/chocolates-hearts-favor-boxes.jpg',       alt: 'Chocolate favour boxes' },
-  { src: '/gallery/ruby-roses-box.jpg',                      alt: 'Ruby chocolate roses box' },
-  { src: '/gallery/breakable-heart-gender-reveal-white.jpg', alt: 'Gender reveal breakable heart' },
-  { src: '/gallery/breakable-heart-white-gold-leaf.jpg',     alt: 'Gold leaf breakable heart' },
-  { src: '/gallery/brand-chocolate-drip-dark-v2.png',        alt: 'Assorted bonbon tray' },
+  { src: '/gallery/chocolates-hearts-favor-boxes.jpg',         alt: 'Chocolate favour boxes' },
+  { src: '/gallery/ruby-roses-box.jpg',                        alt: 'Ruby chocolate roses box' },
+  { src: '/gallery/breakable-heart-gender-reveal-white.jpg',   alt: 'Gender reveal breakable heart' },
+  { src: '/gallery/breakable-heart-white-gold-leaf.jpg',       alt: 'Gold leaf breakable heart' },
+  { src: '/gallery/chocolates-hearts-cupcake-liners.jpg',      alt: 'Heart chocolates in cupcake liners' },
   { src: '/gallery/chocolates-milk-hearts-cupcake-liners.jpg', alt: 'Milk chocolate hearts favour' },
 ]
 
