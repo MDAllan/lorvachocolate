@@ -260,12 +260,11 @@ export function ProductsPageContent() {
                   <div>
                     <CollectionHeader collection={collection} />
 
-                    {/* Mobile: 2-up horizontal scroll | Desktop: grid */}
-                    <div className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-4 -mx-6 px-6 sm:grid sm:grid-cols-2 sm:overflow-visible sm:mx-0 sm:px-0 lg:grid-cols-3 sm:gap-6 sm:pb-0">
+                    {/* 2-column grid — mobile & up */}
+                    <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3">
                       {collection.flavors.map((flavor, fi) => (
                         <motion.div
                           key={flavor.slug}
-                          className="snap-start w-[45vw] shrink-0 sm:w-auto"
                           initial={{ opacity: 0, y: 20 }}
                           whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true }}
@@ -302,11 +301,10 @@ export function ProductsPageContent() {
             <span className="font-inter text-xs text-taupe shrink-0">Individual bars</span>
           </motion.div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory gap-3 pb-4 -mx-6 px-6 sm:grid sm:grid-cols-2 sm:overflow-visible sm:mx-0 sm:px-0 lg:grid-cols-4 sm:gap-6 sm:pb-0">
+          <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
             {CHOCOLATE_BARS.map((bar, i) => (
               <motion.div
                 key={bar.slug}
-                className="snap-start w-[45vw] shrink-0 sm:w-auto"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
