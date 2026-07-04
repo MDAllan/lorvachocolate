@@ -134,24 +134,24 @@ export const CHOCOLATE_BARS: ChocolateBar[] = [
     slug: 'milk-silk-bar',
     name: 'Milk Silk Bar',
     description: 'Creamy milk chocolate filled bar with a smooth, melt-in-your-mouth finish.',
-    price: 6.0,
+    price: 12,
   },
   {
     slug: 'dark-intense-bar',
     name: 'Dark Intense Bar',
     description: 'Bold dark chocolate filled bar with deep cocoa richness and a clean snap.',
-    price: 7.0,
+    price: 13,
   },
   {
     slug: 'white-velvet-bar',
     name: 'White Velvet Bar',
     description: 'Silky white chocolate filled bar with a soft vanilla cream profile.',
-    price: 7.5,
+    price: 13,
   },
   {
     slug: 'ruby-rouge-bar',
     name: 'Ruby Rouge Bar',
     description: 'Single origin ruby chocolate bar with natural berry notes and a vibrant finish.',
-    price: 12.0,
+    price: 18,
   },
 ]
