@@ -315,7 +315,7 @@ function ShapePreview({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.85 }}
             transition={{ type: 'spring', stiffness: 260, damping: 24 }}
-            className="w-full max-w-[160px] sm:max-w-[380px] mx-auto"
+            className="w-full max-w-[240px] sm:max-w-[380px] mx-auto"
           >
             {/* Shake wrapper */}
             <motion.div
@@ -952,11 +952,11 @@ export function BreakableBuilder() {
 
               {/* Step 4 — Your Details */}
               {step === 4 && (
-                <div className="space-y-4">
-                  <h2 className="font-cormorant text-3xl text-deep-cocoa">Your Details</h2>
+                <div className="space-y-3">
+                  <h2 className="font-cormorant text-2xl lg:text-3xl text-deep-cocoa">Your Details</h2>
 
                   {/* Compact selection recap */}
-                  <div className="border-l-2 border-champagne-gold pl-4 space-y-1">
+                  <div className="border-l-2 border-champagne-gold pl-3 space-y-0.5">
                     <p className="font-inter text-xs text-deep-cocoa">
                       <span className="text-taupe">Shape — </span>{values.shape}
                       <span className="text-taupe mx-2">·</span>
@@ -975,14 +975,26 @@ export function BreakableBuilder() {
                     )}
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  {/* Name | Email */}
+                  <div className="grid grid-cols-2 gap-3">
                     <FormField control={form.control} name="name" render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="font-inter text-[10px] tracking-[0.4em] text-taupe uppercase">Full Name</FormLabel>
+                        <FormLabel className="font-inter text-[10px] tracking-[0.4em] text-taupe uppercase">Name</FormLabel>
                         <FormControl><Input placeholder="Your name" {...field} className="font-inter rounded-none" /></FormControl>
                         <FormMessage />
                       </FormItem>
                     )} />
+                    <FormField control={form.control} name="email" render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-inter text-[10px] tracking-[0.4em] text-taupe uppercase">Email</FormLabel>
+                        <FormControl><Input type="email" placeholder="you@email.com" {...field} className="font-inter rounded-none" /></FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )} />
+                  </div>
+
+                  {/* Phone | Quantity */}
+                  <div className="grid grid-cols-2 gap-3">
                     <FormField control={form.control} name="phone" render={({ field }) => (
                       <FormItem>
                         <FormLabel className="font-inter text-[10px] tracking-[0.4em] text-taupe uppercase">Phone</FormLabel>
@@ -990,31 +1002,22 @@ export function BreakableBuilder() {
                         <FormMessage />
                       </FormItem>
                     )} />
+                    <FormField control={form.control} name="quantity" render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-inter text-[10px] tracking-[0.4em] text-taupe uppercase">Quantity</FormLabel>
+                        <FormControl>
+                          <Input type="number" min={1} max={20} {...field} className="font-inter rounded-none" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )} />
                   </div>
-
-                  <FormField control={form.control} name="email" render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="font-inter text-[10px] tracking-[0.4em] text-taupe uppercase">Email</FormLabel>
-                      <FormControl><Input type="email" placeholder="you@example.com" {...field} className="font-inter rounded-none" /></FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )} />
-
-                  <FormField control={form.control} name="quantity" render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="font-inter text-[10px] tracking-[0.4em] text-taupe uppercase">Quantity</FormLabel>
-                      <FormControl>
-                        <Input type="number" min={1} max={20} {...field} className="font-inter w-32 rounded-none" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )} />
 
                   <FormField control={form.control} name="notes" render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="font-inter text-[10px] tracking-[0.4em] text-taupe uppercase">Any Other Notes</FormLabel>
+                      <FormLabel className="font-inter text-[10px] tracking-[0.4em] text-taupe uppercase">Notes (optional)</FormLabel>
                       <FormControl>
-                        <Textarea placeholder="Allergies, special requests..." className="font-inter resize-none rounded-none border-taupe/30" rows={3} {...field} />
+                        <Textarea placeholder="Allergies, special requests..." className="font-inter resize-none rounded-none border-taupe/30" rows={2} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -1061,8 +1064,8 @@ export function BreakableBuilder() {
 
       </div>
 
-      {/* Sticky mobile Continue bar (steps 0–3 only) */}
-      {step < 4 && (
+      {/* Sticky mobile nav bar (steps 0–4; step 4 shows Back only) */}
+      {step <= 4 && (
         <div className="fixed bottom-0 inset-x-0 z-40 lg:hidden bg-[#F5E8D0]/95 backdrop-blur-sm border-t border-taupe/15 px-4 py-2 flex items-center justify-between">
           <button
             type="button"
@@ -1075,14 +1078,17 @@ export function BreakableBuilder() {
           <span className="font-inter text-[9px] tracking-[0.2em] text-taupe/50 uppercase">
             {step + 1} / {STEPS.length}
           </span>
-          <button
-            type="button"
-            onClick={() => setStep(s => s + 1)}
-            disabled={!canProceed()}
-            className="font-inter text-[10px] tracking-[0.35em] uppercase px-5 py-2 bg-deep-cocoa text-cream hover:bg-cocoa-wine transition-all disabled:opacity-30 disabled:cursor-not-allowed"
-          >
-            Continue →
-          </button>
+          {step < 4 && (
+            <button
+              type="button"
+              onClick={() => setStep(s => s + 1)}
+              disabled={!canProceed()}
+              className="font-inter text-[10px] tracking-[0.35em] uppercase px-5 py-2 bg-deep-cocoa text-cream hover:bg-cocoa-wine transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+            >
+              Continue →
+            </button>
+          )}
+          {step === 4 && <div className="w-20" />}
         </div>
       )}
     </div>
