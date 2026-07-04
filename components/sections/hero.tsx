@@ -178,7 +178,7 @@ export function Hero({ content = {} }: HeroProps) {
         }}
       />
 
-      <div className="hero-content relative z-10 w-full flex items-center pl-5 lg:pl-[100px] pr-5 pt-28 md:pt-0 pb-24">
+      <div className="hero-content relative z-10 w-full min-h-[100svh] md:min-h-0 flex items-center pl-5 lg:pl-[100px] pr-5 pt-28 md:pt-0 pb-24">
         <div className="max-w-sm md:max-w-xl flex-shrink-0" style={{ position: 'relative' }}>
 
           {/* Golden glitter — soft glow blobs behind text */}
@@ -267,7 +267,7 @@ export function Hero({ content = {} }: HeroProps) {
         </div>
 
         {/* Right half — bonbon flavor showcase (desktop only) */}
-        <div className="absolute -bottom-[190px] right-0 z-10 md:relative md:bottom-auto md:right-auto md:z-auto md:flex-1 md:flex md:items-center md:justify-center">
+        <div className="absolute bottom-6 right-0 z-10 md:relative md:bottom-auto md:right-auto md:z-auto md:flex-1 md:flex md:items-center md:justify-center">
           <FlavorShowcase />
         </div>
       </div>

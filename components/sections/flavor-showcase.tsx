@@ -77,123 +77,78 @@ export function FlavorShowcase() {
   const switchTransition = prefersReduced
     ? { opacity: { duration: 0.2 } }
     : {
-        opacity: { duration: 0.45, ease: EASE_LUXURY },
-        y: { type: 'spring' as const, stiffness: 80, damping: 18, mass: 1.1 },
-        rotate: { type: 'spring' as const, stiffness: 90, damping: 22 },
-        scale: { duration: 0.5, ease: EASE_LUXURY },
+        opacity: { duration: 0.9, ease: EASE_LUXURY },
+        scale: { duration: 1.0, ease: EASE_LUXURY },
       }
 
   return (
-    <div style={{ paddingTop: '3vh' }}>
-
-      {/* Bonbon image area — no caption, no frame */}
-      <div
-        className="w-56 md:w-[480px]"
-        style={{ position: 'relative', aspectRatio: '6 / 7' }}
-        onMouseEnter={() => { setIsHovered(true); isPausedRef.current = true }}
-        onMouseLeave={() => { setIsHovered(false); isPausedRef.current = false }}
-        role="img"
-        aria-label={`${flavor.name}${isHovered ? ' — interior view' : ''}`}
+    <div>
+      {/* Gentle levitation float — wraps entire bonbon */}
+      <motion.div
+        animate={prefersReduced ? {} : { y: [0, -12, 0] }}
+        transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
       >
-        <AnimatePresence initial={false}>
-          <motion.div
-            key={flavor.id}
-            style={{ position: 'absolute', inset: 0 }}
-            initial={
-              prefersReduced
-                ? { opacity: 0 }
-                : { opacity: 0, y: 60, rotate: 3, scale: 0.94 }
-            }
-            animate={
-              prefersReduced
-                ? { opacity: 1 }
-                : { opacity: 1, y: 0, rotate: 0, scale: 1 }
-            }
-            exit={
-              prefersReduced
-                ? { opacity: 0 }
-                : { opacity: 0, y: -40, rotate: -2, scale: 0.96 }
-            }
-            transition={switchTransition}
-          >
-            {/* Full exterior bonbon — fades out slowly on hover */}
-            <motion.div
-              style={{ position: 'absolute', inset: 0 }}
-              animate={{ opacity: isHovered ? 0.10 : 1 }}
-              transition={{ duration: 1.0, ease: 'easeOut' }}
-            >
-              <Image
-                src={flavor.full}
-                alt={flavor.name}
-                fill
-                style={{ objectFit: 'contain' }}
-                priority
-                sizes="480px"
-              />
-            </motion.div>
-
-            {/* Interior cross-section — slow knife-wipe from left on hover */}
-            <motion.div
-              style={{ position: 'absolute', inset: 0 }}
-              animate={{
-                clipPath: isHovered
-                  ? 'inset(0 0% 0 0)'
-                  : 'inset(0 100% 0 0)',
-              }}
-              transition={
-                prefersReduced
-                  ? { duration: 0.2 }
-                  : { duration: 1.1, ease: EASE_KNIFE }
-              }
-            >
-              <Image
-                src={flavor.cut}
-                alt={`${flavor.name} — interior cross-section`}
-                fill
-                style={{ objectFit: 'contain' }}
-                priority
-                sizes="480px"
-              />
-            </motion.div>
-          </motion.div>
-        </AnimatePresence>
-      </div>
-
-      {/* Flavor title — fades in/out in sync with bonbon */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={flavor.id + '-label'}
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -8 }}
-          transition={{ duration: 0.5, ease: EASE_LUXURY }}
-          style={{ textAlign: 'center', marginTop: 22, pointerEvents: 'none' }}
+        {/* Bonbon image area */}
+        <div
+          className="w-56 md:w-[480px]"
+          style={{ position: 'relative', aspectRatio: '6 / 7' }}
+          onMouseEnter={() => { setIsHovered(true); isPausedRef.current = true }}
+          onMouseLeave={() => { setIsHovered(false); isPausedRef.current = false }}
+          role="img"
+          aria-label={`${flavor.name}${isHovered ? ' — interior view' : ''}`}
         >
-          <p style={{
-            fontFamily: 'Cormorant Garamond, serif',
-            fontSize: 15,
-            fontWeight: 300,
-            letterSpacing: '0.32em',
-            color: 'rgba(201,169,97,0.90)',
-            textTransform: 'uppercase',
-            margin: 0,
-          }}>
-            {flavor.name}
-          </p>
-          <p style={{
-            fontFamily: 'Inter, sans-serif',
-            fontSize: 10,
-            fontWeight: 300,
-            letterSpacing: '0.22em',
-            color: 'rgba(246,239,233,0.38)',
-            marginTop: 7,
-            margin: '7px 0 0',
-          }}>
-            {flavor.note}
-          </p>
-        </motion.div>
-      </AnimatePresence>
+          <AnimatePresence initial={false}>
+            <motion.div
+              key={flavor.id}
+              style={{ position: 'absolute', inset: 0 }}
+              initial={prefersReduced ? { opacity: 0 } : { opacity: 0, scale: 0.92 }}
+              animate={prefersReduced ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+              exit={prefersReduced ? { opacity: 0 } : { opacity: 0, scale: 1.05 }}
+              transition={switchTransition}
+            >
+              {/* Full exterior bonbon — fades out slowly on hover */}
+              <motion.div
+                style={{ position: 'absolute', inset: 0 }}
+                animate={{ opacity: isHovered ? 0.10 : 1 }}
+                transition={{ duration: 1.0, ease: 'easeOut' }}
+              >
+                <Image
+                  src={flavor.full}
+                  alt={flavor.name}
+                  fill
+                  style={{ objectFit: 'contain' }}
+                  priority
+                  sizes="480px"
+                />
+              </motion.div>
 
+              {/* Interior cross-section — slow knife-wipe from left on hover */}
+              <motion.div
+                style={{ position: 'absolute', inset: 0 }}
+                animate={{
+                  clipPath: isHovered
+                    ? 'inset(0 0% 0 0)'
+                    : 'inset(0 100% 0 0)',
+                }}
+                transition={
+                  prefersReduced
+                    ? { duration: 0.2 }
+                    : { duration: 1.1, ease: EASE_KNIFE }
+                }
+              >
+                <Image
+                  src={flavor.cut}
+                  alt={`${flavor.name} — interior cross-section`}
+                  fill
+                  style={{ objectFit: 'contain' }}
+                  priority
+                  sizes="480px"
+                />
+              </motion.div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </motion.div>
     </div>
   )
 }
