@@ -14,8 +14,7 @@ export function Navbar({ content = {} }: NavbarProps) {
   const navLinks = [
     { href: '/products',  label: 'Bonbons' },
     { href: '/breakable', label: 'Breakable Hearts' },
-    { href: '/favors',    label: 'Favors' },
-    { href: '/custom',    label: 'Custom' },
+    { href: '/favors',    label: 'Favours & Custom' },
     { href: '/gallery',   label: 'Gallery' },
     { href: '/about',     label: 'About' },
     { href: '/contact',   label: 'Contact' },
