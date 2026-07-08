@@ -10,6 +10,10 @@ import { Testimonials } from '@/components/sections/testimonials'
 import { StatsBar } from '@/components/sections/stats-bar'
 import { NewsletterSection } from '@/components/sections/newsletter-section'
 import { InstagramTeaser } from '@/components/sections/instagram-teaser'
+import { IngredientOrigin } from '@/components/sections/ingredient-origin'
+import { GiftFinder } from '@/components/sections/gift-finder'
+import { LorvaMonents } from '@/components/sections/lorva-moments'
+import { BreakableTeaser } from '@/components/sections/breakable-teaser'
 import { getFeaturedProducts } from '@/lib/data/products-db'
 import { getSiteContent } from '@/lib/data/site-content-db'
 import { EditableSection } from '@/components/admin/editable-section'
@@ -39,16 +43,20 @@ export default async function HomePage() {
         <Hero content={content} />
       </EditableSection>
       <StatsBar />
+      <BreakableTeaser />
       <EditableSection isAdmin={isAdmin} section="featured" label="Featured Products">
         <FeaturedProducts products={featuredProducts} content={content} />
       </EditableSection>
+      <GiftFinder />
       <EditableSection isAdmin={isAdmin} section="manifesto" label="Brand Story">
         <BrandManifesto content={content} />
       </EditableSection>
       <EditableSection isAdmin={isAdmin} section="process" label="Craft Process">
         <CraftProcess content={content} />
       </EditableSection>
+      <IngredientOrigin />
       <Testimonials />
+      <LorvaMonents />
       <EditableSection isAdmin={isAdmin} section="gallery" label="Gallery Teaser">
         <HomepageGalleryTeaser content={content} />
       </EditableSection>

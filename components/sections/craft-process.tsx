@@ -108,6 +108,16 @@ export function CraftProcess({ content = {} }: CraftProcessProps) {
             </motion.div>
           ))}
         </div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="text-center font-inter text-[11px] tracking-[0.25em] uppercase text-taupe/50 mt-16"
+        >
+          Every piece leaves our kitchen within 48 hours of your order.
+        </motion.p>
       </div>
     </section>
   )

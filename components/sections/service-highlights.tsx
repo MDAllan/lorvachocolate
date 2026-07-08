@@ -44,7 +44,7 @@ export function ServiceHighlights({ content = {} }: ServiceHighlightsProps) {
     {
       Icon: BowIcon,
       title:       content.services_1_title ?? 'Wedding & Birthday Favours',
-      description: content.services_1_desc  ?? 'Custom-packaged mini boxes for your special day. Personalised tags, themed colours, and minimum order options for any event size.',
+      description: content.services_1_desc  ?? 'Custom-packaged mini boxes for your special day. Personalised tags, themed colours, and minimum order options for any event size. Small batch — made fresh every week.',
       href: content.services_1_href ?? '/favors',
       cta:  content.services_1_cta  ?? 'Plan Your Favours',
     },

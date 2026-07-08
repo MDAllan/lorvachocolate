@@ -42,6 +42,25 @@ const GLOW_BLOBS = [
   { x: 140, y:  200, size: 70, delay: 2.2, dur: 4.8 },
 ]
 
+function WordReveal({ text, className, baseDelay = 0 }: { text: string; className?: string; baseDelay?: number }) {
+  const words = text.split(' ')
+  return (
+    <span className={className} aria-label={text}>
+      {words.map((word, i) => (
+        <motion.span
+          key={i}
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: baseDelay + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+          className="inline-block mr-[0.25em]"
+        >
+          {word}
+        </motion.span>
+      ))}
+    </span>
+  )
+}
+
 export function Hero({ content = {} }: HeroProps) {
   const heroRef = useRef<HTMLDivElement>(null)
 
@@ -244,7 +263,7 @@ export function Hero({ content = {} }: HeroProps) {
                 className="font-cormorant text-cream leading-[0.92] tracking-[0.06em] uppercase"
                 style={{ fontSize: 'clamp(2rem, 4vw, 4.5rem)' }}
               >
-                {headline1}
+                <WordReveal text={headline1} baseDelay={0.3} />
               </h1>
             </div>
 
@@ -253,9 +272,18 @@ export function Hero({ content = {} }: HeroProps) {
                 className="font-cormorant text-champagne-gold leading-[0.92] tracking-[0.06em] uppercase"
                 style={{ fontSize: 'clamp(1.6rem, 3.2vw, 3.5rem)' }}
               >
-                {headline2}
+                <WordReveal text={headline2} baseDelay={0.6} />
               </h1>
             </div>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 1.1 }}
+              className="font-inter text-[10px] tracking-[0.3em] uppercase text-cream/40 mb-6"
+            >
+              Handcrafted to order · Toronto, ON
+            </motion.p>
 
             <a
               href="#manifesto"

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
 import type { DbProduct } from '@/lib/data/products-db'
+import { TiltCard } from '@/components/ui/tilt-card'
 
 const COLLECTION_PHOTOS = [
   { src: '/gallery/chocolates-orange-tiger-tray.png',    alt: 'Orange-marbled bonbons and dark chocolate hearts on a gold tray' },
@@ -45,8 +46,8 @@ export function FeaturedProducts({ products = [], content = {} }: FeaturedProduc
           {COLLECTION_PHOTOS.map((photo, i) => {
             const product = products[i]
             return (
+              <TiltCard key={photo.src}>
               <motion.div
-                key={photo.src}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -102,6 +103,7 @@ export function FeaturedProducts({ products = [], content = {} }: FeaturedProduc
                   )}
                 </Link>
               </motion.div>
+              </TiltCard>
             )
           })}
         </div>
