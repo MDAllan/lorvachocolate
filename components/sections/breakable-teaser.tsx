@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
+import { MagneticButton } from '@/components/ui/magnetic-button'
 
 export function BreakableTeaser() {
   return (
@@ -54,12 +55,14 @@ export function BreakableTeaser() {
           <p className="font-inter text-[13px] text-cream/50 leading-[1.85] mb-10 max-w-sm">
             Hide a surprise inside a hand-crafted chocolate shell. A proposal, a gender reveal, a birthday — then hand them the hammer.
           </p>
-          <Link
-            href="/breakable"
-            className="inline-block font-inter text-[10px] tracking-[0.4em] uppercase px-8 py-3 border border-cream/30 text-cream hover:bg-cream hover:text-deep-cocoa transition-all duration-300"
-          >
-            Build Your Heart →
-          </Link>
+          <MagneticButton className="inline-block">
+            <Link
+              href="/breakable"
+              className="inline-block font-inter text-[10px] tracking-[0.4em] uppercase px-8 py-3 border border-cream/30 text-cream hover:bg-cream hover:text-deep-cocoa transition-all duration-300"
+            >
+              Build Your Heart →
+            </Link>
+          </MagneticButton>
         </motion.div>
       </div>
     </section>

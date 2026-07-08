@@ -14,6 +14,8 @@ import { IngredientOrigin } from '@/components/sections/ingredient-origin'
 import { GiftFinder } from '@/components/sections/gift-finder'
 import { LorvaMonents } from '@/components/sections/lorva-moments'
 import { BreakableTeaser } from '@/components/sections/breakable-teaser'
+import { KineticHero } from '@/components/sections/kinetic-hero'
+import { StoryScroll } from '@/components/sections/story-scroll'
 import { getFeaturedProducts } from '@/lib/data/products-db'
 import { getSiteContent } from '@/lib/data/site-content-db'
 import { EditableSection } from '@/components/admin/editable-section'
@@ -39,6 +41,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <KineticHero />
       <EditableSection isAdmin={isAdmin} section="hero" label="Hero">
         <Hero content={content} />
       </EditableSection>
@@ -51,6 +54,7 @@ export default async function HomePage() {
       <EditableSection isAdmin={isAdmin} section="manifesto" label="Brand Story">
         <BrandManifesto content={content} />
       </EditableSection>
+      <StoryScroll />
       <EditableSection isAdmin={isAdmin} section="process" label="Craft Process">
         <CraftProcess content={content} />
       </EditableSection>
