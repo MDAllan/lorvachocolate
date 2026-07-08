@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { headers } from 'next/headers'
-import { Hero } from '@/components/sections/hero'
 import { FeaturedProducts } from '@/components/sections/featured-products'
 import { BrandManifesto } from '@/components/sections/brand-manifesto'
 import { CraftProcess } from '@/components/sections/craft-process'
@@ -42,9 +41,6 @@ export default async function HomePage() {
   return (
     <>
       <KineticHero />
-      <EditableSection isAdmin={isAdmin} section="hero" label="Hero">
-        <Hero content={content} />
-      </EditableSection>
       <StatsBar />
       <BreakableTeaser />
       <EditableSection isAdmin={isAdmin} section="featured" label="Featured Products">
