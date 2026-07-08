@@ -110,10 +110,15 @@ export function KineticHero() {
           ))}
         </div>
 
-        {/* Tagline beneath letters */}
+        {/* Static tagline for mobile (scroll progress stays at 0 — animated one is invisible) */}
+        <p className="lg:hidden font-inter text-[8px] tracking-[0.75em] uppercase text-champagne-gold/50 mt-6">
+          Fine Chocolate · Toronto
+        </p>
+
+        {/* Tagline beneath letters — desktop only, scroll-driven */}
         <motion.p
           style={{ opacity: taglineOpacity }}
-          className="absolute bottom-[calc(50%-90px)] font-inter text-[8px] tracking-[0.75em] uppercase text-champagne-gold/50"
+          className="hidden lg:block absolute bottom-[calc(50%-90px)] font-inter text-[8px] tracking-[0.75em] uppercase text-champagne-gold/50"
         >
           Fine Chocolate · Toronto
         </motion.p>
@@ -126,7 +131,8 @@ export function KineticHero() {
           <p className="font-inter text-[8px] tracking-[0.65em] uppercase text-cream/20">Scroll</p>
           <motion.div
             className="w-px bg-gradient-to-b from-champagne-gold/30 to-transparent"
-            animate={{ height: ['16px', '32px', '16px'] }}
+            style={{ height: 16 }}
+            animate={{ height: [16, 32, 16] }}
             transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
           />
         </motion.div>

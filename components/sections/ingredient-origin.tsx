@@ -65,7 +65,7 @@ export function IngredientOrigin() {
                   alt={c.name}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, 33vw"
+                  sizes="(max-width: 768px) calc(100vw - 48px), 33vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-deep-cocoa/60 to-transparent" />
               </div>

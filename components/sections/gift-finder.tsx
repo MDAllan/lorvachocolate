@@ -148,7 +148,7 @@ export function GiftFinder() {
               >
                 ← start over
               </button>
-              <div className="grid grid-cols-2 gap-3 max-w-md mx-auto">
+              <div className="grid grid-cols-2 gap-3 w-full max-w-md mx-auto">
                 {FORMATS.map((f) => (
                   <button
                     key={f.label}
@@ -172,7 +172,7 @@ export function GiftFinder() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="border border-taupe/20 p-10 bg-cream"
+              className="border border-taupe/20 p-6 sm:p-10 bg-cream"
             >
               <p className="font-inter text-[9px] tracking-[0.4em] uppercase text-champagne-gold mb-3">
                 We recommend

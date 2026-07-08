@@ -8,7 +8,7 @@ import { MagneticButton } from '@/components/ui/magnetic-button'
 export function BreakableTeaser() {
   return (
     <section className="py-24 bg-[#1a0c0a] px-6 lg:px-20 overflow-hidden">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-center">
         {/* Image side */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
@@ -20,7 +20,7 @@ export function BreakableTeaser() {
           <motion.div
             animate={{ scale: [1, 1.03, 1] }}
             transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
-            className="relative w-72 h-72 lg:w-96 lg:h-96"
+            className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-96 lg:h-96"
           >
             <Image
               src="/gallery/breakable-heart-white-gold-leaf.jpg"

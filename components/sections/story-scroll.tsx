@@ -72,7 +72,7 @@ export function StoryScroll() {
               sizes="100vw"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-transparent" />
-            <div className="relative z-10 px-8 max-w-xs">
+            <div className="relative z-10 px-6 max-w-sm">
               <p className="font-inter text-[9px] tracking-[0.6em] uppercase text-champagne-gold/60 mb-5">
                 {panel.step} — {panel.label}
               </p>

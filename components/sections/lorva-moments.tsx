@@ -47,7 +47,7 @@ export function LorvaMonents() {
           </Link>
         </motion.div>
 
-        <div className="columns-2 md:columns-3 gap-4 space-y-4">
+        <div className="columns-2 md:columns-3 gap-3 md:gap-4">
           {MOMENTS.map((m, i) => (
             <motion.div
               key={m.src}
@@ -55,7 +55,7 @@ export function LorvaMonents() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.5, delay: (i % 3) * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative break-inside-avoid overflow-hidden"
+              className="group relative break-inside-avoid overflow-hidden mb-3 md:mb-4"
             >
               <Image
                 src={m.src}
