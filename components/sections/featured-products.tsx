@@ -76,12 +76,23 @@ export function FeaturedProducts({ products = [], content = {} }: FeaturedProduc
                         </p>
                       )}
 
+                      {product.description && (
+                        <p className="font-inter text-[11px] text-taupe/70 leading-relaxed line-clamp-2">
+                          {product.description}
+                        </p>
+                      )}
+
                       <div className="flex items-center justify-between pt-4 border-t border-taupe/10">
-                        <span className="font-inter text-sm text-deep-cocoa">
-                          <span className="text-taupe text-xs mr-1">from</span>
-                          ${product.price12}
-                          <span className="text-taupe text-xs ml-1">/ 12pc</span>
-                        </span>
+                        <div>
+                          <span className="font-inter text-sm text-deep-cocoa">
+                            <span className="text-taupe text-xs mr-1">from</span>
+                            ${product.price12}
+                            <span className="text-taupe text-xs ml-1">/ 12pc</span>
+                          </span>
+                          <p className="font-inter text-[9px] tracking-[0.25em] uppercase text-taupe/50 mt-1">
+                            Made fresh · 5–7 day lead time
+                          </p>
+                        </div>
                         <span className="inline-flex items-center gap-2 font-inter text-[10px] text-cocoa-wine tracking-[0.35em] uppercase group-hover:text-deep-cocoa transition-colors duration-300">
                           Order
                           <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
