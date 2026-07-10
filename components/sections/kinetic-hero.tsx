@@ -57,6 +57,15 @@ function DesktopLetter({
 function MobileHero() {
   return (
     <div className="lg:hidden h-screen bg-[#080204] overflow-hidden flex flex-col items-center justify-center">
+      <video
+        autoPlay muted loop playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+        src="/hero/herosectionvideo.mp4"
+      />
+      <div
+        className="absolute inset-0"
+        style={{ background: 'linear-gradient(to bottom, rgba(117,10,4,0.55) 0%, rgba(26,3,2,0.72) 100%)' }}
+      />
       <div className="absolute inset-0 pointer-events-none" style={GRAIN} />
       <div
         className="absolute inset-0 pointer-events-none"
@@ -115,6 +124,15 @@ function DesktopHero() {
   return (
     <div ref={outerRef} className="hidden lg:block lg:h-[185vh]">
       <div className="relative sticky top-0 h-screen bg-[#080204] overflow-hidden flex flex-col items-center justify-center">
+        <video
+          autoPlay muted loop playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          src="/hero/herosectionvideo.mp4"
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(to bottom, rgba(117,10,4,0.55) 0%, rgba(26,3,2,0.72) 100%)' }}
+        />
         <div className="absolute inset-0 pointer-events-none" style={GRAIN} />
         <div
           className="absolute inset-0 pointer-events-none"
