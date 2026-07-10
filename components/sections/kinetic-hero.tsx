@@ -60,11 +60,11 @@ function MobileHero() {
       <video
         autoPlay muted loop playsInline
         className="absolute inset-0 w-full h-full object-cover"
-        src="/hero/herosectionvideo.mp4"
+        src="/hero/herostorytelling.mp4"
       />
       <div
         className="absolute inset-0"
-        style={{ background: 'linear-gradient(to bottom, rgba(117,10,4,0.55) 0%, rgba(26,3,2,0.72) 100%)' }}
+        style={{ background: 'linear-gradient(to bottom, rgba(55,7,3,0.72) 0%, rgba(8,2,1,0.92) 100%)' }}
       />
       <div className="absolute inset-0 pointer-events-none" style={GRAIN} />
       <div
@@ -127,11 +127,11 @@ function DesktopHero() {
         <video
           autoPlay muted loop playsInline
           className="absolute inset-0 w-full h-full object-cover"
-          src="/hero/herosectionvideo.mp4"
+          src="/hero/herostorytelling.mp4"
         />
         <div
           className="absolute inset-0"
-          style={{ background: 'linear-gradient(to bottom, rgba(117,10,4,0.55) 0%, rgba(26,3,2,0.72) 100%)' }}
+          style={{ background: 'linear-gradient(to bottom, rgba(55,7,3,0.72) 0%, rgba(8,2,1,0.92) 100%)' }}
         />
         <div className="absolute inset-0 pointer-events-none" style={GRAIN} />
         <div
