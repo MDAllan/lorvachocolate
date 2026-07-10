@@ -64,7 +64,7 @@ function MobileHero() {
       />
       <div
         className="absolute inset-0"
-        style={{ background: 'linear-gradient(to bottom, rgba(55,7,3,0.72) 0%, rgba(8,2,1,0.92) 100%)' }}
+        style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.82) 100%)' }}
       />
       <div className="absolute inset-0 pointer-events-none" style={GRAIN} />
       <div
@@ -131,7 +131,7 @@ function DesktopHero() {
         />
         <div
           className="absolute inset-0"
-          style={{ background: 'linear-gradient(to bottom, rgba(55,7,3,0.72) 0%, rgba(8,2,1,0.92) 100%)' }}
+          style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.82) 100%)' }}
         />
         <div className="absolute inset-0 pointer-events-none" style={GRAIN} />
         <div
