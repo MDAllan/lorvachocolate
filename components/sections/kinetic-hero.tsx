@@ -26,7 +26,7 @@ export function KineticHero() {
       {/* Black overlay */}
       <div
         className="absolute inset-0"
-        style={{ background: 'rgba(0,0,0,0.88)' }}
+        style={{ background: 'rgba(0,0,0,0.52)' }}
       />
 
       {/* Grain texture */}
