@@ -39,7 +39,6 @@ export default async function HomePage() {
     <>
       <KineticHero />
       <StatsBar />
-      <BreakableTeaser />
       <EditableSection isAdmin={isAdmin} section="featured" label="Featured Products">
         <FeaturedProducts products={featuredProducts} content={content} />
       </EditableSection>
@@ -50,6 +49,7 @@ export default async function HomePage() {
       <EditableSection isAdmin={isAdmin} section="process" label="Craft Process">
         <CraftProcess content={content} />
       </EditableSection>
+      <BreakableTeaser />
       <Testimonials />
       <EditableSection isAdmin={isAdmin} section="gallery" label="Gallery Teaser">
         <HomepageGalleryTeaser content={content} />
